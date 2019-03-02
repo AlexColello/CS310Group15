@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Recipe {
+public class Recipe implements Comparable<Recipe>{
 
 	private String name = "";
 	private String pictureUrl = "";
@@ -47,6 +47,10 @@ public class Recipe {
 
 	public double getRating() {
 		return rating;
+	}
+
+	public int compareTo(Recipe arg0) {
+		return (int) (this.getPrepTime() - arg0.getPrepTime());
 	}
 	
 }
