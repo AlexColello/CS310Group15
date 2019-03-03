@@ -10,8 +10,16 @@
   	<description></description>
   	<servlet-class>SearchPageServlet</servlet-class>
   </servlet>
+  <servlet>
+	<servlet-name>ResultsPageServlet</servlet-name>
+	<servlet-class>ResultsPageServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>SearchPageServlet</servlet-name>
-  	<url-pattern>/SearchPageServlet</url-pattern>
+  	<url-pattern>/search</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ResultsPageServlet</servlet-name>
+  	<url-pattern>/results</url-pattern>
   </servlet-mapping>
 </web-app>
