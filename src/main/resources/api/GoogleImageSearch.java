@@ -1,3 +1,4 @@
+package api;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -10,6 +11,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+/* 
+ * Google Search Class
+ * API Key / Search Engine ID from Jiho's Google Account
+ * Limited to 100 queries a day
+ */
 public class GoogleImageSearch {
 	String API_KEY = "AIzaSyCRh3BOWSeB2F3UfnT9d8Aqbtkih5VqdtI";
 	String SEARCH_ENGINE_ID = "012879953607576427254:2cidu_it4hw";
