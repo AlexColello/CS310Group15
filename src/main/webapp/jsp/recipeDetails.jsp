@@ -10,6 +10,8 @@
     <!-- Homebrew CSS  -->
     <link href="../css/buttons.css" rel="stylesheet" type="text/css">
     <link href="../css/details.css" rel="stylesheet" type="text/css">
+    <link href="../css/list.css" rel="stylesheet" type="text/css">
+
     <!-- Title -->
     <title>Recipe Details</title>
   </head>

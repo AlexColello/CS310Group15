@@ -10,6 +10,7 @@
     <!-- Homebrew CSS  -->
     <link href="../css/buttons.css" rel="stylesheet" type="text/css">
     <link href="../css/details.css" rel="stylesheet" type="text/css">
+    <link href="../css/list.css" rel="stylesheet" type="text/css">
     <!-- Title -->
     <title>List Management</title>
   </head>
@@ -19,7 +20,21 @@
       <div id="listDetails">
         <h1 id="listName">L List</h1>
         <ul id="listItems">
-          <li>Item 1</li>
+          <% for(int i = 0, j = 0; i < 10 && j < 10; ++i, ++j){ %>
+          <li class="item">
+            <div class="container">
+              <div class="itemLeft">
+                <div class="p1"><p>Name</p></div>
+                <div class="p1"><p>$$</p></div>
+                <div class="p1"><p>Minutes</p></div>
+                <div class="p1"><p>Address</p></div>
+              </div>
+              <div class="itemRight">
+                <div class="p2"><p>Price</p></div>
+              </div>
+            </div>
+          </li>
+          <% } %>
         </ul>
       </div>
     </div>
