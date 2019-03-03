@@ -7,8 +7,8 @@ public class Restaurant implements Comparable<Restaurant>{
 	private String price;
 	private String address;
 	private String phoneNumber;
-	private double rating;
-	private int drivingTime;
+	private String rating;
+	private String drivingTime;
 	
 	public Restaurant(String name, String websiteUrl, int price, String address, String phoneNumber, double rating,
 			int drivingTime) {
