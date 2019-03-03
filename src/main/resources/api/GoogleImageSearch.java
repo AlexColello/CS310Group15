@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
-import java.util.Vector;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -21,8 +20,7 @@ public class GoogleImageSearch {
 	String SEARCH_ENGINE_ID = "012879953607576427254:2cidu_it4hw";
 	
 	// Return a vector of image urls using the search term
-	Vector<String> GetImagesFromGoogle(String searchTerm) {
-		Vector<String> imageVec = new Vector<String>();
+	public String[] GetImagesFromGoogle(String searchTerm) {
 		String query = "https://www.googleapis.com/customsearch/v1?searchType=image&imgType=photo&key=" + API_KEY
 				+ "&cx=" + SEARCH_ENGINE_ID + "&q=" + searchTerm;
 		
@@ -34,8 +32,9 @@ public class GoogleImageSearch {
 					.getAsJsonObject().getAsJsonPrimitive("count").getAsInt();
 		JsonArray items = rootObj.getAsJsonArray("items");
 		// Maximum value of count is 10 (API default)
+		String[] imageVec = new String[10];
 		for (int i = 0; i < count; ++i) {
-			imageVec.add(items.get(i).getAsJsonObject().getAsJsonPrimitive("link").getAsString());
+			imageVec[i] = items.get(i).getAsJsonObject().getAsJsonPrimitive("link").getAsString();
 		}
 		return imageVec;
 	}
