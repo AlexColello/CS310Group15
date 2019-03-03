@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
-    <meta charset="utf-8">
+    <meta charset="ISO-8859-1">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Homebrew CSS  -->
@@ -13,14 +15,14 @@
   </head>
   <body>
     <div id="main">
-	    <!-- Holds the list name, and items -->
-	    <div id="listDetails">
-	      <h1 id="listName">L List</h1>
-	      <ul id="listItems">
-	        <li>Item 1</li>
-	      </ul>
-	    </div>
-	  </div>
+      <!-- Holds the list name, and items -->
+      <div id="listDetails">
+        <h1 id="listName">L List</h1>
+        <ul id="listItems">
+          <li>Item 1</li>
+        </ul>
+      </div>
+    </div>
     <!-- Holds all the buttons -->
     <div id="buttons">
       <!-- Brings user to a printable version of the page -->

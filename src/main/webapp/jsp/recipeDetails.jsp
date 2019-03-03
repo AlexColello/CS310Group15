@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
-    <meta charset="utf-8">
+    <meta charset="ISO-8859-1">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Homebrew CSS  -->
@@ -16,24 +18,24 @@
   <body>
     <!-- Main Div -->
     <div id="main">
-	    <!-- Title -->
-	    <h1 id="recipeName">Recipe Name</h1>
-	    <!-- Holds image, prep and cook time of recipe-->
-	    <div id="details">
-	      <img id="recipePicture" src="" alt="Recipe Image"/>
-	      <p id="prepTime">10 Minutes</p>
-	      <p id="cookTime">15 Minutes</p>
-	    </div>
-	    <!-- Ingredients -->
-	    <div id="ingredientsBloc">
-	      <h2>Ingredients</h2>
-	      <ul id=ingredients><li>Ingredient 1</li></ul>
-	    </div>
-	    <!-- Instructions -->
-	    <div id="instructionsBloc">
-	      <h2>Instructions</h2>
-	      <ol id="instructions"><li>Instr. 1</li></ol>
-	    </div>
+      <!-- Title -->
+      <h1 id="recipeName">Recipe Name</h1>
+      <!-- Holds image, prep and cook time of recipe-->
+      <div id="details">
+        <img id="recipePicture" src="" alt="Recipe Image"/>
+        <p id="prepTime">10 Minutes</p>
+        <p id="cookTime">15 Minutes</p>
+      </div>
+      <!-- Ingredients -->
+      <div id="ingredientsBloc">
+        <h2>Ingredients</h2>
+        <ul id=ingredients><li>Ingredient 1</li></ul>
+      </div>
+      <!-- Instructions -->
+      <div id="instructionsBloc">
+        <h2>Instructions</h2>
+        <ol id="instructions"><li>Instr. 1</li></ol>
+      </div>
     </div>
     <!-- Holds all the buttons -->
     <div id="buttons">
