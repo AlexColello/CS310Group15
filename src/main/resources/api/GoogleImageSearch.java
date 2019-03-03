@@ -19,7 +19,7 @@ public class GoogleImageSearch {
 	String API_KEY = "AIzaSyCRh3BOWSeB2F3UfnT9d8Aqbtkih5VqdtI";
 	String SEARCH_ENGINE_ID = "012879953607576427254:2cidu_it4hw";
 	
-	// Return a vector of image urls using the search term
+	// Returns an array of image urls using the search term
 	public String[] GetImagesFromGoogle(String searchTerm) {
 		String query = "https://www.googleapis.com/customsearch/v1?searchType=image&imgType=photo&key=" + API_KEY
 				+ "&cx=" + SEARCH_ENGINE_ID + "&q=" + searchTerm;
