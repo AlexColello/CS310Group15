@@ -1,0 +1,27 @@
+@charset "utf-8";
+*{
+	background-color: whitesmoke;
+}
+html{
+	width:90%;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+body{
+	float: left;
+  background-color: whitesmoke;
+	border: 1px solid blue;
+}
+html, body{
+	height: 100%;
+}
+#listDetails{
+	float: left;
+	width: 75%;
+	border: 1px solid red;
+	
+  height: 100%;
+}
+#listItems{
+	border: 2px solid black;
+}
