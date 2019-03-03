@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="FeedMe">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
@@ -12,3 +13,22 @@
         <property name="context-root" value="FeedMe"/>
     </wb-module>
 </project-modules>
+=======
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="FeedMe">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <dependent-module archiveName="gson-2.6.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ImHungry/gson-2.6.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="httpclient-4.3.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ImHungry/httpclient-4.3.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/ImHungry/target/classes"/>
+        <property name="context-root" value="FeedMe"/>
+    </wb-module>
+</project-modules>
+>>>>>>> branch 'master' of https://github.com/AlexColello/CS310Group15.git
