@@ -4,7 +4,7 @@ public class Restaurant implements Comparable<Restaurant>{
 	
 	private String name;
 	private String websiteUrl;
-	private int price;
+	private String price;
 	private String address;
 	private String phoneNumber;
 	private double rating;
