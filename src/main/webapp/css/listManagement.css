@@ -4,27 +4,13 @@
 }
 html{
 	width:90%;
-	margin-left: 5%;
-	margin-right: 5%;
 }
 body{
+	width: 100%;
 	float: left;
   background-color: whitesmoke;
-	border: 1px solid blue;
 }
-html, body{
-	width: 90%;
-	height: 100%;
-	margin-left: 5%;
-	margin-right: 5%;
-}
-#listDetails{
-	float: left;
-	width: 75%;
-	border: 1px solid red;
-	
-  height: 100%;
-}
+
 #listItems{
-	border: 2px solid black;
+	margin: 0;
 }

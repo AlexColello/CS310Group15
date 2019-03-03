@@ -11,6 +11,8 @@
     <link href="../css/buttons.css" rel="stylesheet" type="text/css">
     <link href="../css/details.css" rel="stylesheet" type="text/css">
     <link href="../css/list.css" rel="stylesheet" type="text/css">
+    <link href="../css/listManagement.css" rel="stylesheet" type="text/css">
+
     <!-- Title -->
     <title>List Management</title>
   </head>
