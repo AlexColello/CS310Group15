@@ -1,3 +1,4 @@
+package api;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -5,6 +6,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import data.Recipe;
 
 public class Scrapper {
 
@@ -67,19 +70,47 @@ public class Scrapper {
 				sCookTime = time.attr("datetime");
 			}
 		}
+		double cookTime = parseTime(sCookTime);
+		double prepTime = parseTime(sPrepTime);
 		
 		ArrayList<String> instructions = new ArrayList<String>();
 		
-		for(Element instruction : directions.getElementsByClass("step")) {
+		for(Element instruction : directions.getElementsByClass("recipe-directions__list--item")) {
 			instructions.add(instruction.text());
 		}
 		
 		
-		return new Recipe(name, pictureUrl, 0, 0, new ArrayList<String>(), new ArrayList<String>(), recipeRating);
+		return new Recipe(name, pictureUrl, prepTime, cookTime, new ArrayList<String>(), new ArrayList<String>(), recipeRating);
 	}
 	
-	private static int parseTime(String datetime) {
-		return 0;
+	public static int parseTime(String datetime) {
+		
+		if(datetime.equals("")) {
+			return -1;
+		}
+		
+		int retval = 0;
+		
+		int hIndex = datetime.indexOf('H');
+		int mIndex = datetime.indexOf('M');
+		
+		int hours = 0;
+		int minutes = 0;
+		
+		if(hIndex > 2) {
+			hours = Integer.parseInt(datetime.substring(2, hIndex));
+			if(mIndex > 2) {
+				minutes = Integer.parseInt(datetime.substring(hIndex+1, mIndex));
+			}
+		} else if(mIndex > 2) {
+			minutes = Integer.parseInt(datetime.substring(2, mIndex));
+		} else {
+			return -1;
+		}
+		
+		retval = minutes + 60 * hours;
+		
+		return retval;
 	}
 	
 }
