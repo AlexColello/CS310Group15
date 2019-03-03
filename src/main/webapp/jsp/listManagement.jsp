@@ -19,7 +19,21 @@
       <div id="listDetails">
         <h1 id="listName">L List</h1>
         <ul id="listItems">
-          <li>Item 1</li>
+          <% for(int i = 0, j = 0; i < 10 && j < 10; ++i, ++j){ %>
+          <li>
+            <div class="item<%= i %>">
+              <div class="ItemLeft">
+                <p class="itemName">Name</p>
+                <img class="rating" src="" alt="star rating"/>
+                <p class="driveOrPrep">Minutes</p>
+                <p class="addressOrCook">Address</p>
+              </div>
+              <div class="itemRight">
+                <p class="price">price</p>
+              </div>
+            </div>
+          </li>
+          <% } %>
         </ul>
       </div>
     </div>
