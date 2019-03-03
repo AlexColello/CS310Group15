@@ -17,7 +17,8 @@
   		<input type="text" name="q" value="">
   		 <input type="text" name="n" value="5" >
   			<br>
-  			<input type="submit" value="Feed Me">
+  			<img src="https://images.emojiterra.com/twitter/v11/512px/1f620.png" id ="emoji" height = 20 width = 20>
+  			<button type="submit" value="Feed Me" onclick= "change();">Feed Me</button>
 		</form>
     </p>
 
@@ -26,7 +27,15 @@
 
 </div>
 
+<script type = "text/javascript">
+	
+	function change(){
+		var image = document.getElementById('emoji');
+		image.src = "https://buildahead.com/wp-content/uploads/2017/02/happy-emoji-smaller.png";
+	}
+		
 
+</script>
 
 
 </body>

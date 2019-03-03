@@ -24,6 +24,7 @@ public class ResultsPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*
 		HttpSession session;
 		if ((session = request.getSession(false)) == null) {
 			session = request.getSession();
@@ -42,9 +43,10 @@ public class ResultsPageServlet extends HttpServlet {
 		ArrayList<Recipe> doNotShowRecipes = doNotShowList.getRecipes();
 		UserList ToExploreList = userLists[2];
 		
-		
+		*/
 		// input validation should be done on front end (empty string, non-integer for resultCount, etc.)
 		String searchTerm = request.getParameter("q");
+		/*
 		int resultCount = Integer.parseInt(request.getParameter("n"));
 		
 		// Sort restaurants according to user lists
@@ -98,7 +100,7 @@ public class ResultsPageServlet extends HttpServlet {
 		recipes.toArray(recipeArr);
 		request.setAttribute("restaurantArr", restaurantArr);
 		request.setAttribute("recipeArr", recipeArr);
-		
+		*/
 		// Google Image Search to get collages
 		// array of image URLs passed to jsp as "imageUrlVec"
 		GoogleImageSearch gis = new GoogleImageSearch();

@@ -8,6 +8,9 @@
         <dependent-module archiveName="gson-2.6.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ImHungry/gson-2.6.2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="httpclient-4.3.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ImHungry/httpclient-4.3.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/ImHungry/target/classes"/>
         <property name="context-root" value="FeedMe"/>
     </wb-module>
