@@ -10,8 +10,8 @@ public class Restaurant implements Comparable<Restaurant>{
 	private String rating;
 	private String drivingTime;
 	
-	public Restaurant(String name, String websiteUrl, int price, String address, String phoneNumber, double rating,
-			int drivingTime) {
+	public Restaurant(String name, String websiteUrl, String price, String address, String phoneNumber, String rating,
+			String drivingTime) {
 		this.name = name;
 		this.websiteUrl = websiteUrl;
 		this.price = price;
