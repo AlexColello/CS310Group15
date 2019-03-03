@@ -23,6 +23,7 @@ public class ResultsPageServlet extends HttpServlet {
 		GoogleImageSearch gis = new GoogleImageSearch();
 		String[] imageUrlVec = gis.GetImagesFromGoogle(searchTerm);
 		request.setAttribute("imageUrlVec", imageUrlVec);
+		request.setAttribute("searchTerm", searchTerm);
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/results.jsp");
 		dispatch.forward(request,  response);			
