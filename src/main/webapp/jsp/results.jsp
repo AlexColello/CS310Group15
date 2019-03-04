@@ -4,11 +4,14 @@
 <html>
 <head>
 	<%@page import="java.util.*" %>
+	<%@page import="data.*"%>
 	<%
 
-	//String[] imageUrlVec = (String[])request.getAttribute("imageUrlVec");
+	String[] imageUrlVec = (String[])request.getAttribute("imageUrlVec");
 	String searchTerm =  (String) request.getAttribute("searchTerm");
 	Integer resultCount =  (Integer) request.getAttribute("resultCount");
+	Restaurant[] restaurantArr = (Restaurant[]) request.getAttribute("restaurantArr");
+	Recipe[] recipeArr = (Recipe[]) request.getAttribute("recipeArr");
 	%>
 	  <!-- Bootstrap CSS  -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -51,13 +54,12 @@
 		 		Random rand = new Random();
 		 		int angle = rand.nextInt(90) -45;
 		 	%>
-		 	<img style ="transform: rotate(<%=angle%>deg);" src="https://cosmos-images1.imgix.net/file/spina/photo/13583/180115-pig-full.jpg?ixlib=rails-2.1.4&auto=format&ch=Width%2CDPR&fit=max&w=835" height="100" width="100" transform ="rotate(45deg)">
-
+			<img style ="transform: rotate(<%=angle%>deg);" src="<%=imageUrlVec[i] %>" height="100" width="100">
 		 	<% } %>
 		 	<%--
 
 					<% for (int i = 0; i < imageUrlVec.length; ++i) { %>
-					<img src="<%=imageUrlVec[i] %>" height="100" width="100" transform ="rotate(45deg)">
+					<img src="<%=imageUrlVec[i] %>" height="100" width="100">
 					<% } %>
 		 	--%>
 
@@ -75,7 +77,7 @@
    			<div class="col-md-6">
       			<h2  class="text-center"> Restaurants</h2>
           		<%
-          		
+
           		for(int i = 0; i < resultCount; i++){
           		%>
          			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -83,11 +85,12 @@
           			<div class="container">
   						<div class="row">
     						<div class="col-sm">
-      							<strong>Name:</strong> <br><p>SUGARFISH by sushi nozawa</p>
+
+      							<strong>Name:</strong> <br><p><%=restaurantArr[i].getName() %> </p>
    							</div>
 
     					<div class="col-sm">
-     	 						<strong>Stars:</strong> <br> <p> 4 out of 5 </p>
+     	 						<strong>Stars:</strong> <br> <p> <%=restaurantArr[i].getRating() %> </p>
     					</div>
   						</div>
   						<div class="row">
@@ -101,11 +104,11 @@
   						</div>
   						<div class="row">
     						<div class="col-sm">
-      							<strong>Minutes:</strong> <br> <p>30 minutes</p>
+      							<strong>Minutes:</strong> <br> <p><%=restaurantArr[i].getDrivingTime() %> </p>
    							</div>
 
     					<div class="col-sm">
-     	 						<strong>Address: </strong><br> <p>101 S La Brea, Los Angeles, CA 90036</p>
+     	 						<strong>Address: </strong><br> <p><%=restaurantArr[i].getAddress() %></p>
     					</div>
   						</div>
 					</div>
@@ -115,7 +118,20 @@
           			<a href="https://getbootstrap.com/docs/4.3/examples/blog/#" class="stretched-link"></a>
         			</div>
         			<div class="col-auto d-none d-lg-block">
-          			<svg class="bd-placeholder-img" width="100" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: $$$"><title>$$</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em">$$$</text></svg>
+        			<%
+        				String restaurantPrice = "";
+        				int price = (int)restaurantArr[i].getPrice();
+        				if (price == 1){
+        					restaurantPrice = "$";
+        				}
+        				else if (price == 2){
+        					restaurantPrice = "$$";
+        				}
+        				else{
+        					restaurantPrice = "$$$";
+        				}
+        			%>
+          			<svg class="bd-placeholder-img" width="100" height="280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: $$$"><title>$$</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em"><%=restaurantPrice %> </text></svg>
         			</div>
       				</div>
           		<% } %>
@@ -132,11 +148,12 @@
           			<div class="container">
   						<div class="row">
     						<div class="col-sm">
-      							<strong>Name:</strong> <br><p>SUGARFISH by sushi nozawa</p>
+      							<strong>Name:</strong> <br><p><%=recipeArr[i].getName() %></p>
    							</div>
 
     					<div class="col-sm">
-     	 						<strong>Stars:</strong> <br> <p> 4 out of 5 </p>
+    						<% String recipeRating = String.format("%.1f",recipeArr[i].getRating()); %>
+     	 						<strong>Stars:</strong> <br> <p> <%=recipeRating %> </p>
     					</div>
   						</div>
   						<div class="row">
@@ -150,11 +167,11 @@
   						</div>
   						<div class="row">
     						<div class="col-sm">
-      							<strong>Cook Time:</strong> <br> <p>30 minutes</p>
+      							<strong>Cook Time:</strong> <br> <p><%=recipeArr[i].getCookTime() %></p>
    							</div>
 
     					<div class="col-sm">
-     	 						<strong>Prep Time: </strong><br> <p>30 minutes</p>
+     	 						<strong>Prep Time: </strong><br> <p><%=recipeArr[i].getPrepTime() %></p>
     					</div>
   						</div>
 					</div>
@@ -164,7 +181,7 @@
           			<a href="https://getbootstrap.com/docs/4.3/examples/blog/#" class="stretched-link"></a>
         			</div>
         			<div class="col-auto d-none d-lg-block">
-          			<svg class="bd-placeholder-img" width="100" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: $$$"><title>$$</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em">$$$</text></svg>
+          			<svg class="bd-placeholder-img" width="100" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: $$$"><title>$$</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
         			</div>
       				</div>
           		<% } %>
