@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import api.AccessYelpAPI;
 import api.GoogleImageSearch;
 import data.Recipe;
 import data.Restaurant;
@@ -24,7 +25,6 @@ public class ResultsPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
 		HttpSession session;
 		if ((session = request.getSession(false)) == null) {
 			session = request.getSession();
@@ -43,14 +43,13 @@ public class ResultsPageServlet extends HttpServlet {
 		ArrayList<Recipe> doNotShowRecipes = doNotShowList.getRecipes();
 		UserList ToExploreList = userLists[2];
 		
-		*/
 		// input validation should be done on front end (empty string, non-integer for resultCount, etc.)
 		String searchTerm = request.getParameter("q");
-		/*
 		int resultCount = Integer.parseInt(request.getParameter("n"));
 		
 		// Sort restaurants according to user lists
-		Vector<Restaurant> restaurants = new Vector<Restaurant>(); // = GetRestaurantsFromYelp(searchTerm, resultCount + doNotShowRestaurants.size());
+		// Assumes that a restaurant or a recipe cannot be inside more than one list
+		Vector<Restaurant> restaurants = AccessYelpAPI.YelpRestaurantSearch(searchTerm, resultCount + doNotShowRestaurants.size());
 		Restaurant currRestaurant;
 		int insertIndex = 0;
 		for (int i = 0; i < restaurants.size(); ++i) {
@@ -68,7 +67,7 @@ public class ResultsPageServlet extends HttpServlet {
 				--i;
 			}
 		}
-		
+		/*
 		// Sort recipes according to user lists
 		Vector<Recipe> recipes = new Vector<Recipe>(); // = GetRecipes(searchTerm, resultCount + doNotShowRecipes.size());
 		Recipe currRecipe;
@@ -88,19 +87,19 @@ public class ResultsPageServlet extends HttpServlet {
 				--i;
 			}
 		}
-		
+		*/
 		// vector size should be resultCount (discard extra data)
 		restaurants.setSize(resultCount);
-		recipes.setSize(resultCount);
+		// recipes.setSize(resultCount);
 		// Make vectors into arrays (to pass to jsp)
 		// pass to jsp as attributes
 		Restaurant[] restaurantArr = new Restaurant[resultCount];
-		Recipe[] recipeArr = new Recipe[resultCount];
+		// Recipe[] recipeArr = new Recipe[resultCount];
 		restaurants.toArray(restaurantArr);
-		recipes.toArray(recipeArr);
+		// recipes.toArray(recipeArr);
 		request.setAttribute("restaurantArr", restaurantArr);
-		request.setAttribute("recipeArr", recipeArr);
-		*/
+		// request.setAttribute("recipeArr", recipeArr);
+
 		// Google Image Search to get collages
 		// array of image URLs passed to jsp as "imageUrlVec"
 		GoogleImageSearch gis = new GoogleImageSearch();
