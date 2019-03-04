@@ -6,9 +6,6 @@ public class GoogleDirections {
 	
 	public static double getDrivingTime(double startLatitude, double startLongitude, double endLatitude, double endLongitude) {
 		
-		
-		
-		
 		return 0;
 	}
 

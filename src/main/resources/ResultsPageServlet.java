@@ -25,16 +25,15 @@ public class ResultsPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session;
-		if ((session = request.getSession(false)) == null) {
-			session = request.getSession();
-			UserList[] userLists = new UserList[3];
+		HttpSession session = request.getSession();
+		UserList[] userLists;
+		if ((userLists = (UserList[]) session.getAttribute("userLists")) == null) {
+			userLists = new UserList[3];
 			for (int i = 0; i < 3; ++i) {
 				userLists[i] = new UserList();
 			}
 			session.setAttribute("userLists", userLists);
 		}
-		UserList[] userLists = (UserList[]) session.getAttribute("userLists");
 		UserList favoriteList = userLists[0];
 		ArrayList<Restaurant> favoriteRestaurants = favoriteList.getRestaurants();
 		ArrayList<Recipe> favoriteRecipes = favoriteList.getRecipes();
