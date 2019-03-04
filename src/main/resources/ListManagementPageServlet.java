@@ -15,15 +15,21 @@ public class ListManagementPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-		String listType = request.getParameter("type");
-		HttpSession session;
-		if (request.getSession(false) == null) {
-			session = request.getSession();
-			
+		HttpSession session = request.getSession();
+		UserList[] userLists = (UserList[]) session.getAttribute("userLists");
+		if (userLists == null) {
+			RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/search.jsp");
+			dispatch.forward(request,  response);
 		}
-		session = request.getSession();
-		*/
+		String listType = request.getParameter("type");
+		switch (listType.charAt(0)) {
+		case 'f':
+			break;
+		case 'd':
+			break;
+		case 't':
+			break;
+		}
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/listManagement.jsp");
 		dispatch.forward(request,  response);			
