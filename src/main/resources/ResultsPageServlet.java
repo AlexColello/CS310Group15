@@ -25,16 +25,15 @@ public class ResultsPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session;
-		if ((session = request.getSession(false)) == null) {
-			session = request.getSession();
-			UserList[] userLists = new UserList[3];
+		HttpSession session = request.getSession();
+		UserList[] userLists;
+		if ((userLists = (UserList[]) session.getAttribute("userLists")) == null) {
+			userLists = new UserList[3];
 			for (int i = 0; i < 3; ++i) {
 				userLists[i] = new UserList();
 			}
 			session.setAttribute("userLists", userLists);
 		}
-		UserList[] userLists = (UserList[]) session.getAttribute("userLists");
 		UserList favoriteList = userLists[0];
 		ArrayList<Restaurant> favoriteRestaurants = favoriteList.getRestaurants();
 		ArrayList<Recipe> favoriteRecipes = favoriteList.getRecipes();
@@ -96,17 +95,21 @@ public class ResultsPageServlet extends HttpServlet {
 		Restaurant[] restaurantArr = new Restaurant[resultCount];
 		// Recipe[] recipeArr = new Recipe[resultCount];
 		restaurants.toArray(restaurantArr);
-		// recipes.toArray(recipeArr);
-		request.setAttribute("restaurantArr", restaurantArr);
 		// request.setAttribute("recipeArr", recipeArr);
 
 		// Google Image Search to get collages
 		// array of image URLs passed to jsp as "imageUrlVec"
 		GoogleImageSearch gis = new GoogleImageSearch();
 		String[] imageUrlVec = gis.GetImagesFromGoogle(searchTerm);
-		request.setAttribute("imageUrlVec", imageUrlVec);
-		request.setAttribute("searchTerm", searchTerm);
 		
+		request.setAttribute("imageUrlVec", imageUrlVec);
+		request.setAttribute("restaurantArr", restaurantArr);
+		// recipes.toArray(recipeArr);
+		request.setAttribute("searchTerm", searchTerm);
+		request.setAttribute("resultCount", resultCount);
+		// store result arrays in session (used for details page)
+		session.setAttribute("restaurantResults", restaurantArr);
+		//session.getAttribute("recipeResults", recipeArr);
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/results.jsp");
 		dispatch.forward(request,  response);			
 	}
