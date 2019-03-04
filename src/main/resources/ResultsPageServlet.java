@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import api.AccessYelpAPI;
 import api.GoogleImageSearch;
+import api.Scrapper;
 import data.Recipe;
 import data.Restaurant;
 import data.UserList;
@@ -35,12 +36,9 @@ public class ResultsPageServlet extends HttpServlet {
 			session.setAttribute("userLists", userLists);
 		}
 		UserList favoriteList = userLists[0];
-		ArrayList<Restaurant> favoriteRestaurants = favoriteList.getRestaurants();
-		ArrayList<Recipe> favoriteRecipes = favoriteList.getRecipes();
 		UserList doNotShowList = userLists[1];
 		ArrayList<Restaurant> doNotShowRestaurants = doNotShowList.getRestaurants();
 		ArrayList<Recipe> doNotShowRecipes = doNotShowList.getRecipes();
-		UserList ToExploreList = userLists[2];
 		
 		// input validation should be done on front end (empty string, non-integer for resultCount, etc.)
 		String searchTerm = request.getParameter("q");
@@ -66,9 +64,9 @@ public class ResultsPageServlet extends HttpServlet {
 				--i;
 			}
 		}
-		/*
+		
 		// Sort recipes according to user lists
-		Vector<Recipe> recipes = new Vector<Recipe>(); // = GetRecipes(searchTerm, resultCount + doNotShowRecipes.size());
+		Vector<Recipe> recipes  = Scrapper.search(searchTerm, resultCount + doNotShowRecipes.size());
 		Recipe currRecipe;
 		insertIndex = 0;
 		for (int i = 0; i < recipes.size(); ++i) {
@@ -86,16 +84,15 @@ public class ResultsPageServlet extends HttpServlet {
 				--i;
 			}
 		}
-		*/
 		// vector size should be resultCount (discard extra data)
 		restaurants.setSize(resultCount);
-		// recipes.setSize(resultCount);
+		recipes.setSize(resultCount);
 		// Make vectors into arrays (to pass to jsp)
 		// pass to jsp as attributes
 		Restaurant[] restaurantArr = new Restaurant[resultCount];
-		// Recipe[] recipeArr = new Recipe[resultCount];
+		Recipe[] recipeArr = new Recipe[resultCount];
 		restaurants.toArray(restaurantArr);
-		// request.setAttribute("recipeArr", recipeArr);
+		recipes.toArray(recipeArr);
 
 		// Google Image Search to get collages
 		// array of image URLs passed to jsp as "imageUrlVec"
@@ -104,7 +101,7 @@ public class ResultsPageServlet extends HttpServlet {
 		
 		request.setAttribute("imageUrlVec", imageUrlVec);
 		request.setAttribute("restaurantArr", restaurantArr);
-		// recipes.toArray(recipeArr);
+		request.setAttribute("recipeArr", recipeArr);
 		request.setAttribute("searchTerm", searchTerm);
 		request.setAttribute("resultCount", resultCount);
 		// store result arrays in session (used for details page)

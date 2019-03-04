@@ -1,6 +1,7 @@
 package api;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,9 +13,9 @@ import data.Recipe;
 public class Scrapper {
 
 	
-	public static ArrayList<Recipe> search(String searchTerms, int n){
+	public static Vector<Recipe> search(String searchTerms, int n){
 		
-		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+		Vector<Recipe> recipes = new Vector<Recipe>();
 		ArrayList<String> urls = new ArrayList<String>();
 		
 		String baseUrl =  "https://allrecipes.com/search/results/?wt=" + searchTerms + "&sort=re";
