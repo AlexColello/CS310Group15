@@ -1,4 +1,4 @@
-package cs310GroupProject;
+package api;
 
 import java.io.BufferedReader;
 import java.io.IOException;
