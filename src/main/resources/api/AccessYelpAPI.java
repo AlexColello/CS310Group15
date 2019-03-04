@@ -172,11 +172,12 @@ public class AccessYelpAPI {
 				ex.printStackTrace();
 			}
 		}
+		
 		return resultsAL;		//returns ArrayList of restaurant objects
 	}
 	
 	//Uncomment main method and run as Java Application to test
-	/*
+	
 	public static void main(String[] args) {
 		int count = 60;
 		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("mexican", count);
@@ -186,5 +187,5 @@ public class AccessYelpAPI {
 			System.out.println("driveTime: " + arr.get(i).getDrivingTime());
 		}
 	}
-	*/
+	
 }
