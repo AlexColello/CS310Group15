@@ -26,11 +26,18 @@ public class GoogleImageSearch {
 		
 		// Parse JSON
 		String json = jsonGetRequest(query);
+		
+		if(json == null) {
+			System.out.println("Google Image query failed!");
+			return null;
+		}
+		
 		JsonElement root = new JsonParser().parse(json);
 		JsonObject rootObj = root.getAsJsonObject();
 		int count = rootObj.getAsJsonObject("queries").getAsJsonArray("request").get(0)
 					.getAsJsonObject().getAsJsonPrimitive("count").getAsInt();
 		JsonArray items = rootObj.getAsJsonArray("items");
+		
 		// Maximum value of count is 10 (API default)
 		String[] imageVec = new String[10];
 		for (int i = 0; i < count; ++i) {
