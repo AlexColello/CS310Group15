@@ -17,3 +17,11 @@ body{
 	height: 100%;
 	width: 75%;
 }
+a:link{
+	text-decoration: inherit;
+	color: inherit;
+}
+a:visited{
+  text-decoration: inherit;
+  color: inherit;
+}
