@@ -1,7 +1,7 @@
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 import org.junit.Test;
 
@@ -63,7 +63,7 @@ public class ScrapperTest {
 	
 	@Test
 	public void searchTest() {
-		ArrayList<Recipe> recipes = Scrapper.search("chicken", 5);
+		Vector<Recipe> recipes = Scrapper.search("chicken", 5);
 		assertEquals(5, recipes.size());
 		
 		recipes = Scrapper.search("chicken", 20);
