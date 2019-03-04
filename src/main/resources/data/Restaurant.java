@@ -1,7 +1,7 @@
 package data;
 
 public class Restaurant implements Comparable<Restaurant>{
-	
+	// String variables = "NULL", numeric variables = -1 if data is not available from Yelp
 	private String name;
 	private String websiteUrl;
 	private String price;

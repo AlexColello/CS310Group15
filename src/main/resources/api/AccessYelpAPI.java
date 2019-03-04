@@ -71,10 +71,10 @@ public class AccessYelpAPI {
 		
 		String name = "NULL";
 		String websiteUrl = "NULL";
-		String price = "NULL";
+		int price = -1;
 		String phoneNumber = "NULL";
-		double rating = 0;
-		int drivingTime = 0;
+		double rating = -1;
+		int drivingTime = -1;
 		
 		String address1 = "NULL";
 		String address2 = "NULL";
@@ -121,8 +121,8 @@ public class AccessYelpAPI {
 			    	}
 			    	
 			    	if(jsonobj_1.get("price") != null) {
-			    		price = jsonobj_1.get("price").toString();
-			    		price = price.replace("\"", "");
+			    		price = jsonobj_1.get("price").getAsString().length();
+			    		// price = price.replace("\"", "");
 			    	}
 			    	
 			    	if(jsonobj_1.get("phone") != null && jsonobj_1.get("phone").getAsString().length() > 0) {
@@ -177,15 +177,15 @@ public class AccessYelpAPI {
 	}
 	
 	//Uncomment main method and run as Java Application to test
-	/* 
+	
 	public static void main(String[] args) {
 		int count = 60;
-		ArrayList<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("mexican", count);
+		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("mexican", count);
 		for (int i = 0; i < count; i++) {
 			System.out.println(i);
 			System.out.println("name: " + arr.get(i).getName());
 			System.out.println("driveTime: " + arr.get(i).getDrivingTime());
 		}
 	}
-	*/
+	
 }
