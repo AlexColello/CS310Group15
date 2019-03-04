@@ -106,7 +106,7 @@ public class ResultsPageServlet extends HttpServlet {
 		request.setAttribute("resultCount", resultCount);
 		// store result arrays in session (used for details page)
 		session.setAttribute("restaurantResults", restaurantArr);
-		//session.getAttribute("recipeResults", recipeArr);
+		session.setAttribute("recipeResults", recipeArr);
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/results.jsp");
 		dispatch.forward(request,  response);			
 	}
