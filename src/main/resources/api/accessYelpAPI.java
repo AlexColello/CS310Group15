@@ -19,33 +19,37 @@ public class accessYelpAPI {
 	
 	static String GET_URL = "https://api.yelp.com/v3/businesses/search?term=_____&latitude=34.020807&longitude=-118.284668";
 		
-	public static void main (String args[]) {
-		String searchTerm = "tofu";
-		
-		ArrayList<Restaurant> output = YelpRestaurantSearch(searchTerm);
-		
-		for(int i = 0; i < output.size(); i++) {
-			Restaurant tempObj = output.get(i);
-			String name = tempObj.getName();
-			String url = tempObj.getwebsiteUrl();
-			String price = tempObj.getPrice();
-			String address = tempObj.getAddress();
-			String phone = tempObj.getPhoneNumber();
-			String rating = tempObj.getRating();
-			String drivingTime = tempObj.getDrivingTime();
-			
-			System.out.println("	restaurant " + i);
-			System.out.println("	name: " + name);
-			System.out.println("	url: " + url);
-			System.out.println("	price: " + price);
-			System.out.println("	address: " + address);
-			System.out.println("	phone: " + phone);
-			System.out.println("	rating: " + rating);
-			System.out.println("	drivingTime: " + drivingTime);
-			System.out.println("");
-			System.out.println("");
-		}
-	}
+//	public static void main (String args[]) {
+//		////////////////////////////////////////////
+//		//main method is just for testing purposes//
+//		////////////////////////////////////////////
+//		
+//		String searchTerm = "tofu";
+//		
+//		ArrayList<Restaurant> output = YelpRestaurantSearch(searchTerm);
+//		
+//		for(int i = 0; i < output.size(); i++) {
+//			Restaurant tempObj = output.get(i);
+//			String name = tempObj.getName();
+//			String url = tempObj.getwebsiteUrl();
+//			String price = tempObj.getPrice();
+//			String address = tempObj.getAddress();
+//			String phone = tempObj.getPhoneNumber();
+//			String rating = tempObj.getRating();
+//			String drivingTime = tempObj.getDrivingTime();
+//			
+//			System.out.println("	restaurant " + i);
+//			System.out.println("	name: " + name);
+//			System.out.println("	url: " + url);
+//			System.out.println("	price: " + price);
+//			System.out.println("	address: " + address);
+//			System.out.println("	phone: " + phone);
+//			System.out.println("	rating: " + rating);
+//			System.out.println("	drivingTime: " + drivingTime);
+//			System.out.println("");
+//			System.out.println("");
+//		}
+//	}
 
 	
 	
@@ -53,7 +57,7 @@ public class accessYelpAPI {
 				
 		GET_URL = GET_URL.replace("_____", searchTerm);
 		
-									System.out.println("YELP GET URL: " + GET_URL);
+									//System.out.println("YELP GET URL: " + GET_URL);
 									
 		ArrayList<Restaurant> resultsAL = new ArrayList<Restaurant>();
 		
@@ -85,7 +89,7 @@ public class accessYelpAPI {
 		    JsonObject jsonObj = (JsonObject)parser.parse(br); 
 		    JsonArray jsonArr = (JsonArray) jsonObj.get("businesses");
 	
-		    for(int i = 0; i < 20; i++) {
+		    for(int i = 0; i < 20; i++) {		//change i to get desired # of search terms
 		    	JsonObject jsonobj_1 = (JsonObject)jsonArr.get(i);
 		    	
 		    	if(jsonobj_1.get("name") != null) {
@@ -93,8 +97,8 @@ public class accessYelpAPI {
 		    		name = name.replace("\"", "");
 		    	}
 		    	
-		    	if(jsonobj_1.get("url") != null) {
-		    		websiteUrl = jsonobj_1.get("url").toString();
+		    	if(jsonobj_1.get("url") != null) {		//returns URL to yelp restaurant page
+		    		websiteUrl = jsonobj_1.get("url").toString();	//no way to grab URL of restaurant website
 		    		websiteUrl = websiteUrl.replace("\"", "");
 		    	}
 		    	
@@ -114,8 +118,8 @@ public class accessYelpAPI {
 		    		rating = rating.replace("\"", "");
 		    	}
 		    	
-		    	if(jsonobj_1.get("distance") != null) {
-		    		drivingTime = jsonobj_1.get("distance").toString();
+		    	if(jsonobj_1.get("distance") != null) {	//yelp returns the straight line distance from tommy trojan to the 
+		    		drivingTime = jsonobj_1.get("distance").toString();//restaurant in meters...
 		    		drivingTime = drivingTime.replace("\"", "");
 		    	}
 		    		
@@ -154,7 +158,7 @@ public class accessYelpAPI {
 		}
 		
 		
-		return resultsAL;
+		return resultsAL;		//returns ArrayList of restaurant objects
 
 	}
 
