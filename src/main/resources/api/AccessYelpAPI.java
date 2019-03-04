@@ -73,8 +73,8 @@ public class AccessYelpAPI {
 		String websiteUrl = "NULL";
 		String price = "NULL";
 		String phoneNumber = "NULL";
-		String rating = "NULL";
-		String drivingTime= "NULL";
+		double rating = 0;
+		int drivingTime = 0;
 		
 		String address1 = "NULL";
 		String address2 = "NULL";
@@ -132,13 +132,13 @@ public class AccessYelpAPI {
 			    	}
 			    	
 			    	if(jsonobj_1.get("rating") != null) {
-			    		rating = jsonobj_1.get("rating").toString();
-			    		rating = rating.replace("\"", "");
+			    		rating = jsonobj_1.get("rating").getAsDouble();
+			    		// rating = rating.replace("\"", "");
 			    	}
 			    	
 			    	if(jsonobj_1.get("distance") != null) {	//yelp returns the straight line distance from tommy trojan to the 
-			    		drivingTime = jsonobj_1.get("distance").toString(); //restaurant in meters...
-			    		drivingTime = drivingTime.replace("\"", "");
+			    		drivingTime = jsonobj_1.get("distance").getAsInt(); //restaurant in meters...
+			    		// drivingTime = drivingTime.replace("\"", "");
 			    	}
 			    		
 			    	if(jsonobj_1.get("location") != null) {

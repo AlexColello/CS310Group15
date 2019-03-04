@@ -4,7 +4,7 @@ public class Restaurant implements Comparable<Restaurant>{
 	
 	private String name;
 	private String websiteUrl;
-	private String price
+	private String price;
 	private String address;
 	private String phoneNumber;
 	private double rating;
@@ -55,11 +55,9 @@ public class Restaurant implements Comparable<Restaurant>{
 	public int getDrivingTime() {
 		return drivingTime;
 	}
-	
-	
+
 	public int compareTo(Restaurant o) {
 		//converting strings to ints
-		return Integer.parseInt( this.getDrivingTime() ) - Integer.parseInt( o.getDrivingTime() );
+		return this.getDrivingTime() - o.getDrivingTime();
 	}
-
 }
