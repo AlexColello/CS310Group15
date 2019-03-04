@@ -39,16 +39,22 @@ public class GoogleDirections {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-			    
-	    JsonParser parser = new JsonParser();
-	    JsonObject jsonObj = (JsonObject)parser.parse(br); 
-	    JsonArray rowArr = (JsonArray) jsonObj.get("rows");
-	    JsonObject firstObject = (JsonObject) rowArr.get(0);
-	    JsonObject element = (JsonObject) ((JsonArray) firstObject.get("elements")).get(0);
-	    JsonObject duration = (JsonObject) element.get("duration");
-	    String durationValue = duration.get("value").getAsString();
-	    
-	    double durationSeconds = Double.parseDouble(durationValue);	    
+			
+		double durationSeconds = -1;
+		try {
+		    JsonParser parser = new JsonParser();
+		    JsonObject jsonObj = (JsonObject)parser.parse(br); 
+		    JsonArray rowArr = (JsonArray) jsonObj.get("rows");
+		    JsonObject firstObject = (JsonObject) rowArr.get(0);
+		    JsonObject element = (JsonObject) ((JsonArray) firstObject.get("elements")).get(0);
+		    JsonObject duration = (JsonObject) element.get("duration");
+	   
+		    String durationValue = duration.get("value").getAsString();
+		    durationSeconds = Double.parseDouble(durationValue);	   
+	    } catch (NullPointerException e) {
+	    	System.out.println("Failed for request " + urlString);
+	    	e.printStackTrace();
+	    }
 	    
 		return durationSeconds;
 	}
