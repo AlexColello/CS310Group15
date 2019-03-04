@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,11 +8,11 @@
     <meta charset="ISO-8859-1">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Homebrew CSS  -->
-    <link href="../css/buttons.css" rel="stylesheet" type="text/css">
-    <link href="../css/details.css" rel="stylesheet" type="text/css">
-    <link href="../css/list.css" rel="stylesheet" type="text/css">
-    <link href="../css/listManagement.css" rel="stylesheet" type="text/css">
+    <!-- Homebrew CSS FeedMe/css/buttons.css ${pageContext.request.contextPath}/css/Login.css" -->
+    <link href="/css/buttons.css" rel="stylesheet" type="text/css">
+    <link href="/css/details.css" rel="stylesheet" type="text/css">
+    <link href="/css/list.css" rel="stylesheet" type="text/css">
+    <link href="/css/listManagement.css" rel="stylesheet" type="text/css">
 
     <!-- Title -->
     <title>List Management</title>
@@ -42,19 +43,25 @@
     </div>
     <!-- Holds all the buttons -->
     <div id="buttons">
+      <form name="list" action="/FeedMe/listManagement" method="POST">
+        <!-- This is the drop-down menu -->
+        <select name="user" id="dropDownBar">
+          <option disabled selected value> -- select an option -- </option>
+          <option value="f">Favorites</option>
+          <option value="t">To Explore</option>
+          <option value="d">Do Not Show</option>
+        </select>
+        <!-- Button to add item to selected list, doesn't do anything if choice is empty -->
+        <button id="manageList" class="bttn" type="submit">Manage List</button>
+      </form>
       <!-- Brings user to a printable version of the page -->
-      <button id="printButton" class="bttn">Printable Version</button>
+      <form action="/FeedMe/search" method="POST">
+        <button id="backToSearch" class="bttn">Back to Search</button>
+      </form>
       <!-- Brings user back to results page -->
-      <button id="backtoResults" class="bttn">Back To Results</button>
-      <!-- This is the drop-down menu -->
-      <select id="dropDownBar">
-        <option disabled selected value> -- select an option -- </option>
-        <option value="favorites" >Favorites</option>
-        <option value="toExplore">To Explore</option>
-        <option value="doNotShow">Do Not Show</option>
-      </select>
-      <!-- Button to add item to selected list, doesn't do anything if choice is empty -->
-      <button id="addToList" class="bttn">Add to List</button>
+      <form action="/FeedMe/results" method="POST">
+        <button id="backToResults" class="bttn">Back To Results</button>
+      </form>
     </div>
     <!-- Homebrew JS -->
     
@@ -63,4 +70,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
+  <style>
+    <%@ include file="/css/buttons.css"%>
+    <%@ include file="/css/list.css"%>
+    <%@ include file="/css/listManagement.css"%>
+    <%@ include file="/css/details.css"%>
+  </style>
 </html>
