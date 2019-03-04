@@ -95,17 +95,21 @@ public class ResultsPageServlet extends HttpServlet {
 		Restaurant[] restaurantArr = new Restaurant[resultCount];
 		// Recipe[] recipeArr = new Recipe[resultCount];
 		restaurants.toArray(restaurantArr);
-		// recipes.toArray(recipeArr);
-		request.setAttribute("restaurantArr", restaurantArr);
 		// request.setAttribute("recipeArr", recipeArr);
 
 		// Google Image Search to get collages
 		// array of image URLs passed to jsp as "imageUrlVec"
 		GoogleImageSearch gis = new GoogleImageSearch();
 		String[] imageUrlVec = gis.GetImagesFromGoogle(searchTerm);
-		request.setAttribute("imageUrlVec", imageUrlVec);
-		request.setAttribute("searchTerm", searchTerm);
 		
+		request.setAttribute("imageUrlVec", imageUrlVec);
+		request.setAttribute("restaurantArr", restaurantArr);
+		// recipes.toArray(recipeArr);
+		request.setAttribute("searchTerm", searchTerm);
+		request.setAttribute("resultCount", resultCount);
+		// store result arrays in session (used for details page)
+		session.setAttribute("restaurantResults", restaurantArr);
+		//session.getAttribute("recipeResults", recipeArr);
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/results.jsp");
 		dispatch.forward(request,  response);			
 	}
