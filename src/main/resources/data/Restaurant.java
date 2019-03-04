@@ -32,7 +32,7 @@ public class Restaurant implements Comparable<Restaurant>{
 	}
 
 
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
@@ -47,18 +47,19 @@ public class Restaurant implements Comparable<Restaurant>{
 	}
 
 
-	public double getRating() {
+	public String getRating() {
 		return rating;
 	}
 
 
-	public int getDrivingTime() {
+	public String getDrivingTime() {
 		return drivingTime;
 	}
 	
 	
 	public int compareTo(Restaurant o) {
-		return this.getDrivingTime() - o.getDrivingTime();
+		//converting strings to ints
+		return Integer.parseInt( this.getDrivingTime() ) - Integer.parseInt( o.getDrivingTime() );
 	}
 
 }
