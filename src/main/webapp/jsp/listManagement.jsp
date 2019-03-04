@@ -45,7 +45,7 @@
     <div id="buttons">
       <form name="list" action="/FeedMe/listManagement" method="POST">
         <!-- This is the drop-down menu -->
-        <select name="user" id="dropDownBar">
+        <select name="listName" id="dropDownBar">
           <option disabled selected value> -- select an option -- </option>
           <option value="f">Favorites</option>
           <option value="t">To Explore</option>
@@ -55,7 +55,7 @@
         <button id="manageList" class="bttn" type="submit">Manage List</button>
       </form>
       <!-- Brings user to a printable version of the page -->
-      <form action="/FeedMe/search" method="POST">
+      <form action="/FeedMe/jsp/search.jsp" method="POST">
         <button id="backToSearch" class="bttn">Back to Search</button>
       </form>
       <!-- Brings user back to results page -->
