@@ -12,7 +12,7 @@ import data.Recipe;
 
 public class Scrapper {
 
-	
+	// Returns a vector of recipes of size n that satisfy the search.
 	public static Vector<Recipe> search(String searchTerms, int n){
 		
 		Vector<Recipe> recipes = new Vector<Recipe>();
@@ -24,6 +24,10 @@ public class Scrapper {
 			String url = baseUrl + "&page=" + currentPage;
 			Document doc = Jsoup.connect(url).get();
 			Element elem = doc.getElementById("fixedGridSection");
+			if(elem == null) {
+				return recipes;
+			}
+			
 			Elements recipeBoxes = elem.getElementsByClass("fixed-recipe-card__info");
 						
 			
@@ -47,6 +51,9 @@ public class Scrapper {
 					currentPage++;
 					doc = Jsoup.connect(baseUrl + "&page=" + currentPage).get();
 					elem = doc.getElementById("fixedGridSection");
+					if(elem == null) {
+						break;
+					}
 					recipeBoxes = elem.getElementsByClass("fixed-recipe-card__info");
 					
 					n -= i - 1;
@@ -68,6 +75,7 @@ public class Scrapper {
 		return recipes;
 	}
 	
+	// Returns a Recipe object representation of the recipe at the url on allrecipes.com.
 	public static Recipe get(String url) {
 		
 		try {
@@ -83,12 +91,15 @@ public class Scrapper {
 			e.printStackTrace();
 		}
 		
+		// Read recipe name
 		Element recipeName = doc.getElementById("recipe-main-content");
 		String name = recipeName.text();
 		
+		// Read recipe photo
 		Elements recipePhoto = doc.getElementsByClass("rec-photo");
 		String pictureUrl = recipePhoto.get(0).attr("src");
 		
+		// Read rating count
 		Elements ratingSummary = doc.getElementsByClass("recipe-summary__stars");
 		Elements rating = ratingSummary.get(0).getElementsByClass("rating-stars");
 		String sRecipeRating = rating.attr("data-ratingstars");
@@ -96,6 +107,7 @@ public class Scrapper {
 
 		Element directions = doc.getElementsByClass("directions--section__steps").get(0);
 		
+		// Read prep and cook time
 		Elements times = directions.getElementsByTag("time");
 		String sPrepTime = "";
 		String sCookTime = "";
@@ -111,7 +123,7 @@ public class Scrapper {
 		double cookTime = parseTime(sCookTime);
 		double prepTime = parseTime(sPrepTime);
 		
-		// Read instructions
+		// Read instruction list
 		ArrayList<String> instructions = new ArrayList<String>();
 		Element instructionList = directions.getElementsByClass("list-numbers recipe-directions__list").get(0);
 		Elements eInstructions = instructionList.getElementsByClass("recipe-directions__list--item");
@@ -119,6 +131,7 @@ public class Scrapper {
 			instructions.add(instruction.text());
 		}
 		
+		// Read ingredient list
 		ArrayList<String> ingredients = new ArrayList<String>();
 		Elements eIngredients = doc.getElementsByAttributeValue("itemprop", "recipeIngredient");
 		for(Element ingredient : eIngredients) {
@@ -129,6 +142,7 @@ public class Scrapper {
 		return new Recipe(name, pictureUrl, prepTime, cookTime, ingredients, instructions, recipeRating);
 	}
 	
+	// Returns the time in minutes of a datetime string from allrecipes.com
 	public static int parseTime(String datetime) {
 		
 		if(datetime.equals("")) {
