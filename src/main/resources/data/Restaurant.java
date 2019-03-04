@@ -4,13 +4,13 @@ public class Restaurant implements Comparable<Restaurant>{
 	// String variables = "NULL", numeric variables = -1 if data is not available from Yelp
 	private String name;
 	private String websiteUrl;
-	private String price;
+	private int price;
 	private String address;
 	private String phoneNumber;
 	private double rating;
 	private int drivingTime;
 	
-	public Restaurant(String name, String websiteUrl, String price, String address, String phoneNumber, double rating,
+	public Restaurant(String name, String websiteUrl, int price, String address, String phoneNumber, double rating,
 			int drivingTime) {
 		this.name = name;
 		this.websiteUrl = websiteUrl;
@@ -32,7 +32,7 @@ public class Restaurant implements Comparable<Restaurant>{
 	}
 
 
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
