@@ -1,6 +1,8 @@
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import api.Scrapper;
@@ -33,10 +35,6 @@ public class ScrapperTest {
 		
 	}
 	
-	@Test
-	public void searchTest() {
-		Scrapper.search("chicken", 5);
-	}
 	
 	@Test
 	public void getTest() {
@@ -53,16 +51,27 @@ public class ScrapperTest {
 		System.out.println("Rating: " + recipe.getRating());
 		System.out.println("Ingredients: " + recipe.getIngredients().size());
 		for(String ingredient : recipe.getIngredients()) {
-			System.out.println("\t" + ingredient);
+			System.out.println("    " + ingredient);
 		}
 		System.out.println("Instructions: " + recipe.getInstructions().size());
 		for(String instruction : recipe.getInstructions()) {
-			System.out.println("\t" + instruction);
+			System.out.println("    " + instruction);
 		}
 		
 	}
 	
 	
-	
+	@Test
+	public void searchTest() {
+		ArrayList<Recipe> recipes = Scrapper.search("chicken", 5);
+		assertEquals(5, recipes.size());
+		
+		recipes = Scrapper.search("chicken", 20);
+		assertEquals(20, recipes.size());
+		
+		recipes = Scrapper.search("chicken", 50);
+		assertEquals(50, recipes.size());
+		
+	}
 	
 }

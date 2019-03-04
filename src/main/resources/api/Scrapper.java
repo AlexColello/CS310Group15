@@ -15,28 +15,65 @@ public class Scrapper {
 	public static ArrayList<Recipe> search(String searchTerms, int n){
 		
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+		ArrayList<String> urls = new ArrayList<String>();
 		
-		String url =  "https://allrecipes.com/search/results/?wt=" + searchTerms + "&sort=re";
+		String baseUrl =  "https://allrecipes.com/search/results/?wt=" + searchTerms + "&sort=re";
+		int currentPage = 1;
 		try {
+			String url = baseUrl + "&page=" + currentPage;
 			Document doc = Jsoup.connect(url).get();
 			Element elem = doc.getElementById("fixedGridSection");
 			Elements recipeBoxes = elem.getElementsByClass("fixed-recipe-card__info");
 						
-			for(Element e : recipeBoxes) {
-				Elements links = e.getElementsByTag("a");
-				String link = links.get(0).attr("href");
-				Recipe recipe = Scrapper.get(link);
-				recipes.add(recipe);
+			
+			for(int i = 0; i < n; i++) {
+				
+				try {
+					Element recipeBox = recipeBoxes.get(i);
+					
+					Elements links = recipeBox.getElementsByTag("a");
+					String link = links.get(0).attr("href");
+					urls.add(link);
+					
+				} catch (IndexOutOfBoundsException e) {
+					
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+										
+					currentPage++;
+					doc = Jsoup.connect(baseUrl + "&page=" + currentPage).get();
+					elem = doc.getElementById("fixedGridSection");
+					recipeBoxes = elem.getElementsByClass("fixed-recipe-card__info");
+					
+					n -= i - 1;
+					i = 0;
+					
+				}
 			}
 						
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
+		System.out.println("Urls: " + urls.size());
+		
+		for(String url : urls) {
+			recipes.add(Scrapper.get(url));
+		}
+		
 		return recipes;
 	}
 	
 	public static Recipe get(String url) {
+		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
 		
 		Document doc = null;
 		try {
@@ -73,14 +110,22 @@ public class Scrapper {
 		double cookTime = parseTime(sCookTime);
 		double prepTime = parseTime(sPrepTime);
 		
+		// Read instructions
 		ArrayList<String> instructions = new ArrayList<String>();
-		
-		for(Element instruction : directions.getElementsByClass("recipe-directions__list--item")) {
+		Element instructionList = directions.getElementsByClass("list-numbers recipe-directions__list").get(0);
+		Elements eInstructions = instructionList.getElementsByClass("recipe-directions__list--item");
+		for(Element instruction : eInstructions) {
 			instructions.add(instruction.text());
 		}
 		
+		ArrayList<String> ingredients = new ArrayList<String>();
+		Elements eIngredients = doc.getElementsByAttributeValue("itemprop", "recipeIngredient");
+		for(Element ingredient : eIngredients) {
+			ingredients.add(ingredient.text());
+		}
 		
-		return new Recipe(name, pictureUrl, prepTime, cookTime, new ArrayList<String>(), new ArrayList<String>(), recipeRating);
+		
+		return new Recipe(name, pictureUrl, prepTime, cookTime, ingredients, instructions, recipeRating);
 	}
 	
 	public static int parseTime(String datetime) {
