@@ -66,12 +66,20 @@ public class ScrapperTest {
 		Vector<Recipe> recipes = Scrapper.search("chicken", 5);
 		assertEquals(5, recipes.size());
 		
-		recipes = Scrapper.search("chicken", 20);
-		assertEquals(20, recipes.size());
-		
-		recipes = Scrapper.search("chicken", 50);
-		assertEquals(50, recipes.size());
+		recipes = Scrapper.search("broccoli", 23);
+		assertEquals(23, recipes.size());
 		
 	}
+	
+	@Test
+	public void searchBadRequestTest() {
+		Vector<Recipe> recipes = Scrapper.search("qwertyuiop", 25);
+		assertEquals(0, recipes.size());
+		
+		recipes = Scrapper.search("shoe", 25);
+		assertEquals(3, recipes.size());
+		
+	}
+	
 	
 }
