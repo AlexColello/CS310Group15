@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import com.google.gson.JsonArray;
@@ -177,7 +176,7 @@ public class AccessYelpAPI {
 	}
 	
 	//Uncomment main method and run as Java Application to test
-	
+	/*
 	public static void main(String[] args) {
 		int count = 60;
 		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("mexican", count);
@@ -187,5 +186,6 @@ public class AccessYelpAPI {
 			System.out.println("driveTime: " + arr.get(i).getDrivingTime());
 		}
 	}
+	*/
 	
 }
