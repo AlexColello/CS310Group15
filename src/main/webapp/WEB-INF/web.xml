@@ -14,6 +14,24 @@
 	<servlet-name>ResultsPageServlet</servlet-name>
 	<servlet-class>ResultsPageServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>RecipeDetailsPageServlet</servlet-name>
+    <display-name>RecipeDetailsPageServlet</display-name>
+    <description></description>
+    <servlet-class>RecipeDetailsPageServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>RestaurantDetailsPageServlet</servlet-name>
+    <display-name>RestaurantDetailsPageServlet</display-name>
+    <description></description>
+    <servlet-class>RestaurantDetailsPageServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ListManagementPageServlet</servlet-name>
+    <display-name>ListManagementPageServlet</display-name>
+    <description></description>
+    <servlet-class>ListManagementPageServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>SearchPageServlet</servlet-name>
   	<url-pattern>/search</url-pattern>
@@ -21,5 +39,17 @@
   <servlet-mapping>
   	<servlet-name>ResultsPageServlet</servlet-name>
   	<url-pattern>/results</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RecipeDetailsPageServlet</servlet-name>
+    <url-pattern>/recipeDetails</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RestaurantDetailsPageServlet</servlet-name>
+    <url-pattern>/restaurantDetails</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ListManagementPageServlet</servlet-name>
+    <url-pattern>/listManagement</url-pattern>
   </servlet-mapping>
 </web-app>
