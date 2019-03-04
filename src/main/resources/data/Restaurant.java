@@ -4,14 +4,14 @@ public class Restaurant implements Comparable<Restaurant>{
 	
 	private String name;
 	private String websiteUrl;
-	private String price;
+	private String price
 	private String address;
 	private String phoneNumber;
-	private String rating;
-	private String drivingTime;
+	private double rating;
+	private int drivingTime;
 	
-	public Restaurant(String name, String websiteUrl, String price, String address, String phoneNumber, String rating,
-			String drivingTime) {
+	public Restaurant(String name, String websiteUrl, String price, String address, String phoneNumber, double rating,
+			int drivingTime) {
 		this.name = name;
 		this.websiteUrl = websiteUrl;
 		this.price = price;
@@ -47,12 +47,12 @@ public class Restaurant implements Comparable<Restaurant>{
 	}
 
 
-	public String getRating() {
+	public double getRating() {
 		return rating;
 	}
 
 
-	public String getDrivingTime() {
+	public int getDrivingTime() {
 		return drivingTime;
 	}
 	
