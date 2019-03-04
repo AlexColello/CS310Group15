@@ -42,7 +42,22 @@ public class ResultsPageServlet extends HttpServlet {
 		
 		// input validation should be done on front end (empty string, non-integer for resultCount, etc.)
 		String searchTerm = request.getParameter("q");
-		int resultCount = Integer.parseInt(request.getParameter("n"));
+		String resultCountRaw = request.getParameter("n");
+		Integer resultCount = null;
+		//session.setAttribute("userLists", userLists);
+	//	resultCount = Integer.parseInt(resultCountRaw);
+		
+		if (searchTerm == null && resultCountRaw == null) {
+			searchTerm = (String) session.getAttribute("searchTerm");
+			resultCount = (Integer) session.getAttribute("resultCount");
+			System.out.println(searchTerm);
+			System.out.println(resultCount);
+
+		}
+		else {
+			resultCount = Integer.parseInt(resultCountRaw);
+		}
+		
 		
 		// Sort restaurants according to user lists
 		// Assumes that a restaurant or a recipe cannot be inside more than one list
@@ -107,6 +122,8 @@ public class ResultsPageServlet extends HttpServlet {
 		// store result arrays in session (used for details page)
 		session.setAttribute("restaurantResults", restaurantArr);
 		session.setAttribute("recipeResults", recipeArr);
+		session.setAttribute("searchTerm", searchTerm);
+		session.setAttribute("resultCount", resultCount);
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/results.jsp");
 		dispatch.forward(request,  response);			
 	}

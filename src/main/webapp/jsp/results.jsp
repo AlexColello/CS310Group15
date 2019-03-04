@@ -32,9 +32,9 @@
 		 			<form name="list" action="/FeedMe/listManagement" method="POST">
       					<select name="listName">
       					<option disabled selected value> -- select an option -- </option>
-       				    <option name ="f" >Favorites</option>
-        				<option name ="t">To Explore</option>
-        				<option name ="d">Do Not Show</option>
+       				    <option value ="f" >Favorites</option>
+        				<option value ="t">To Explore</option>
+        				<option value ="d">Do Not Show</option>
       					</select> <br>
       					<!-- Button to add item to selected list, doesn't do anything if choice is empty -->
      					<button id="addToList">Manage Lists</button> <br>
