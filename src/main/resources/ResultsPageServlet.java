@@ -114,9 +114,9 @@ public class ResultsPageServlet extends HttpServlet {
 		// Google Image Search to get collages
 		// array of image URLs passed to jsp as "imageUrlVec"
 		GoogleImageSearch gis = new GoogleImageSearch();
-		String[] imageUrlVec = gis.GetImagesFromGoogle(searchTerm);
-		
-		request.setAttribute("imageUrlVec", imageUrlVec);
+		Vector<String> imageUrlVec = gis.GetImagesFromGoogle(searchTerm);
+		String[] imageUrlArr;
+		request.setAttribute("imageUrlVec", imageUrlVec.toArray(imageUrlArr));
 		request.setAttribute("restaurantArr", restaurantArr);
 		request.setAttribute("recipeArr", recipeArr);
 		request.setAttribute("searchTerm", searchTerm);

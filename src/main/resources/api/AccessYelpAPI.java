@@ -31,7 +31,7 @@ public class AccessYelpAPI {
 //		String searchTerm = "tofu";
 //		
 //		Vector<Restaurant> output = YelpRestaurantSearch(searchTerm, 20);
-//		
+/
 //		for(int i = 0; i < output.size(); i++) {
 //			Restaurant tempObj = output.get(i);
 //			String name = tempObj.getName();
@@ -54,8 +54,6 @@ public class AccessYelpAPI {
 //			System.out.println("");
 //		}
 //	}
-
-	
 	
 	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount) {
 		
@@ -197,11 +195,6 @@ public class AccessYelpAPI {
 		
 		return resultsAL;		//returns ArrayList of restaurant objects
 	}
-	
-	
-	
-	
-	
 
 	//Uncomment main method and run as Java Application to test
 	/*
@@ -215,8 +208,4 @@ public class AccessYelpAPI {
 		}
 	}
 	*/
-	
-	
-	
-
 }
