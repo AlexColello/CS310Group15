@@ -117,7 +117,13 @@ public class AccessYelpAPI {
 			    JsonArray jsonArr = (JsonArray) jsonObj.get("businesses");
 		
 			    for(int i = 0; i < limit; i++) {		//change i to get desired # of search terms
-			    	JsonObject jsonobj_1 = (JsonObject)jsonArr.get(i);
+			    	JsonObject jsonobj_1 = null;
+			    	try {
+			    		jsonobj_1 = (JsonObject)jsonArr.get(i);
+			    	} catch (IndexOutOfBoundsException e) {
+			    		System.out.println("Could not get " + resultCount + " results from the Yelp API for query\n" + GET_URL);	
+			    		break;
+			    	}
 			    	
 			    	if(jsonobj_1.get("name") != null) {
 			    		name = jsonobj_1.get("name").toString();

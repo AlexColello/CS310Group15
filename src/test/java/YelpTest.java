@@ -10,7 +10,7 @@ import data.Restaurant;
 public class YelpTest {
 
 	@Test
-	public void test() {
+	public void testBasicFunctionality() {
 		int count = 20;
 		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("mexican", count);
 		assertEquals(count, arr.size());
@@ -23,7 +23,7 @@ public class YelpTest {
 	}
 
 	@Test
-	public void testMultipleInput() {
+	public void testMultipleWordInput() {
 		int count = 20;
 		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("mexican chicken", count);
 		assertEquals(count, arr.size());
