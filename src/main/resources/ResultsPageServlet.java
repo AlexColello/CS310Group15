@@ -56,6 +56,8 @@ public class ResultsPageServlet extends HttpServlet {
 		}
 		else {
 			resultCount = Integer.parseInt(resultCountRaw);
+			System.out.println(searchTerm);
+			System.out.println(resultCount);
 		}
 		
 		

@@ -20,7 +20,8 @@
     <link href="../css/details.css" rel="stylesheet" type="text/css">
     <link href="../css/list.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet"  href="/css/results.css"  type="text/css">
-
+	  <!-- Javascript -->
+	<script type="text/javascript" src="../javascript/manageListButton.js"></script>
 </head>
 
 <body>
@@ -29,8 +30,8 @@
 		<div class = "row">
 			<div class="col-md-4 order-md-2 mb-4">
 		 		<div id="buttons">
-		 			<form name="list" action="/FeedMe/listManagement" method="POST">
-      					<select name="listName">
+		 			<form name="list" onsubmit="manageList(this);">
+      					<select id="listName" name="listName">
       					<option disabled selected value> -- select an option -- </option>
        				    <option value ="f" >Favorites</option>
         				<option value ="t">To Explore</option>
@@ -192,5 +193,22 @@
    		</div>
 
 	</div>
+	
+<script>
+
+function manageList(form){
+	var userInput = document.getElementById('listName').value;
+	console.log(userInput);
+	if (userInput == null || userInput.length == 0){
+		
+	}
+	else{
+		
+		form.action = "/FeedMe/listManagement";
+	}
+	
+
+} 
+</script>
 
 </body>
