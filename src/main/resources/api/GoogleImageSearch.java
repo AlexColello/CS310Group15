@@ -1,8 +1,10 @@
 package api;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Scanner;
 
 import com.google.gson.JsonArray;
@@ -21,6 +23,13 @@ public class GoogleImageSearch {
 	
 	// Returns an array of image urls using the search term
 	public String[] GetImagesFromGoogle(String searchTerm) {
+		
+		try {
+			searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
 		String query = "https://www.googleapis.com/customsearch/v1?searchType=image&imgType=photo&key=" + API_KEY
 				+ "&cx=" + SEARCH_ENGINE_ID + "&q=" + searchTerm;
 		

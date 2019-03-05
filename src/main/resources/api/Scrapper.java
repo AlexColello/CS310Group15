@@ -1,5 +1,7 @@
 package api;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -13,12 +15,18 @@ import data.Recipe;
 public class Scrapper {
 
 	// Returns a vector of recipes of size n that satisfy the search.
-	public static Vector<Recipe> search(String searchTerms, int n){
+	public static Vector<Recipe> search(String searchTerm, int n){
+		
+		try {
+			searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		
 		Vector<Recipe> recipes = new Vector<Recipe>();
 		ArrayList<String> urls = new ArrayList<String>();
 		
-		String baseUrl =  "https://allrecipes.com/search/results/?wt=" + searchTerms + "&sort=re";
+		String baseUrl =  "https://allrecipes.com/search/results/?wt=" + searchTerm + "&sort=re";
 		int currentPage = 1;
 		try {
 			String url = baseUrl + "&page=" + currentPage;
