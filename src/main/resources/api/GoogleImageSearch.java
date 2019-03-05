@@ -18,11 +18,13 @@ import com.google.gson.JsonParser;
  * Limited to 100 queries a day
  */
 public class GoogleImageSearch {
-	String API_KEY = "AIzaSyD1JgSwkEQEGgW3tDCFa2pAhYGGYM52Nmw";
-	String SEARCH_ENGINE_ID = "012879953607576427254:2cidu_it4hw";
+
+	static final String API_KEY = "AIzaSyD1JgSwkEQEGgW3tDCFa2pAhYGGYM52Nmw";
+	static final String SEARCH_ENGINE_ID = "012879953607576427254:2cidu_it4hw";
+
 	
 	// Returns an array of image urls using the search term
-	public String[] GetImagesFromGoogle(String searchTerm) {
+	public static String[] GetImagesFromGoogle(String searchTerm) {
 		
 		try {
 			searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
