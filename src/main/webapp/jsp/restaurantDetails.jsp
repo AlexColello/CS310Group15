@@ -40,7 +40,7 @@
     <div id="buttons">
       <!-- Brings user to a printable version of the page -->
       
-      <form action="/FeedMe/RestaurantDetailsPagePrintableVersion?arrNum=<%=arrNum%>" method="POST">
+      <form action="/FeedMe/restaurantDetailsPagePrintableVersion?arrNum=<%=arrNum%>" method="POST">
       <button id="printButton">Printable Version</button>
       <!-- Brings user back to results page -->
       

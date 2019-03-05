@@ -52,7 +52,7 @@ public class RecipeDetailsPageServlet extends HttpServlet {
 			session.setAttribute("userLists", userLists);
 		}
 		request.setAttribute("recipeVal", recipeResults[arrNum]);
-		
+		request.setAttribute("arrNum", arrNum);
 
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/recipeDetails.jsp");
 		dispatch.forward(request,  response);				

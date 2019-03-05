@@ -55,24 +55,7 @@
     </div>
     <!-- Holds all the buttons -->
     <div id="buttons">
-      <!-- Brings user to a printable version of the page -->
-      <form action="/FeedMe/recipeDetailsPagePrintableVersion?arrNum=<%= arrNum%>" method= "POST">
-      	<button id="printButton">Printable Version</button>
-      </form>
       
-      <!-- Brings user back to results page -->
-       <form action="/FeedMe/results" method="POST">
-        <button id="backToResults" class="bttn">Back To Results</button>
-      </form>
-      <!-- This is the drop-down menu -->
-      <select id="dropDownBar">
-        <option disabled selected value> -- select an option -- </option>
-        <option value="favorites" >Favorites</option>
-        <option value="toExplore">To Explore</option>
-        <option value="doNotShow">Do Not Show</option>
-      </select>
-      <!-- Button to add item to selected list, doesn't do anything if choice is empty -->
-      <button id="addToList">Add to List</button>
     </div>
     <!-- Homebrew JS -->
     

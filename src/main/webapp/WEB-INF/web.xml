@@ -44,6 +44,12 @@
   	<description></description>
   	<servlet-class>RestaurantDetailsPagePrintableVersionServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>RecipeDetailsPagePrintableVersionServlet</servlet-name>
+  	<display-name>RecipeDetailsPagePrintableVersionServlet</display-name>
+  	<description></description>
+  	<servlet-class>RecipeDetailsPagePrintableVersionServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>SearchPageServlet</servlet-name>
   	<url-pattern>/search</url-pattern>
@@ -70,6 +76,11 @@
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>RestaurantDetailsPagePrintableVersionServlet</servlet-name>
-  	<url-pattern>/RestaurantDetailsPagePrintableVersion</url-pattern>
+  	<url-pattern>/restaurantDetailsPagePrintableVersion</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>RecipeDetailsPagePrintableVersionServlet</servlet-name>
+  	<url-pattern>/recipeDetailsPagePrintableVersion</url-pattern>
+  </servlet-mapping>
+
 </web-app>
