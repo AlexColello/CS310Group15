@@ -1,6 +1,10 @@
 package data;
 
-public class Restaurant implements Comparable<Restaurant>{
+import java.io.Serializable;
+
+public class Restaurant implements Comparable<Restaurant>, Serializable {
+	private static final long serialVersionUID = 1L;
+
 	// String variables = "NULL", numeric variables = -1 if data is not available from Yelp
 	private String name;
 	private String websiteUrl;

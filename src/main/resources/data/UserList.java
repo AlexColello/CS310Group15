@@ -1,7 +1,9 @@
 package data;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UserList {
+public class UserList implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private ArrayList<Restaurant> restaurants;
 	private ArrayList<Recipe> recipes;

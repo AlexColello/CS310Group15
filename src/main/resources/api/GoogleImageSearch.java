@@ -22,7 +22,6 @@ public class GoogleImageSearch {
 
 	static final String API_KEY = "AIzaSyD1JgSwkEQEGgW3tDCFa2pAhYGGYM52Nmw";
 	static final String SEARCH_ENGINE_ID = "012879953607576427254:2cidu_it4hw";
-
 	
 	// Returns an array of image urls using the search term
 	public static Vector<String> GetImagesFromGoogle(String searchTerm) {
