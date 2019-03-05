@@ -30,7 +30,7 @@
 		<div class = "row">
 			<div class="col-md-4 order-md-2 mb-4">
 		 		<div id="buttons">
-		 			<form name="list" onsubmit="manageList(this);">
+		 			<form name="list" onsubmit="return manageList(this);">
       					<select id="listName" name="listName">
       					<option disabled selected value> -- select an option -- </option>
        				    <option value ="f" >Favorites</option>
@@ -200,7 +200,7 @@ function manageList(form){
 	var userInput = document.getElementById('listName').value;
 	console.log(userInput);
 	if (userInput == null || userInput.length == 0){
-		
+		return false;
 	}
 	else{
 		
