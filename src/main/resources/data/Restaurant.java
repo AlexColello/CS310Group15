@@ -60,4 +60,9 @@ public class Restaurant implements Comparable<Restaurant>{
 		//converting strings to ints
 		return this.getDrivingTime() - o.getDrivingTime();
 	}
+	
+	// For Debug purposes only
+	public String toString() {
+		return "name: " + name;
+	}
 }
