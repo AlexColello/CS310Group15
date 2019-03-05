@@ -178,7 +178,7 @@
 
 
 
-          			<a href="https://getbootstrap.com/docs/4.3/examples/blog/#" class="stretched-link"></a>
+          			<a href="/FeedMe/recipeDetails?arrNum=<%=i%>" class="stretched-link"></a>
         			</div>
         			<div class="col-auto d-none d-lg-block">
           			<svg class="bd-placeholder-img" width="100" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: $$$"><title>$$</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em"></text></svg>

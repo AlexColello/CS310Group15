@@ -45,6 +45,15 @@ public class RecipeDetailsPageServlet extends HttpServlet {
 			return;
 			*/
 		}
+		else {
+			HttpSession session = request.getSession();
+			// if restaurant results are not stored in session (meaning session has expired), 
+			//  send the user back to the search page
+			Recipe[] recipeResults = (Recipe[]) session.getAttribute("recipeResults");
+			int arrNum = Integer.parseInt(request.getParameter("arrNum"));
+			
+			request.setAttribute("recipeVal", recipeResults[arrNum]);
+		}
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/recipeDetails.jsp");
 		dispatch.forward(request,  response);			
 	}

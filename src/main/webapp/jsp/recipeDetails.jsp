@@ -9,7 +9,11 @@
     <meta charset="ISO-8859-1">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  
+  	 <%@page import="java.util.*" %>
+	<%@page import="data.*"%>
+    <% 
+	Recipe recipeVal = (Recipe) request.getAttribute("recipeVal");
+    %>
     <!-- Title -->
     <title>Recipe Details</title>
   </head>
@@ -19,20 +23,21 @@
     <!-- Main Div -->
     <div id="main">
       <!-- Title -->
-      <h1 id="recipeName"><%= request.getParameter("name") %></h1>
+      <h1 id="recipeName"><%= recipeVal.getName() %></h1>
       <!-- Holds image, prep and cook time of recipe-->
       <div id="details">
-        <img id="recipePicture" src="<%= request.getParameter("picture") %>" alt="Recipe Image"/>
-        <p id="prepTime"><strong>Prep Time: </strong><%= request.getParameter("prep") %></p>
-        <p id="cookTime"><strong>Cook Time: </strong><%= request.getParameter("cook") %></p>
+      	<% String picUrl = recipeVal.getPictureUrl(); %>
+        <img id="recipePicture" src="<%= picUrl %>" alt="Recipe Image"/>
+        <p id="prepTime"><strong>Prep Time: </strong><%=recipeVal.getPrepTime() %></p>
+        <p id="cookTime"><strong>Cook Time: </strong><%=recipeVal.getCookTime() %></p>
       </div>
       <!-- Ingredients -->
       <div id="ingredientsBloc">
         <h2>Ingredients</h2>
         <ul id=ingredients>
-          <% Recipe rec = request.getParameter("recipe"); %>
-          <% for(int i = 0; i < 10; ++i){ %>
-          
+          <% ArrayList<String> ingredients = (ArrayList<String>) recipeVal.getIngredients();%>
+          <% for(int i = 0; i < ingredients.size(); i++){ %>
+          	<p>	<%=ingredients.get(i) %>></p>
           <% } %>
         </ul>
       </div>
