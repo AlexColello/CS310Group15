@@ -11,6 +11,13 @@
     <!-- Homebrew CSS  -->
     <link href="../css/buttons.css" rel="stylesheet" >
     <link href="../css/details.css" rel="stylesheet" >
+    <%@page import="java.util.*" %>
+	<%@page import="data.*"%>
+    <% 
+	Restaurant restaurantVal = (Restaurant) request.getAttribute("restaurantVal");
+    %>
+    
+    
     <!-- Title -->
     <title>Restaurant Details</title>
   </head>
@@ -20,12 +27,12 @@
     <!-- Main Div -->
     <div id="main">
        <!-- Title -->
-       <h1 id="restaurantName"><%= request.getParameter("name") %></h1>
+       <h1 id="restaurantName"><%= restaurantVal.getName() %></h1>
        <!-- Holds image, prep and cook time of recipe-->
        <div id="details">
-         <a id="address" href="<%= request.getParameter("address") %>"><strong>Address:</strong> <%= request.getParameter("address") %></a>
-         <p id="phoneNumber"><strong>Phone Number:</strong> <%= request.getParameter("phone") %></p>
-         <a id="website" href="<%= request.getParameter("website") %>"><strong>Website Address: </strong><%= request.getParameter("address") %></a>
+         <a id="address" href="<%= restaurantVal.getWebsiteUrl() %>"><strong>Address:</strong> <%= restaurantVal.getAddress() %></a>
+         <p id="phoneNumber"><strong>Phone Number:</strong><%= restaurantVal.getPhoneNumber() %></p>
+         <a id="website" href="<%= restaurantVal.getWebsiteUrl() %>"><strong>Website Address: </strong><%= restaurantVal.getWebsiteUrl() %></a>
        </div>
     </div>
     <!-- Holds all the buttons -->
@@ -33,7 +40,10 @@
       <!-- Brings user to a printable version of the page -->
       <button id="printButton">Printable Version</button>
       <!-- Brings user back to results page -->
-      <button id="backtoResults">Back To Results</button>
+            <!-- Brings user back to results page -->
+      <form action="/FeedMe/results" method="POST">
+        <button id="backToResults" class="bttn">Back To Results</button>
+      </form>
       <!-- This is the drop-down menu -->
       <select id="dropDownBar">
         <option disabled selected value> -- select an option -- </option>

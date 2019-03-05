@@ -114,8 +114,8 @@
 					</div>
 
 
-
-          			<a href="https://getbootstrap.com/docs/4.3/examples/blog/#" class="stretched-link"></a>
+					
+          			<a href="/FeedMe/restaurantDetails?arrNum=<%=i%>" class="stretched-link"></a>
         			</div>
         			<div class="col-auto d-none d-lg-block">
         			<%

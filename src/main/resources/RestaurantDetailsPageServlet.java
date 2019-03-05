@@ -23,6 +23,10 @@ public class RestaurantDetailsPageServlet extends HttpServlet {
 			// if restaurant results are not stored in session (meaning session has expired), 
 			//  send the user back to the search page
 			Restaurant[] restaurantResults = (Restaurant[]) session.getAttribute("restaurantResults");
+			int arrNum = Integer.parseInt(request.getParameter("arrNum"));
+			
+			System.out.println("Yes");
+			System.out.println(restaurantResults[arrNum].getName());
 			if (restaurantResults == null) {
 				RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/search.jsp");
 				dispatch.forward(request,  response);
@@ -44,6 +48,15 @@ public class RestaurantDetailsPageServlet extends HttpServlet {
 			}
 			return;
 			*/
+		}
+		else {
+			HttpSession session = request.getSession();
+			// if restaurant results are not stored in session (meaning session has expired), 
+			//  send the user back to the search page
+			Restaurant[] restaurantResults = (Restaurant[]) session.getAttribute("restaurantResults");
+			int arrNum = Integer.parseInt(request.getParameter("arrNum"));
+			
+			request.setAttribute("restaurantVal", restaurantResults[arrNum]);
 		}
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/restaurantDetails.jsp");
