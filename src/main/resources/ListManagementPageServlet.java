@@ -24,6 +24,18 @@ public class ListManagementPageServlet extends HttpServlet {
 		String listType = request.getParameter("listName");
 		System.out.println(listType);
 		
+		String op = request.getParameter("opType");
+		if (op != null) {
+			int arrNum;
+			arrNum = Integer.parseInt(request.getParameter("arrNum"));
+			if (op.equals("move")) {
+				
+			}
+			else if (op.equals("remove")) {
+				
+			}
+		}
+		// Pass list to display to jsp
 		switch (listType.charAt(0)) {
 		case 'f':
 			request.setAttribute("listVal", userLists[0]);

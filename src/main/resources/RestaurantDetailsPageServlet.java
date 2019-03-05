@@ -34,7 +34,7 @@ public class RestaurantDetailsPageServlet extends HttpServlet {
 		System.out.println(r.getName());
 		
 		String addToListParam;
-		if ((addToListParam = request.getParameter("add")) != null) {
+		if ((addToListParam = request.getParameter("listType")) != null) {
 			// When "Add to List" Button is clicked
 			UserList[] userLists = (UserList[]) session.getAttribute("userLists");
 			switch (addToListParam.charAt(0)) {
