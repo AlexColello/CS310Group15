@@ -62,7 +62,9 @@
 
       				</form>
 
-
+					 <form action="/FeedMe/results" method="POST">
+        				<button id="backToResults" class="bttn">Back To Results</button>
+      				</form>
       				<form action ="/FeedMe/jsp/search.jsp">
       					<button id="backtoResults" onclick="javascript:location.href = this.value;">Return to Search</button>
       				</form>
