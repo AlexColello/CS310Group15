@@ -11,9 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import data.Restaurant;
-
-public class AccessYelpAPI {
+public class accessYelpAPI {
 	
 	static String API_KEY = "w3PGnJQ06Zd1DcF_c-hrn_ZBL4mt-qQ6t3R4ytCJF5bbYJB2ORyniUL4XKZIRPDw2N9d5poklzraRrvC75Sw4LOPuxMPumVmqKFKxnqHmUxIunkHy3l-M-3wVz57XHYx";
 	static String CLIENT_ID = "YourA2mR9_8h-uctIT2HFg";
@@ -23,6 +21,8 @@ public class AccessYelpAPI {
 			+ "&latitude=34.020807&longitude=-118.284668" // Coordinates of Tommy Trojan
 			+ "&sort_by=distance"; // Sort by distance
 	
+	static double ttLat = 34.020807;	//Latitude & Longitude of tommy trojan
+	static double ttLong = -118.284668;
 		
 //	public static void main (String args[]) {
 //		////////////////////////////////////////////
@@ -31,21 +31,21 @@ public class AccessYelpAPI {
 //		
 //		String searchTerm = "tofu";
 //		
-//		ArrayList<Restaurant> output = YelpRestaurantSearch(searchTerm);
+//		Vector<Restaurant> output = YelpRestaurantSearch(searchTerm, 20);
 //		
 //		for(int i = 0; i < output.size(); i++) {
 //			Restaurant tempObj = output.get(i);
 //			String name = tempObj.getName();
 //			String url = tempObj.getwebsiteUrl();
-//			String price = tempObj.getPrice();
+//			int price = tempObj.getPrice();
 //			String address = tempObj.getAddress();
 //			String phone = tempObj.getPhoneNumber();
-//			String rating = tempObj.getRating();
-//			String drivingTime = tempObj.getDrivingTime();
+//			double rating = tempObj.getRating();
+//			int drivingTime = tempObj.getDrivingTime();
 //			
 //			System.out.println("	restaurant " + i);
 //			System.out.println("	name: " + name);
-//			System.out.println("	url: " + url);	
+//			System.out.println("	url: " + url);
 //			System.out.println("	price: " + price);
 //			System.out.println("	address: " + address);
 //			System.out.println("	phone: " + phone);
@@ -57,11 +57,9 @@ public class AccessYelpAPI {
 //	}
 
 	
-	/*
-	 * Returns a list of n restaurants sorted by distance from Tommy Trojan 
-	 */
+	
 	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount) {
-				
+		
 		GET_URL = GET_URL.replace("_____", searchTerm);
 		
 									//System.out.println("YELP GET URL: " + GET_URL);
@@ -71,6 +69,7 @@ public class AccessYelpAPI {
 		String name = "NULL";
 		String websiteUrl = "NULL";
 		int price = -1;
+		String price_string = "NULL";
 		String phoneNumber = "NULL";
 		double rating = -1;
 		int drivingTime = -1;
@@ -79,6 +78,9 @@ public class AccessYelpAPI {
 		String address2 = "NULL";
 		String address3 = "NULL";
 		String address4 = "NULL";
+		
+		double restLat = -1;
+		double restLong = -1;
 		
 		int resultsLeft = resultCount;
 		int limit;
@@ -120,8 +122,9 @@ public class AccessYelpAPI {
 			    	}
 			    	
 			    	if(jsonobj_1.get("price") != null) {
-			    		price = jsonobj_1.get("price").getAsString().length();
-			    		// price = price.replace("\"", "");
+			    		price_string = jsonobj_1.get("price").getAsString();
+			    		price_string = price_string.replace("\"", "");
+			    		price = price_string.length();		//price represents the number of dollar signs ($) returned from Yelp
 			    	}
 			    	
 			    	if(jsonobj_1.get("phone") != null && jsonobj_1.get("phone").getAsString().length() > 0) {
@@ -163,7 +166,18 @@ public class AccessYelpAPI {
 			    	
 			    	String fullAddress = address1 + ", " + address2 + ", " + address3 + ", " + address4;
 			    	fullAddress = fullAddress.replace("\"", "");
-			 		    	
+			    	
+			    	
+			    	if(jsonobj_1.get("coordinates") != null) {
+			    		JsonObject jsonobj_3 = (JsonObject) jsonobj_1.get("coordinates");
+			    		restLat = jsonobj_3.get("latitude").getAsDouble();
+			    		restLong = jsonobj_3.get("longitude").getAsDouble();
+			    	}
+			    	
+			    	GoogleDirections gd = new GoogleDirections();
+			    	drivingTime = gd.getDrivingTime(ttLat, ttLong, restLat, restLong);
+			    	drivingTime = drivingTime/60;
+	
 			    	Restaurant restaurantObj = new Restaurant(name, websiteUrl, price, fullAddress, phoneNumber, rating, drivingTime);
 			    	resultsAL.add(restaurantObj);
 			    }
@@ -175,6 +189,11 @@ public class AccessYelpAPI {
 		return resultsAL;		//returns ArrayList of restaurant objects
 	}
 	
+	
+	
+	
+	
+
 	//Uncomment main method and run as Java Application to test
 	/*
 	public static void main(String[] args) {
@@ -187,4 +206,8 @@ public class AccessYelpAPI {
 		}
 	}
 	*/
+	
+	
+	
+
 }
