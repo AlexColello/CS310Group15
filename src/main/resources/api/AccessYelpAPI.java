@@ -20,11 +20,6 @@ public class AccessYelpAPI {
 	static String API_KEY = "w3PGnJQ06Zd1DcF_c-hrn_ZBL4mt-qQ6t3R4ytCJF5bbYJB2ORyniUL4XKZIRPDw2N9d5poklzraRrvC75Sw4LOPuxMPumVmqKFKxnqHmUxIunkHy3l-M-3wVz57XHYx";
 	static String CLIENT_ID = "YourA2mR9_8h-uctIT2HFg";
 	
-	static String GET_URL = "https://api.yelp.com/v3/businesses/search?"
-			+ "term=_____" // Search Term
-			+ "&latitude=34.020807&longitude=-118.284668" // Coordinates of Tommy Trojan
-			+ "&sort_by=distance"; // Sort by distance
-	
 	static double ttLat = 34.020807;	//Latitude & Longitude of tommy trojan
 	static double ttLong = -118.284668;
 		
@@ -70,6 +65,10 @@ public class AccessYelpAPI {
 			e.printStackTrace();
 		}
 		
+		String GET_URL = "https://api.yelp.com/v3/businesses/search?"
+				+ "term=_____" // Search Term
+				+ "&latitude=34.020807&longitude=-118.284668" // Coordinates of Tommy Trojan
+				+ "&sort_by=distance"; // Sort by distance
 		GET_URL = GET_URL.replace("_____", searchTerm);
 		
 									
@@ -118,7 +117,13 @@ public class AccessYelpAPI {
 			    JsonArray jsonArr = (JsonArray) jsonObj.get("businesses");
 		
 			    for(int i = 0; i < limit; i++) {		//change i to get desired # of search terms
-			    	JsonObject jsonobj_1 = (JsonObject)jsonArr.get(i);
+			    	JsonObject jsonobj_1 = null;
+			    	try {
+			    		jsonobj_1 = (JsonObject)jsonArr.get(i);
+			    	} catch (IndexOutOfBoundsException e) {
+			    		System.out.println("Could not get " + resultCount + " results from the Yelp API for query\n" + GET_URL);	
+			    		break;
+			    	}
 			    	
 			    	if(jsonobj_1.get("name") != null) {
 			    		name = jsonobj_1.get("name").toString();
