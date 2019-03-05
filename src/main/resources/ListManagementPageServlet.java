@@ -34,6 +34,10 @@ public class ListManagementPageServlet extends HttpServlet {
 		case 't':
 			request.setAttribute("listVal", userLists[2]);
 			break;
+		case 'n':
+			RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/listManagement.jsp");
+			dispatch.forward(request,  response);	
+			break;
 		}
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/listManagement.jsp");

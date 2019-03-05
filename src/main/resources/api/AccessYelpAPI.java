@@ -20,11 +20,6 @@ public class AccessYelpAPI {
 	static String API_KEY = "w3PGnJQ06Zd1DcF_c-hrn_ZBL4mt-qQ6t3R4ytCJF5bbYJB2ORyniUL4XKZIRPDw2N9d5poklzraRrvC75Sw4LOPuxMPumVmqKFKxnqHmUxIunkHy3l-M-3wVz57XHYx";
 	static String CLIENT_ID = "YourA2mR9_8h-uctIT2HFg";
 	
-	static String GET_URL = "https://api.yelp.com/v3/businesses/search?"
-			+ "term=_____" // Search Term
-			+ "&latitude=34.020807&longitude=-118.284668" // Coordinates of Tommy Trojan
-			+ "&sort_by=distance"; // Sort by distance
-	
 	static double ttLat = 34.020807;	//Latitude & Longitude of tommy trojan
 	static double ttLong = -118.284668;
 		
@@ -63,6 +58,11 @@ public class AccessYelpAPI {
 	
 	
 	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount) {
+		
+		String GET_URL = "https://api.yelp.com/v3/businesses/search?"
+				+ "term=_____" // Search Term
+				+ "&latitude=34.020807&longitude=-118.284668" // Coordinates of Tommy Trojan
+				+ "&sort_by=distance"; // Sort by distance
 		
 		try {
 			searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
