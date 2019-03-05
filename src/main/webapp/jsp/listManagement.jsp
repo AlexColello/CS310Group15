@@ -29,7 +29,7 @@
     <div id="main">
       <!-- Holds the list name, and items -->
       <div id="listDetails">
-        <h1 id="listName">L List</h1>
+        <h1 id="listTitle">L List</h1>
         <ul id="listItems">
           <% for(int i = 0, j = 0; i < 10 && j < 10; ++i, ++j){ %>
           <li class="item">
@@ -50,9 +50,9 @@
       </div>
     </div>
     <div id="buttons">
-		 			<form name="list" onsubmit="manageList(this);">
+		 			<form name="list" onsubmit="return manageList(this);">
       					<select id="listName" name="listName">
-      					<option value ="n"> -- select an option -- </option>
+      					<option disabled selected value> -- select an option -- </option>
        				    <option value ="f" >Favorites</option>
         				<option value ="t">To Explore</option>
         				<option value ="d">Do Not Show</option>
@@ -73,10 +73,10 @@
     <script>
 
 function manageList(form){
-	var userInput = document.getElementById('listName');
+	var userInput = document.getElementById('listName').value;
 	console.log(userInput);
 	if (userInput == null || userInput.length == 0){
-		
+		return false;	
 	}
 	else{
 		

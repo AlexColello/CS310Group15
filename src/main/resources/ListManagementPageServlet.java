@@ -36,20 +36,18 @@ public class ListManagementPageServlet extends HttpServlet {
 			}
 		}
 		// Pass list to display to jsp
-		switch (listType.charAt(0)) {
-		case 'f':
-			request.setAttribute("listVal", userLists[0]);
-			break;
-		case 'd':
-			request.setAttribute("listVal", userLists[1]);
-			break;
-		case 't':
-			request.setAttribute("listVal", userLists[2]);
-			break;
-		case 'n':
-			RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/listManagement.jsp");
-			dispatch.forward(request,  response);	
-			break;
+		if (listType != null) {
+			switch (listType.charAt(0)) {
+			case 'f':
+				request.setAttribute("listVal", userLists[0]);
+				break;
+			case 'd':
+				request.setAttribute("listVal", userLists[1]);
+				break;
+			case 't':
+				request.setAttribute("listVal", userLists[2]);
+				break;
+			}			
 		}
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/listManagement.jsp");
