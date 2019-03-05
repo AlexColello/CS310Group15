@@ -1,6 +1,7 @@
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
@@ -64,6 +65,7 @@ public class ResultsPageServlet extends HttpServlet {
 		// Sort restaurants according to user lists
 		// Assumes that a restaurant or a recipe cannot be inside more than one list
 		Vector<Restaurant> restaurants = AccessYelpAPI.YelpRestaurantSearch(searchTerm, resultCount + doNotShowRestaurants.size());
+		Collections.sort(restaurants);
 		Restaurant currRestaurant;
 		int insertIndex = 0;
 		for (int i = 0; i < restaurants.size(); ++i) {
@@ -84,6 +86,7 @@ public class ResultsPageServlet extends HttpServlet {
 		
 		// Sort recipes according to user lists
 		Vector<Recipe> recipes  = Scrapper.search(searchTerm, resultCount + doNotShowRecipes.size());
+		Collections.sort(recipes);
 		Recipe currRecipe;
 		insertIndex = 0;
 		for (int i = 0; i < recipes.size(); ++i) {
