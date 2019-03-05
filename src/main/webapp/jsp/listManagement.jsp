@@ -13,7 +13,15 @@
     <link href="/css/details.css" rel="stylesheet" type="text/css">
     <link href="/css/list.css" rel="stylesheet" type="text/css">
     <link href="/css/listManagement.css" rel="stylesheet" type="text/css">
-
+	<%@page import="java.util.*" %>
+	<%@page import="data.*"%>
+    <% 
+	UserList recipeVal = (UserList) request.getAttribute("listVal");
+    %>
+    <!-- Title -->
+    <title>Recipe Details</title>
+  </head>
+	
     <!-- Title -->
     <title>List Management</title>
   </head>

@@ -44,7 +44,12 @@
       <!-- Instructions -->
       <div id="instructionsBloc">
         <h2>Instructions</h2>
-        <ol id="instructions"><li>Instr. 1</li></ol>
+        <ul id=instructions>
+          <% ArrayList<String> ins = (ArrayList<String>) recipeVal.getInstructions();%>
+          <% for(int i = 0; i < ins.size(); i++){ %>
+          	<p>	<%=ins.get(i) %></p>
+          <% } %>
+        </ul>
       </div>
     </div>
     <!-- Holds all the buttons -->
@@ -52,7 +57,9 @@
       <!-- Brings user to a printable version of the page -->
       <button id="printButton">Printable Version</button>
       <!-- Brings user back to results page -->
-      <button id="backtoResults">Back To Results</button>
+       <form action="/FeedMe/results" method="POST">
+        <button id="backToResults" class="bttn">Back To Results</button>
+      </form>
       <!-- This is the drop-down menu -->
       <select id="dropDownBar">
         <option disabled selected value> -- select an option -- </option>

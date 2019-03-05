@@ -131,7 +131,7 @@
         					restaurantPrice = "$$$";
         				}
         			%>
-          			<svg class="bd-placeholder-img" width="100" height="280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: $$$"><title>$$</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em"><%=restaurantPrice %> </text></svg>
+          			<svg class="bd-placeholder-img" width="100" height="280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: $$$"><title>$$</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="20%" y="50%" fill="#eceeef" dy=".3em">Price:<%=restaurantPrice %> </text></svg>
         			</div>
       				</div>
           		<% } %>
@@ -181,7 +181,7 @@
           			<a href="/FeedMe/recipeDetails?arrNum=<%=i%>" class="stretched-link"></a>
         			</div>
         			<div class="col-auto d-none d-lg-block">
-          			<svg class="bd-placeholder-img" width="100" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: $$$"><title>$$</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="30%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
+          			<svg class="bd-placeholder-img" width="100" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: $$$"><title>$$</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="20%" y="50%" fill="#eceeef" dy=".3em">No Price</text></svg>
         			</div>
       				</div>
           		<% } %>

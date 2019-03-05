@@ -23,12 +23,16 @@ public class ListManagementPageServlet extends HttpServlet {
 		}
 		String listType = request.getParameter("listName");
 		System.out.println(listType);
+		
 		switch (listType.charAt(0)) {
 		case 'f':
+			request.setAttribute("listVal", userLists[0]);
 			break;
 		case 'd':
+			request.setAttribute("listVal", userLists[1]);
 			break;
 		case 't':
+			request.setAttribute("listVal", userLists[2]);
 			break;
 		}
 		
