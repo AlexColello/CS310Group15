@@ -43,6 +43,8 @@
       <form action="/FeedMe/RestaurantDetailsPagePrintableVersion?arrNum=<%=arrNum%>" method="POST">
       <button id="printButton">Printable Version</button>
       <!-- Brings user back to results page -->
+      
+      </form>
             <!-- Brings user back to results page -->
       <form action="/FeedMe/results" method="POST">
         <button id="backToResults" class="bttn">Back To Results</button>
