@@ -30,7 +30,7 @@
        <h1 id="restaurantName"><%= restaurantVal.getName() %></h1>
        <!-- Holds image, prep and cook time of recipe-->
        <div id="details">
-         <a id="address" href="<%= restaurantVal.getWebsiteUrl() %>"><strong>Address:</strong> <%= restaurantVal.getAddress() %></a>
+         <a id="address" href="<%= "http://maps.google.com/maps?q=" + restaurantVal.getAddress()%>"><strong>Address:</strong> <%= restaurantVal.getAddress() %></a>
          <p id="phoneNumber"><strong>Phone Number:</strong><%= restaurantVal.getPhoneNumber() %></p>
          <a id="website" href="<%= restaurantVal.getWebsiteUrl() %>"><strong>Website Address: </strong><%= restaurantVal.getWebsiteUrl() %></a>
        </div>
