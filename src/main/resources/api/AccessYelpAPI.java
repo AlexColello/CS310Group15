@@ -57,17 +57,16 @@ public class AccessYelpAPI {
 	
 	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount) {
 		
-		String GET_URL = "https://api.yelp.com/v3/businesses/search?"
-				+ "term=_____" // Search Term
-				+ "&latitude=34.020807&longitude=-118.284668" // Coordinates of Tommy Trojan
-				+ "&sort_by=distance"; // Sort by distance
-		
 		try {
 			searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		
+		String GET_URL = "https://api.yelp.com/v3/businesses/search?"
+				+ "term=_____" // Search Term
+				+ "&latitude=34.020807&longitude=-118.284668" // Coordinates of Tommy Trojan
+				+ "&sort_by=distance"; // Sort by distance
 		GET_URL = GET_URL.replace("_____", searchTerm);
 		
 									
@@ -116,7 +115,13 @@ public class AccessYelpAPI {
 			    JsonArray jsonArr = (JsonArray) jsonObj.get("businesses");
 		
 			    for(int i = 0; i < limit; i++) {		//change i to get desired # of search terms
-			    	JsonObject jsonobj_1 = (JsonObject)jsonArr.get(i);
+			    	JsonObject jsonobj_1 = null;
+			    	try {
+			    		jsonobj_1 = (JsonObject)jsonArr.get(i);
+			    	} catch (IndexOutOfBoundsException e) {
+			    		System.out.println("Could not get " + resultCount + " results from the Yelp API for query\n" + GET_URL);	
+			    		break;
+			    	}
 			    	
 			    	if(jsonobj_1.get("name") != null) {
 			    		name = jsonobj_1.get("name").toString();

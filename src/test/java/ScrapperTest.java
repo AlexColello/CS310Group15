@@ -83,8 +83,8 @@ public class ScrapperTest {
 	
 	@Test
 	public void searchMultipleTermsTest() {
-		Vector<Recipe> recipes = Scrapper.search("chicken curry", 5);
-		assertEquals(5, recipes.size());
+		Vector<Recipe> recipes = Scrapper.search("chicken curry", 2);
+		assertEquals(2, recipes.size());
 		
 	}
 	
