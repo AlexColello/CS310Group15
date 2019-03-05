@@ -168,7 +168,18 @@
   						</div>
   						<div class="row">
     						<div class="col-sm">
-      							<strong>Cook Time:</strong> <br> <p><%=recipeArr[i].getCookTime() %></p>
+    							<%
+    								double cookTime = recipeArr[i].getCookTime();
+    								String renderCookTime = "";
+    								if (cookTime < 0){
+    									renderCookTime = "Not Available";
+    								}
+    								else{
+    									renderCookTime = Double.toString(cookTime);
+    								}
+    							
+    							%>
+      							<strong>Cook Time:</strong> <br> <p><%=renderCookTime %></p>
    							</div>
 
     					<div class="col-sm">
