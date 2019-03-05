@@ -11,25 +11,32 @@ import javax.servlet.http.HttpSession;
 
 import data.Recipe;
 import data.Restaurant;
+import data.UserList;
 
 @WebServlet("/recipeDetails")
 public class RecipeDetailsPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String addToListParam;
-		if ((addToListParam = request.getParameter("add")) != null) {
-			HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
+		// if Recipe results are not stored in session (meaning session has expired), 
+		//  send the user back to the search page
+		Recipe[] recipeResults = (Recipe[]) session.getAttribute("recipeResults");
+		if (recipeResults == null) {
 			// if recipe results are not stored in session (meaning session has expired), 
 			//  send the user back to the search page
-			Recipe[] recipeResults = (Recipe[]) session.getAttribute("recipeResults");
-			if (recipeResults == null) {
-				RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/search.jsp");
-				dispatch.forward(request,  response);
-				return;
-			}
-			// TODO: How to know which recipe to add to a list
-			/*
+			RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/search.jsp");
+			dispatch.forward(request,  response);
+			return;
+		}
+		int arrNum = Integer.parseInt(request.getParameter("arrNum"));
+		Recipe r = recipeResults[arrNum];
+		System.out.println("Yes");
+		System.out.println(r.getName());
+		
+		String addToListParam;
+		if ((addToListParam = request.getParameter("add")) != null) {
+			// When "Add to List" Button is clicked
 			UserList[] userLists = (UserList[]) session.getAttribute("userLists");
 			switch (addToListParam.charAt(0)) {
 			case 'f':
@@ -42,20 +49,11 @@ public class RecipeDetailsPageServlet extends HttpServlet {
 				userLists[2].add(r);
 				break;
 			}
-			return;
-			*/
+			session.setAttribute("userLists", userLists);
 		}
-		else {
-			HttpSession session = request.getSession();
-			// if restaurant results are not stored in session (meaning session has expired), 
-			//  send the user back to the search page
-			Recipe[] recipeResults = (Recipe[]) session.getAttribute("recipeResults");
-			int arrNum = Integer.parseInt(request.getParameter("arrNum"));
-			
-			request.setAttribute("recipeVal", recipeResults[arrNum]);
-		}
-		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/recipeDetails.jsp");
-		dispatch.forward(request,  response);			
-	}
+		request.setAttribute("recipeVal", recipeResults[arrNum]);
 
+		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/recipeDetails.jsp");
+		dispatch.forward(request,  response);				
+	}
 }
