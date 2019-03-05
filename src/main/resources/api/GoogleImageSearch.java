@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Scanner;
+import java.util.Vector;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -24,7 +25,7 @@ public class GoogleImageSearch {
 
 	
 	// Returns an array of image urls using the search term
-	public static String[] GetImagesFromGoogle(String searchTerm) {
+	public static Vector<String> GetImagesFromGoogle(String searchTerm) {
 		
 		try {
 			searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
@@ -50,9 +51,14 @@ public class GoogleImageSearch {
 		JsonArray items = rootObj.getAsJsonArray("items");
 		
 		// Maximum value of count is 10 (API default)
-		String[] imageVec = new String[10];
+		Vector<String> imageVec = new Vector<String>();
 		for (int i = 0; i < count; ++i) {
-			imageVec[i] = items.get(i).getAsJsonObject().getAsJsonPrimitive("link").getAsString();
+			try {
+				imageVec.add(items.get(i).getAsJsonObject().getAsJsonPrimitive("link").getAsString());
+			} catch (NullPointerException e) {
+				System.out.println("Could not find enough images for in query\n" + query);
+				break;
+			}
 		}
 		return imageVec;
 	}
