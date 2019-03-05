@@ -11,7 +11,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class accessYelpAPI {
+import data.Restaurant;
+
+public class AccessYelpAPI {
 	
 	static String API_KEY = "w3PGnJQ06Zd1DcF_c-hrn_ZBL4mt-qQ6t3R4ytCJF5bbYJB2ORyniUL4XKZIRPDw2N9d5poklzraRrvC75Sw4LOPuxMPumVmqKFKxnqHmUxIunkHy3l-M-3wVz57XHYx";
 	static String CLIENT_ID = "YourA2mR9_8h-uctIT2HFg";
