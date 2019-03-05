@@ -88,7 +88,7 @@ public class AccessYelpAPI {
 		double restLong = -1;
 		
 		int resultsLeft = resultCount;
-		int limit;
+		int limit, offset = 0;
 		while (resultsLeft > 0) {
 			if (resultsLeft >= 50) {
 				limit = 50;
@@ -99,7 +99,8 @@ public class AccessYelpAPI {
 				resultsLeft = 0;
 			}
 			try {
-				URL url = new URL(GET_URL + "&limit=" + limit);
+				URL url = new URL(GET_URL + "&limit=" + limit + "&offset=" + offset);
+				offset += limit;
 				HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 				httpCon.setRequestMethod("GET");
 				httpCon.setRequestProperty("Content-Type", "application/json");
