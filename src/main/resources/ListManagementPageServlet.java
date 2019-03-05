@@ -40,12 +40,15 @@ public class ListManagementPageServlet extends HttpServlet {
 			switch (listType.charAt(0)) {
 			case 'f':
 				request.setAttribute("listVal", userLists[0]);
+				request.setAttribute("listName", "Favorites");
 				break;
 			case 'd':
 				request.setAttribute("listVal", userLists[1]);
+				request.setAttribute("listName", "Do not Show");
 				break;
 			case 't':
 				request.setAttribute("listVal", userLists[2]);
+				request.setAttribute("listName", "To Explore");
 				break;
 			}			
 		}

@@ -9,14 +9,12 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Homebrew CSS FeedMe/css/buttons.css ${pageContext.request.contextPath}/css/Login.css" -->
-    <link href="/css/buttons.css" rel="stylesheet" type="text/css">
-    <link href="/css/details.css" rel="stylesheet" type="text/css">
-    <link href="/css/list.css" rel="stylesheet" type="text/css">
-    <link href="/css/listManagement.css" rel="stylesheet" type="text/css">
+    
 	<%@page import="java.util.*" %>
 	<%@page import="data.*"%>
     <% 
 	UserList recipeVal = (UserList) request.getAttribute("listVal");
+    String listName = (String) request.getAttribute("listName");
     %>
     <!-- Title -->
     <title>Recipe Details</title>
@@ -26,30 +24,68 @@
     <title>List Management</title>
   </head>
   <body>
-    <div id="main">
-      <!-- Holds the list name, and items -->
-      <div id="listDetails">
-        <h1 id="listTitle">L List</h1>
+  
+  <div class="container">
+		<!-- Row for collage and buttons -->
+		<div class="row mb-2">
+			 <div class="col-md-6">
+        <h1 id="listTitle"><%= listName %> List</h1>
         <ul id="listItems">
-          <% for(int i = 0, j = 0; i < 10 && j < 10; ++i, ++j){ %>
-          <li class="item">
-            <div class="container">
-              <div class="itemLeft">
-                <div class="p1"><p>Name</p></div>
-                <div class="p1"><p>$$</p></div>
-                <div class="p1"><p>Minutes</p></div>
-                <div class="p1"><p>Address</p></div>
-              </div>
-              <div class="itemRight">
-                <div class="p2"><p>Price</p></div>
-              </div>
-            </div>
-          </li>
-          <% } %>
-        </ul>
-      </div>
-    </div>
-    <div id="buttons">
+          
+          		<%
+
+          		for(int i = 0; i < 5; i++){
+          		%>
+         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        			<div class="col p-4 d-flex flex-column position-static">
+          			<div class="container">
+  						<div class="row">
+    						<div class="col-sm">
+
+      							<strong>Name:</strong> <br><p>name </p>
+   							</div>
+
+    					<div class="col-sm">
+     	 						<strong>Stars:</strong> <br> <p> stars</p>
+    					</div>
+  						</div>
+  						<div class="row">
+    						<div class="col-sm">
+
+   							</div>
+
+    					<div class="col-sm">
+
+    					</div>
+  						</div>
+  						<div class="row">
+    						<div class="col-sm">
+      							<strong>Minutes:</strong> <br> <p>minutes </p>
+   							</div>
+
+    					<div class="col-sm">
+     	 						<strong>Address: </strong><br> <p>address</p>
+    					</div>
+  						</div>
+					</div>
+
+
+					
+          			<a href="/FeedMe/restaurantDetails?arrNum=<%=i%>" class="stretched-link"></a>
+        			</div>
+        			<div class="col-auto d-none d-lg-block">
+        		
+        		
+          			<svg class="bd-placeholder-img" width="100" height="280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: $$$"><title>$$</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="20%" y="50%" fill="#eceeef" dy=".3em">Price </text></svg>
+        			</div>
+      				</div>
+          		<% } %>
+       		 </ul>
+
+    	</div>
+
+			<div class="col-md-4 order-md-2 mb-4">
+				 <div id="buttons">
 		 			<form name="list" onsubmit="return manageList(this);">
       					<select id="listName" name="listName">
       					<option disabled selected value> -- select an option -- </option>
@@ -70,6 +106,8 @@
       				</form>
 
 		 		</div>
+		 		
+		 	</div>
 
     <!-- Homebrew JS -->
     <script>
@@ -91,8 +129,6 @@ function manageList(form){
   </body>
   <style>
     <%@ include file="/css/buttons.css"%>
-    <%@ include file="/css/list.css"%>
-    <%@ include file="/css/listManagement.css"%>
-    <%@ include file="/css/details.css"%>
+
   </style>
 </html>
