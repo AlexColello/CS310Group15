@@ -23,7 +23,7 @@ public class GoogleDirections {
 		urlString += "&destinations=" + Double.toString(endLatitude) + "," + Double.toString(endLongitude);
 		urlString += "&key=" + apiKey;
 		
-		System.out.println("Distance Request URL: " + urlString);
+		//System.out.println("Distance Request URL: " + urlString);
 		
 		URL url;
 		HttpURLConnection httpCon;

@@ -3,8 +3,10 @@ package api;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Vector;
 
 import com.google.gson.JsonArray;
@@ -62,9 +64,14 @@ public class AccessYelpAPI {
 	
 	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount) {
 		
+		try {
+			searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
 		GET_URL = GET_URL.replace("_____", searchTerm);
 		
-									//System.out.println("YELP GET URL: " + GET_URL);
 									
 		Vector<Restaurant> resultsAL = new Vector<Restaurant>();
 		
