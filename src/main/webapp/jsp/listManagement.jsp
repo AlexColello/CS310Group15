@@ -16,7 +16,7 @@
 	<%@page import="java.util.*" %>
 	<%@page import="data.*"%>
     <% 
-	UserList recipeVal = (UserList) request.getAttribute("listVal");
+    	UserList recipeVal = (UserList) request.getAttribute("listVal");
     %>
     <!-- Title -->
     <title>Recipe Details</title>
