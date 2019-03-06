@@ -30,8 +30,7 @@ public class RestaurantDetailsPageServlet extends HttpServlet {
 		}
 		int arrNum = Integer.parseInt(request.getParameter("arrNum"));
 		Restaurant r = restaurantResults[arrNum];
-		System.out.println("Yes");
-		System.out.println(r.getName());
+
 		
 		String addToListParam;
 		if ((addToListParam = request.getParameter("listType")) != null) {
@@ -51,6 +50,7 @@ public class RestaurantDetailsPageServlet extends HttpServlet {
 			session.setAttribute("userLists", userLists);
 		}
 		request.setAttribute("restaurantVal", restaurantResults[arrNum]);
+		request.setAttribute("arrNum", arrNum);
 
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/restaurantDetails.jsp");
 		dispatch.forward(request,  response);			

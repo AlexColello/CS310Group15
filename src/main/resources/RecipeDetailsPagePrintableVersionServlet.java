@@ -1,4 +1,5 @@
 
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -10,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import data.Recipe;
-import data.Restaurant;
 import data.UserList;
 
-@WebServlet("/recipeDetails")
-public class RecipeDetailsPageServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+/**
+ * Servlet implementation class RecipeDetailsPagePrintableVersionServlet
+ */
+@WebServlet("/recipeDetailsPagePrintableVersion")
+public class RecipeDetailsPagePrintableVersionServlet extends HttpServlet {
+private static final long serialVersionUID = 1L;
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -52,9 +55,10 @@ public class RecipeDetailsPageServlet extends HttpServlet {
 			session.setAttribute("userLists", userLists);
 		}
 		request.setAttribute("recipeVal", recipeResults[arrNum]);
-		request.setAttribute("arrNum", arrNum);
+		
 
-		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/recipeDetails.jsp");
+		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/recipeDetailsPrintableVersion.jsp");
 		dispatch.forward(request,  response);				
 	}
+
 }
