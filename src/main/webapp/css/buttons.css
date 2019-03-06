@@ -3,7 +3,7 @@
   box-sizing: border-box;
 }
 #buttons{
-	float: right;
+	float: left;
 	width: 25%;
   height: 100%;
 }
