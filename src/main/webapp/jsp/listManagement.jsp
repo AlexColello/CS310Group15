@@ -33,6 +33,9 @@
         rest = lists.getRestaurants();
         rec = lists.getRecipes();
     }
+    request.setAttribute("restaurants", rest);
+    request.setAttribute("recipes", rec);
+    
   %>
 
     <!-- Title -->
@@ -48,9 +51,10 @@
           <% for(int i = 0, j = 0; i < rest.size() || j < rec.size(); ++i, ++j){ %>
             <% if(i < rest.size()){ %>
             <li class="item">
-             <input type="hidden" name="listID" value="<%= listID %>">
-             <input type="hidden" name="restaurantID" value="<%= i %>">
-             <div class="container" onclick="document.getElementByID(restItem<%=i%>).submit()">
+             <div class="container">
+             <form id="resForm" method="POST" action="/FeedMe/jsp/restaurantDetails.jsp" onclick="return restaurantRedirect(this)">
+             	<input type="hidden" name="restaurantVal" value="<%= rest.get(i) %>">
+             	<input type="hidden" name="arrNum" value="<%= i %>">
                 <div class="itemLeft">
                   <div class="p1"><p><%=rest.get(i).getName()%></p></div>
                   <div class="p1"><p><%=rest.get(i).getRating()%></p></div>
@@ -60,6 +64,7 @@
                 <div class="itemRight">
                   <div class="p2"><p>Price</p></div>
                 </div>
+              </form>
               </div>
               <div class="moveItem">
               	<form method="POST" action="/FeedMe/listManagement">
@@ -81,7 +86,9 @@
             <% } %>
             <% if(j < rec.size()){ %>
             <li class="item">
-             <div class="container" onclick="document.getElementByID(recItem<%=j%>).submit()">
+             <div class="container">
+             <form id="recForm" action="/FeedMe/jsp/recipeDetails.jsp" method="POST" onclick="return recipeRedirect(this)">
+		        <input type="hidden" name="arrNum" value="<%= j %>">
              	<!-- Holds the recipe highlights -->
                 <div class="itemLeft">
                   <div class="p1"><p><%=rec.get(j).getName() %></p></div>
@@ -93,6 +100,7 @@
                 <div class="itemRight">
                   <div class="p2"><p>Price</p></div>
                 </div>
+              </form>
                 <!-- Holds the task bar to removing or moving item from list -->
               <div class="moveItem">
               	<form method="POST" action="/FeedMe/listManagement">
@@ -142,10 +150,10 @@
     <!-- Homebrew JS -->
     <script>
 function restaurantRedirect(form){
-	
+	form.submit();
 }
 function recipeRedirect(form){
-	
+	form.submit();
 }
 function manageList(form){
 	var userInput = document.getElementById('listName').value;

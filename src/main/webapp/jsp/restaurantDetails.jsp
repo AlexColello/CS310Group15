@@ -15,14 +15,18 @@
 	<%@page import="data.*"%>
     <% 
 	Restaurant restaurantVal = (Restaurant) request.getAttribute("restaurantVal");
-    Integer arrNum = (Integer) request.getAttribute("arrNum");
+    int arrNum = Integer.parseInt((String) request.getParameter("arrNum"));
+	if(restaurantVal == null){
+		ArrayList<Restaurant> rest = (ArrayList<Restaurant>) request.getSession().getAttribute("restaurants");
+		System.out.println(rest.size());
+		restaurantVal = rest.get(arrNum);
+	}
     %>
     
     
     <!-- Title -->
     <title>Restaurant Details</title>
   </head>
-
 
   <body>
     <!-- Main Div -->

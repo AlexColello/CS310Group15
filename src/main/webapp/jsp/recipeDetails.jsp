@@ -13,7 +13,11 @@
 	<%@page import="data.*"%>
     <% 
 	Recipe recipeVal = (Recipe) request.getAttribute("recipeVal");
-    Integer arrNum = (Integer) request.getAttribute("arrNum");
+    int arrNum = Integer.parseInt((String) request.getParameter("arrNum"));
+	if(recipeVal == null){
+		ArrayList<Recipe> rest = (ArrayList<Recipe>) request.getSession().getAttribute("recipes");
+		recipeVal = rest.get(arrNum);
+	}
     %>
     <!-- Title -->
     <title>Recipe Details</title>

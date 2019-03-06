@@ -110,16 +110,25 @@ public class ListManagementPageServlet extends HttpServlet {
 			case 'f':
 				request.setAttribute("listVal", userLists[0]);
 				request.setAttribute("listName", "Favorites");
+				session.setAttribute("restaurants", userLists[0].getRestaurants());
+				session.setAttribute("recipes", userLists[0].getRecipes());
+				
 				System.out.println("favorites");
 				break;
 			case 'd':
 				request.setAttribute("listVal", userLists[1]);
 				request.setAttribute("listName", "Don't Show");
+				session.setAttribute("restaurants", userLists[1].getRestaurants());
+				session.setAttribute("recipes", userLists[1].getRecipes());
+				
 				System.out.println("Do Not Show");
 				break;
 			case 't':
 				request.setAttribute("listVal", userLists[2]);
 				request.setAttribute("listName", "To Explore");
+				session.setAttribute("restaurants", userLists[2].getRestaurants());
+				session.setAttribute("recipes", userLists[2].getRecipes());
+				
 				System.out.println("To Explore");
 				break;
 			}			
