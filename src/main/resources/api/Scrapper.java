@@ -15,13 +15,9 @@ import data.Recipe;
 public class Scrapper {
 
 	// Returns a vector of recipes of size n that satisfy the search.
-	public static Vector<Recipe> search(String searchTerm, int n){
-		
-		try {
-			searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+	public static Vector<Recipe> search(String searchTerm, int n) throws UnsupportedEncodingException{
+	
+		searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
 		
 		Vector<Recipe> recipes = new Vector<Recipe>();
 		ArrayList<String> urls = new ArrayList<String>();

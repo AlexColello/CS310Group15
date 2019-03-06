@@ -1,6 +1,7 @@
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
 import org.junit.Test;
@@ -62,7 +63,7 @@ public class ScrapperTest {
 	
 	
 	@Test
-	public void searchTest() {
+	public void searchTest() throws UnsupportedEncodingException {
 		Vector<Recipe> recipes = Scrapper.search("chicken", 5);
 		assertEquals(5, recipes.size());
 		
@@ -72,7 +73,7 @@ public class ScrapperTest {
 	}
 	
 	@Test
-	public void searchBadRequestTest() {
+	public void searchBadRequestTest() throws UnsupportedEncodingException {
 		Vector<Recipe> recipes = Scrapper.search("qwertyuiop", 25);
 		assertEquals(0, recipes.size());
 		
@@ -82,7 +83,7 @@ public class ScrapperTest {
 	}
 	
 	@Test
-	public void searchMultipleTermsTest() {
+	public void searchMultipleTermsTest() throws UnsupportedEncodingException {
 		Vector<Recipe> recipes = Scrapper.search("chicken curry", 2);
 		assertEquals(2, recipes.size());
 		
