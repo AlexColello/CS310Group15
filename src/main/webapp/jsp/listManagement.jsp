@@ -48,7 +48,6 @@
           <% for(int i = 0, j = 0; i < rest.size() || j < rec.size(); ++i, ++j){ %>
             <% if(i < rest.size()){ %>
             <li class="item">
-             <form id="restItem<%=i%>" method="post" onsubmit="return restaurantRedirect(this)">
              <input type="hidden" name="listID" value="<%= listID %>">
              <input type="hidden" name="restaurantID" value="<%= i %>">
              <div class="container" onclick="document.getElementByID(restItem<%=i%>).submit()">
@@ -62,26 +61,56 @@
                   <div class="p2"><p>Price</p></div>
                 </div>
               </div>
-              </form>
+              <div class="moveItem">
+              	<form method="POST" action="/FeedMe/listManagement">
+              		<input type="hidden" name="listName" value="<%=listName.toLowerCase().charAt(0)%>">
+                	<input type="hidden" name="fromList" value="<%=listName.toLowerCase().charAt(0)%>">
+                	<input type="hidden" name="recOrRest" value="rest">
+                	<input type="hidden" name="arrNum" value="<%=i%>">
+                	<% request.setAttribute("item", rest.get(i)); %>
+                	<select name="opType">
+                		<option value="f">Favorites</option>
+                		<option value="t">To Explore</option>
+                		<option value="d">Do Not Show</option>
+                		<option value="r">Trash</option>
+                	</select>
+                	<button type="submit">Move</button>
+                </form>
+               </div>
             </li>
             <% } %>
             <% if(j < rec.size()){ %>
             <li class="item">
-             <form id="recItem<%=j%>" method="post" onsubmit="return recipeRedirect(this)">
-             <input type="hidden" name="listID" value="<%= listID %>">
-             <input type="hidden" name="recipeID" value="<%= j %>">
              <div class="container" onclick="document.getElementByID(recItem<%=j%>).submit()">
+             	<!-- Holds the recipe highlights -->
                 <div class="itemLeft">
                   <div class="p1"><p><%=rec.get(j).getName() %></p></div>
                   <div class="p1"><p><%=rec.get(j).getRating() %></p></div>
                   <div class="p1"><p><%=rec.get(j).getPrepTime() %></p></div>
                   <div class="p1"><p><%=rec.get(j).getCookTime() %></p></div>
                 </div>
+                <!-- Holds the recipe price -->
                 <div class="itemRight">
                   <div class="p2"><p>Price</p></div>
                 </div>
-              </div>
-              </form>
+                <!-- Holds the task bar to removing or moving item from list -->
+              <div class="moveItem">
+              	<form method="POST" action="/FeedMe/listManagement">
+              		<input type="hidden" name="listName" value="<%=listName.toLowerCase().charAt(0)%>">
+                	<input type="hidden" name="fromList" value="<%=listName.toLowerCase().charAt(0)%>">
+                	<input type="hidden" name="recOrRest" value="rec">
+                	<input type="hidden" name="arrNum" value="<%=j%>">
+                	<% request.setAttribute("item", rec.get(j)); %>
+                	<select name="opType">
+                		<option value="f">Favorites</option>
+                		<option value="t">To Explore</option>
+                		<option value="d">Do Not Show</option>
+                		<option value="r">Trash</option>
+                	</select>
+                	<button type="submit">Move</button>
+                </form>
+               </div>
+              </div>              
             </li>
             <% } %>
           <% }} %>
@@ -90,7 +119,7 @@
     </div>
     <div id="buttons">
 		<form name="list" onsubmit="return manageList(this);">
-      	<select id="listName" name="listName">
+      	<select id="listname" name="listName">
       	<option disabled selected value> -- select an option -- </option>
        	<option value ="f" >Favorites</option>
         <option value ="t">To Explore</option>
