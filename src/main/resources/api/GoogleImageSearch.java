@@ -24,13 +24,10 @@ public class GoogleImageSearch {
 	static final String SEARCH_ENGINE_ID = "012879953607576427254:2cidu_it4hw";
 	
 	// Returns an array of image urls using the search term
-	public static Vector<String> GetImagesFromGoogle(String searchTerm) {
+	public static Vector<String> GetImagesFromGoogle(String searchTerm) throws UnsupportedEncodingException {
 		
-		try {
-			searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		
+		searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
 		
 		String query = "https://www.googleapis.com/customsearch/v1?searchType=image&imgType=photo&key=" + API_KEY
 				+ "&cx=" + SEARCH_ENGINE_ID + "&q=" + searchTerm;

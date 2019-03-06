@@ -7,7 +7,7 @@ import api.GoogleDirections;
 public class GoogleDirectionsTest {
 
 	@Test
-	public void test() {
+	public void testBasicFunctionality() {
 		
 		int timeDuration = GoogleDirections.getDrivingTime(34.0206, -118.2854, 34.0252, -118.2788);
 		System.out.println(timeDuration);
@@ -19,7 +19,7 @@ public class GoogleDirectionsTest {
 		
 		int timeDuration = GoogleDirections.getDrivingTime(34000.0206, -118.2854, 34.0252, -118.2788);
 		System.out.println(timeDuration);
-		assertTrue(timeDuration < 0);
+		assertEquals(-1, timeDuration);
 	}
 
 }

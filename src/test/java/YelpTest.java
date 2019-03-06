@@ -1,5 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
 import org.junit.Test;
@@ -10,7 +11,7 @@ import data.Restaurant;
 public class YelpTest {
 
 	@Test
-	public void testBasicFunctionality() {
+	public void testBasicFunctionality() throws UnsupportedEncodingException {
 		int count = 20;
 		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("mexican", count);
 		assertEquals(count, arr.size());
@@ -23,7 +24,7 @@ public class YelpTest {
 	}
 
 	@Test
-	public void testMultipleWordInput() {
+	public void testMultipleWordInput() throws UnsupportedEncodingException {
 		int count = 20;
 		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("mexican chicken", count);
 		assertEquals(count, arr.size());
@@ -36,7 +37,7 @@ public class YelpTest {
 	}
 	
 	@Test
-	public void testBadInput() {
+	public void testBadInput() throws UnsupportedEncodingException {
 		int count = 20;
 		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("qwertyuioiuytrewwdc", count);
 		assertEquals(0, arr.size());

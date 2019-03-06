@@ -54,13 +54,11 @@ public class AccessYelpAPI {
 //		}
 //	}
 	
-	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount) {
+	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount) throws UnsupportedEncodingException {
 		
-		try {
-			searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		
+		searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
+	
 		
 		String GET_URL = "https://api.yelp.com/v3/businesses/search?"
 				+ "term=_____" // Search Term
