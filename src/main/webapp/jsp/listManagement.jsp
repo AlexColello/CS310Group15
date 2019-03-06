@@ -15,30 +15,17 @@
     <link href="/css/listManagement.css" rel="stylesheet" type="text/css">
 	<%@page import="java.util.*" %>
 	<%@page import="data.*"%>
-    <% 
-	UserList recipeVal = (UserList) request.getAttribute("listVal");
-    %>
-    <!-- Title -->
-    <title>Recipe Details</title>
-  </head>
-	
   <% 
     String listName = "";
-    Object listID = request.getAttribute("listID");
+    String listID = (String) request.getAttribute("listName");
+    
     if(listID == null){
     	listName = "error";
     }
     else{
-    	if(listID.toString().charAt(0) == 'f'){
-    		listName = "Favorites";
-    	}else if(listID.toString().charAt(0) == 'd'){
-    		listName = "Do Not Show";
-    	}else if(listID.toString().charAt(0) == 't'){
-    		listName = "To Explore";
-    	}else{
-    		listName = "Error";
-    	}
+    	listName = listID;
     }
+
     UserList lists = (UserList) request.getAttribute("listVal");
     ArrayList<Restaurant> rest = null;
     ArrayList<Recipe> rec = null;
@@ -55,45 +42,73 @@
     <div id="main">
       <!-- Holds the list name, and items -->
       <div id="listDetails">
-        <h1 id="listTitle">L List</h1>
+        <h1 id="listTitle"><%= listName %></h1>
         <ul id="listItems">
-          <% for(int i = 0, j = 0; i < 10 && j < 10; ++i, ++j){ %>
-          <li class="item">
-            <div class="container">
-              <div class="itemLeft">
-                <div class="p1"><p>Name</p></div>
-                <div class="p1"><p>$$</p></div>
-                <div class="p1"><p>Minutes</p></div>
-                <div class="p1"><p>Address</p></div>
+          <% if(rec != null && rest != null){ %>
+          <% for(int i = 0, j = 0; i < rest.size() || j < rec.size(); ++i, ++j){ %>
+            <% if(i < rest.size()){ %>
+            <li class="item">
+             <form id="restItem<%=i%>" method="post" onsubmit="return restaurantRedirect(this)">
+             <input type="hidden" name="listID" value="<%= listID %>">
+             <input type="hidden" name="restaurantID" value="<%= i %>">
+             <div class="container" onclick="document.getElementByID(restItem<%=i%>).submit()">
+                <div class="itemLeft">
+                  <div class="p1"><p><%=rest.get(i).getName()%></p></div>
+                  <div class="p1"><p><%=rest.get(i).getRating()%></p></div>
+                  <div class="p1"><p><%=rest.get(i).getDrivingTime()%></p></div>
+                  <div class="p1"><p><%=rest.get(i).getAddress()%></p></div>
+                </div>
+                <div class="itemRight">
+                  <div class="p2"><p>Price</p></div>
+                </div>
               </div>
-              <div class="itemRight">
-                <div class="p2"><p>Price</p></div>
+              </form>
+            </li>
+            <% } %>
+            <% if(j < rec.size()){ %>
+            <li class="item">
+             <form id="recItem<%=j%>" method="post" onsubmit="return recipeRedirect(this)">
+             <input type="hidden" name="listID" value="<%= listID %>">
+             <input type="hidden" name="recipeID" value="<%= j %>">
+             <div class="container" onclick="document.getElementByID(recItem<%=j%>).submit()">
+                <div class="itemLeft">
+                  <div class="p1"><p><%=rec.get(j).getName() %></p></div>
+                  <div class="p1"><p><%=rec.get(j).getRating() %></p></div>
+                  <div class="p1"><p><%=rec.get(j).getPrepTime() %></p></div>
+                  <div class="p1"><p><%=rec.get(j).getCookTime() %></p></div>
+                </div>
+                <div class="itemRight">
+                  <div class="p2"><p>Price</p></div>
+                </div>
               </div>
-            </div>
-          </li>
-          <% } %>
+              </form>
+            </li>
+            <% } %>
+          <% }} %>
         </ul>
       </div>
     </div>
     <div id="buttons">
-		 			<form name="list" onsubmit="return manageList(this);">
-      					<select id="listName" name="listName">
-      					<option disabled selected value> -- select an option -- </option>
-       				    <option value ="f" >Favorites</option>
-        				<option value ="t">To Explore</option>
-        				<option value ="d">Do Not Show</option>
-      					</select> <br>
-      					<!-- Button to add item to selected list, doesn't do anything if choice is empty -->
-     					<button id="addToList">Manage Lists</button> <br>
+		<form name="list" onsubmit="return manageList(this);">
+      	<select id="listName" name="listName">
+      	<option disabled selected value> -- select an option -- </option>
+       	<option value ="f" >Favorites</option>
+        <option value ="t">To Explore</option>
+        <option value ="d">Do Not Show</option>
+      	</select> <br>
+     	<!-- Button to add item to selected list, doesn't do anything if choice is empty -->
+     	<button id="addToList">Manage Lists</button> <br>
 
-      				</form>
+       </form>
 
-
-      				<form action ="/FeedMe/jsp/search.jsp">
-      					<button id="backtoResults" onclick="javascript:location.href = this.value;">Return to Search</button>
-      				</form>
-
-		 		</div>
+      <form action ="/FeedMe/jsp/search.jsp">
+      	<button id="backtoResults" onclick="javascript:location.href = this.value;">Return to Search</button>
+      </form>
+	  <form action ="/FeedMe/results">
+      	<button id="backtoResults" onclick="javascript:location.href = this.value;">Return to Results</button>
+      </form>
+	
+	</div>
 
     <!-- Homebrew JS -->
     <script>
