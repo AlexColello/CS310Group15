@@ -38,7 +38,7 @@
         <ul id=ingredients>
           <% ArrayList<String> ingredients = (ArrayList<String>) recipeVal.getIngredients();%>
           <% for(int i = 0; i < ingredients.size(); i++){ %>
-          	<p>	<%=ingredients.get(i) %>></p>
+          	<p>	<%=ingredients.get(i) %></p>
           <% } %>
         </ul>
       </div>
