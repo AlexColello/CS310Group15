@@ -22,6 +22,32 @@
     <title>Recipe Details</title>
   </head>
 	
+  <% 
+    String listName = "";
+    Object listID = request.getAttribute("listID");
+    if(listID == null){
+    	listName = "error";
+    }
+    else{
+    	if(listID.toString().charAt(0) == 'f'){
+    		listName = "Favorites";
+    	}else if(listID.toString().charAt(0) == 'd'){
+    		listName = "Do Not Show";
+    	}else if(listID.toString().charAt(0) == 't'){
+    		listName = "To Explore";
+    	}else{
+    		listName = "Error";
+    	}
+    }
+    UserList lists = (UserList) request.getAttribute("listVal");
+    ArrayList<Restaurant> rest = null;
+    ArrayList<Recipe> rec = null;
+    if(lists != null){
+        rest = lists.getRestaurants();
+        rec = lists.getRecipes();
+    }
+  %>
+
     <!-- Title -->
     <title>List Management</title>
   </head>
@@ -62,9 +88,7 @@
 
       				</form>
 
-					 <form action="/FeedMe/results" method="POST">
-        				<button id="backToResults" class="bttn">Back To Results</button>
-      				</form>
+
       				<form action ="/FeedMe/jsp/search.jsp">
       					<button id="backtoResults" onclick="javascript:location.href = this.value;">Return to Search</button>
       				</form>
@@ -73,7 +97,12 @@
 
     <!-- Homebrew JS -->
     <script>
-
+function restaurantRedirect(form){
+	
+}
+function recipeRedirect(form){
+	
+}
 function manageList(form){
 	var userInput = document.getElementById('listName').value;
 	console.log(userInput);
