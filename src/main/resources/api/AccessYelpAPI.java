@@ -65,7 +65,8 @@ public class AccessYelpAPI {
 		String GET_URL = "https://api.yelp.com/v3/businesses/search?"
 				+ "term=_____" // Search Term
 				+ "&latitude=34.020807&longitude=-118.284668" // Coordinates of Tommy Trojan
-				+ "&sort_by=distance"; // Sort by distance
+				+ "&sort_by=distance" // Sort by distance
+				+ "&categories=restaurants";
 		GET_URL = GET_URL.replace("_____", searchTerm);
 		
 									
