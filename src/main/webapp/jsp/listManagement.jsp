@@ -9,87 +9,92 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Homebrew CSS FeedMe/css/buttons.css ${pageContext.request.contextPath}/css/Login.css" -->
-    
+    <link href="/css/buttons.css" rel="stylesheet" type="text/css">
+    <link href="/css/details.css" rel="stylesheet" type="text/css">
+    <link href="/css/list.css" rel="stylesheet" type="text/css">
+    <link href="/css/listManagement.css" rel="stylesheet" type="text/css">
 	<%@page import="java.util.*" %>
 	<%@page import="data.*"%>
-    <% 
-<<<<<<< HEAD
-    	UserList recipeVal = (UserList) request.getAttribute("listVal");
-=======
-	UserList recipeVal = (UserList) request.getAttribute("listVal");
-    String listName = (String) request.getAttribute("listName");
->>>>>>> d86e38f4806d40b7df00a329d1323a8c02544bfc
-    %>
-    <!-- Title -->
-    <title>Recipe Details</title>
-  </head>
-	
+  <% 
+    String listName = "";
+    Object listID = request.getAttribute("listID");
+    if(listID == null){
+    	listName = "error";
+    }
+    else{
+    	if(listID.toString().charAt(0) == 'f'){
+    		listName = "Favorites";
+    	}else if(listID.toString().charAt(0) == 'd'){
+    		listName = "Do Not Show";
+    	}else if(listID.toString().charAt(0) == 't'){
+    		listName = "To Explore";
+    	}else{
+    		listName = "Error";
+    	}
+    }
+    UserList lists = (UserList) request.getAttribute("listVal");
+    ArrayList<Restaurant> rest = null;
+    ArrayList<Recipe> rec = null;
+    if(lists != null){
+        rest = lists.getRestaurants();
+        rec = lists.getRecipes();
+    }
+  %>
+
     <!-- Title -->
     <title>List Management</title>
   </head>
   <body>
-  
-  <div class="container">
-		<!-- Row for collage and buttons -->
-		<div class="row mb-2">
-			 <div class="col-md-6">
-        <h1 id="listTitle"><%= listName %> List</h1>
+    <div id="main">
+      <!-- Holds the list name, and items -->
+      <div id="listDetails">
+        <h1 id="listTitle"><%= listName %></h1>
         <ul id="listItems">
-          
-          		<%
-
-          		for(int i = 0; i < 5; i++){
-          		%>
-         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        			<div class="col p-4 d-flex flex-column position-static">
-          			<div class="container">
-  						<div class="row">
-    						<div class="col-sm">
-
-      							<strong>Name:</strong> <br><p>name </p>
-   							</div>
-
-    					<div class="col-sm">
-     	 						<strong>Stars:</strong> <br> <p> stars</p>
-    					</div>
-  						</div>
-  						<div class="row">
-    						<div class="col-sm">
-
-   							</div>
-
-    					<div class="col-sm">
-
-    					</div>
-  						</div>
-  						<div class="row">
-    						<div class="col-sm">
-      							<strong>Minutes:</strong> <br> <p>minutes </p>
-   							</div>
-
-    					<div class="col-sm">
-     	 						<strong>Address: </strong><br> <p>address</p>
-    					</div>
-  						</div>
-					</div>
-
-
-					
-          			<a href="/FeedMe/restaurantDetails?arrNum=<%=i%>" class="stretched-link"></a>
-        			</div>
-        			<div class="col-auto d-none d-lg-block">
-        		
-        		
-          			<svg class="bd-placeholder-img" width="100" height="280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: $$$"><title>$$</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="20%" y="50%" fill="#eceeef" dy=".3em">Price </text></svg>
-        			</div>
-      				</div>
-          		<% } %>
-       		 </ul>
-
-    	</div>
-
-			<div class="col-md-4 order-md-2 mb-4">
-				 <div id="buttons">
+          <% if(rec != null && rest != null){ %>
+          <% for(int i = 0, j = 0; i < rest.size() || j < rec.size(); ++i, ++j){ %>
+            <% if(i < rest.size()){ %>
+            <li class="item">
+             <form id="restItem<%=i%>" method="post" onsubmit="return restaurantRedirect(this)">
+             <input type="hidden" name="listID" value="<%= listID %>">
+             <input type="hidden" name="restaurantID" value="<%= i %>">
+             <div class="container" onclick="document.getElementByID(restItem<%=i%>).submit()">
+                <div class="itemLeft">
+                  <div class="p1"><p><%=rest.get(i).getName()%></p></div>
+                  <div class="p1"><p><%=rest.get(i).getRating()%></p></div>
+                  <div class="p1"><p><%=rest.get(i).getDrivingTime()%></p></div>
+                  <div class="p1"><p><%=rest.get(i).getAddress()%></p></div>
+                </div>
+                <div class="itemRight">
+                  <div class="p2"><p>Price</p></div>
+                </div>
+              </div>
+              </form>
+            </li>
+            <% } %>
+            <% if(j < rec.size()){ %>
+            <li class="item">
+             <form id="recItem<%=j%>" method="post" onsubmit="return recipeRedirect(this)">
+             <input type="hidden" name="listID" value="<%= listID %>">
+             <input type="hidden" name="recipeID" value="<%= j %>">
+             <div class="container" onclick="document.getElementByID(recItem<%=j%>).submit()">
+                <div class="itemLeft">
+                  <div class="p1"><p><%=rec.get(j).getName() %></p></div>
+                  <div class="p1"><p><%=rec.get(j).getRating() %></p></div>
+                  <div class="p1"><p><%=rec.get(j).getPrepTime() %></p></div>
+                  <div class="p1"><p><%=rec.get(j).getCookTime() %></p></div>
+                </div>
+                <div class="itemRight">
+                  <div class="p2"><p>Price</p></div>
+                </div>
+              </div>
+              </form>
+            </li>
+            <% } %>
+          <% }} %>
+        </ul>
+      </div>
+    </div>
+    <div id="buttons">
 		 			<form name="list" onsubmit="return manageList(this);">
       					<select id="listName" name="listName">
       					<option disabled selected value> -- select an option -- </option>
@@ -102,20 +107,21 @@
 
       				</form>
 
-					 <form action="/FeedMe/results" method="POST">
-        				<button id="backToResults" class="bttn">Back To Results</button>
-      				</form>
+
       				<form action ="/FeedMe/jsp/search.jsp">
       					<button id="backtoResults" onclick="javascript:location.href = this.value;">Return to Search</button>
       				</form>
 
 		 		</div>
-		 		
-		 	</div>
 
     <!-- Homebrew JS -->
     <script>
-
+function restaurantRedirect(form){
+	
+}
+function recipeRedirect(form){
+	
+}
 function manageList(form){
 	var userInput = document.getElementById('listName').value;
 	console.log(userInput);
@@ -133,6 +139,8 @@ function manageList(form){
   </body>
   <style>
     <%@ include file="/css/buttons.css"%>
-
+    <%@ include file="/css/list.css"%>
+    <%@ include file="/css/listManagement.css"%>
+    <%@ include file="/css/details.css"%>
   </style>
 </html>
