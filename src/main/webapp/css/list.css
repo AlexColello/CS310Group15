@@ -1,17 +1,35 @@
 @charset "ISO-8859-1";
+Recipe0{
+	height: 1000px;
+	background: #C0C0C0!important;
+}
+[id^="Recipe"]{
+	background: rgb(245, 245, 245);
+}
+[id^="Recipe"]:n-child(odd){
+	background: rgba(245, 245, 245);
+}
+[id^="Restaurant"]:n-child(odd){
+	background: rgb(245, 245, 245);
+}
+[id^="Restaurant"]:n-child(even){
+	background: rgba(245, 245, 245);
+}
 #listName{
 	padding-left: 6%;
 }
 .listDetails{
   float: left;
-  width: 75%;
-  
+  margin-left:-25%;
   height: 100%;
 }
 .item{
 	list-style-type: none;
 	height: 30%;
 	width: 75%;
+}
+.itemMenu{
+	top: 45%;
 }
 .container{
 	width: 100%;
@@ -22,13 +40,18 @@
 .itemLeft{
 	height: 100%;
 	float: left;
-	width: 80%;
+	width: 50%;
 	border-right: 1px solid grey;
 }
 .itemRight{
 	height: 100%;
 	float: left;
 	width: 20%;
+}
+.moveItem{
+	display:flex;
+	align-items: center;
+	vertical-align: middle;
 }
 .p1{
   float: left;

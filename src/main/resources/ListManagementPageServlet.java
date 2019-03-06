@@ -23,7 +23,7 @@ public class ListManagementPageServlet extends HttpServlet {
 			dispatch.forward(request,  response);
 		}
 		String listType = request.getParameter("listName");
-		System.out.println("ListType: " + listType.charAt(0));
+//		System.out.println("ListType: " + listType.charAt(0));
 		
 		String op = request.getParameter("opType");
 //		Check if user wants to move or remove an item from a list
@@ -46,11 +46,6 @@ public class ListManagementPageServlet extends HttpServlet {
 			int arrNum = Integer.parseInt(request.getParameter("arrNum"));
 //			Get either recipe lists or restaurant lists from the Userlists in question
 			UserList arr1 = userLists[listNum];
-			System.out.println("arrNum: " + arrNum);
-			System.out.println("recOrRest: " + recOrRest);
-			System.out.println("fromList: " + fromList);
-			System.out.println("OP: " + op);
-			System.out.println("Arr1 size: " + arr1.getRecipes().size());
 //			Check if we're moving the item to the Favorites list
 			if(op.equals("f")) {
 				if(recOrRest.equals("rec")) { // Check if it is a recipe item
@@ -110,10 +105,9 @@ public class ListManagementPageServlet extends HttpServlet {
 			case 'f':
 				request.setAttribute("listVal", userLists[0]);
 				request.setAttribute("listName", "Favorites");
-				session.setAttribute("restaurants", userLists[0].getRestaurants());
-				session.setAttribute("recipes", userLists[0].getRecipes());
+				session.setAttribute("restaurants", userLists[0].getRestaurants()); // So that when user clicks on item, it shows in the details page
+				session.setAttribute("recipes", userLists[0].getRecipes()); // Same as previous comment
 				
-				System.out.println("favorites");
 				break;
 			case 'd':
 				request.setAttribute("listVal", userLists[1]);
@@ -121,7 +115,6 @@ public class ListManagementPageServlet extends HttpServlet {
 				session.setAttribute("restaurants", userLists[1].getRestaurants());
 				session.setAttribute("recipes", userLists[1].getRecipes());
 				
-				System.out.println("Do Not Show");
 				break;
 			case 't':
 				request.setAttribute("listVal", userLists[2]);
@@ -129,7 +122,6 @@ public class ListManagementPageServlet extends HttpServlet {
 				session.setAttribute("restaurants", userLists[2].getRestaurants());
 				session.setAttribute("recipes", userLists[2].getRecipes());
 				
-				System.out.println("To Explore");
 				break;
 			}			
 		}
