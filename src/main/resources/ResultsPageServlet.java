@@ -30,6 +30,7 @@ public class ResultsPageServlet extends HttpServlet {
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		session.setAttribute("resultsOrList", "results");
 		UserList[] userLists;
 		/*
 		 * If no UserList array is stored in session, the server considers the user to be a new user,
