@@ -1,12 +1,8 @@
 package servlettests;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +14,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import servlets.ResultsPageServlet;
+import servlets.RecipeDetailsPageServlet;
 
-public class ResultsPageServletTest {
+public class RecipeDetailsPageServletTest {
 
 	@Mock
 	HttpServletRequest request;
@@ -33,7 +29,7 @@ public class ResultsPageServletTest {
 	RequestDispatcher rd;
 
 	@Before
-	public void setUp() {
+	public void setUp(){
 		MockitoAnnotations.initMocks(this);
 	}
 
@@ -44,25 +40,13 @@ public class ResultsPageServletTest {
 		HttpServletResponse response = mock(HttpServletResponse.class);
 		HttpSession session = mock(HttpSession.class);
 		RequestDispatcher rd = mock(RequestDispatcher.class);
-
-		when(request.getSession()).thenReturn(session);
-		when(request.getRequestDispatcher("/jsp/search.jsp")).thenReturn(rd);
 		
-		StringWriter sw = new StringWriter();
-		PrintWriter pw = new PrintWriter(sw);
+        when(request.getRequestDispatcher("/jsp/search.jsp")).thenReturn(rd);
 
-		when(response.getWriter()).thenReturn(pw);
-
-		new ResultsPageServlet().service(request, response);
-
-		// Verify the session attribute value
-		verify(session).setAttribute("user", "abhinav");
+		new RecipeDetailsPageServlet().service(request, response);
 
 		verify(rd).forward(request, response);
 
-		String result = sw.getBuffer().toString().trim();
-
-		System.out.println("Result: " + result);
-
 	}
+
 }
