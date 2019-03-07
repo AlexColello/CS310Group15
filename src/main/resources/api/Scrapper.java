@@ -45,11 +45,7 @@ public class Scrapper {
 				
 			} catch (IndexOutOfBoundsException e) {
 				
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
+				wait(1000);
 									
 				currentPage++;
 				doc = Jsoup.connect(baseUrl + "&page=" + currentPage).get();
@@ -77,11 +73,7 @@ public class Scrapper {
 	// Returns a Recipe object representation of the recipe at the url on allrecipes.com.
 	public static Recipe get(String url) throws IOException {
 		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
+		wait(1000);
 		
 		Document doc = Jsoup.connect(url).get();
 		
@@ -165,6 +157,13 @@ public class Scrapper {
 		retval = minutes + 60 * hours;
 		
 		return retval;
+	}
+	
+	private static void wait(int ms) {
+		long start = System.currentTimeMillis();
+		
+		while(System.currentTimeMillis() - start < ms) {
+		}
 	}
 	
 }
