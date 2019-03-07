@@ -192,13 +192,21 @@
     								else{
     									renderCookTime = Double.toString(cookTime);
     								}
-    							
+    								
+    								double prepTime = recipeArr[i].getPrepTime();
+    								String renderPrepTime = "";
+    								if (prepTime < 0){
+    									renderPrepTime = "Not Available";
+    								}
+    								else{
+    									renderPrepTime = Double.toString(prepTime);
+    								}			
     							%>
       							<strong>Cook Time:</strong> <br> <p><%=renderCookTime %></p>
    							</div>
 
     					<div class="col-sm">
-     	 						<strong>Prep Time: </strong><br> <p><%=recipeArr[i].getPrepTime() %></p>
+     	 						<strong>Prep Time: </strong><br> <p><%=renderPrepTime%></p>
     					</div>
   						</div>
 					</div>
