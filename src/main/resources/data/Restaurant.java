@@ -2,6 +2,7 @@ package data;
 
 import java.io.Serializable;
 
+//Implements Serializable Interface to allow storing in session 
 public class Restaurant implements Comparable<Restaurant>, Serializable {
 	private static final long serialVersionUID = 1L;
 

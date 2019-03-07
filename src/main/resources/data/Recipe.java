@@ -2,6 +2,7 @@ package data;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+//Implements Serializable Interface to allow storing in session 
 public class Recipe implements Comparable<Recipe>, Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -51,7 +52,9 @@ public class Recipe implements Comparable<Recipe>, Serializable {
 	public double getRating() {
 		return rating;
 	}
-
+	/*
+	 * comparing method to sort recipe results in ascending order of prep time
+	 */
 	public int compareTo(Recipe arg0) {
 		return (int) (this.getPrepTime() - arg0.getPrepTime());
 	}
