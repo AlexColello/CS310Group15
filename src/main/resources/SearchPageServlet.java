@@ -17,5 +17,4 @@ public class SearchPageServlet extends HttpServlet {
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/search.jsp");
 		dispatch.forward(request,  response);			
 	}
-
 }

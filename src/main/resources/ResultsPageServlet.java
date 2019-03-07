@@ -31,13 +31,13 @@ public class ResultsPageServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.setAttribute("resultsOrList", "results");
-		UserList[] userLists;
+		UserList[] userLists = (UserList[]) session.getAttribute("userLists");
 		/*
 		 * If no UserList array is stored in session, the server considers the user to be a new user,
 		 *  and makes new userList array for this session. 
 		 * Else, retrieve UserList array from session.
 		 */
-		if ((userLists = (UserList[]) session.getAttribute("userLists")) == null) {
+		if (userLists == null) {
 			userLists = new UserList[3];
 			for (int i = 0; i < 3; ++i) {
 				userLists[i] = new UserList();
@@ -71,14 +71,25 @@ public class ResultsPageServlet extends HttpServlet {
 		 * Get enough results to make up for restaurants/recipes in Do Not Show list, which will not be displayed
 		 */
 		Vector<Restaurant> restaurants = AccessYelpAPI.YelpRestaurantSearch(searchTerm, resultCount + doNotShowRestaurants.size());
+		/*
+		 * Sort restaurants in ascending order of drive time from Tommy Trojan,
+		 * using compareTo method overridden in Restaurant class
+		 */
+		Collections.sort(restaurants);
 		Restaurant currRestaurant;
 		int insertIndex = 0;
 		// Check for restaurants in Favorite list, and put them on top
 		for (int i = 0; i < restaurants.size(); ++i) {
 			currRestaurant = restaurants.get(i);
+			System.out.println(currRestaurant.getName());
 			if (favoriteList.contains(currRestaurant)) {
+				System.out.println("is in the favorite list");
+				restaurants.remove(i);
 				restaurants.add(insertIndex, currRestaurant);
-				restaurants.remove(i+1);
+				for (int j = 0; j < restaurants.size(); ++j) {
+					System.out.print(restaurants.get(j).getName() + "  ");
+				}
+				System.out.println("");
 				++insertIndex;
 			}
 		}
@@ -91,21 +102,23 @@ public class ResultsPageServlet extends HttpServlet {
 				--i;
 			}
 		}
-		/*
-		 * Sort restaurants in ascending order of drive time from Tommy Trojan,
-		 * using compareTo method overridden in Restaurant class
-		 */
-		Collections.sort(restaurants);
 		/* 
 		 * Fetch a list of recipe objects made by web scraping from allrecipes.com
 		 */
 		Vector<Recipe> recipes  = Scrapper.search(searchTerm, resultCount + doNotShowRecipes.size());
+		/*
+		 * Sort recipes in ascending order of prep time,
+		 * using compareTo method overridden in Recipe class
+		 */
+		Collections.sort(recipes);
 		Recipe currRecipe;
 		insertIndex = 0;
 		// Check for recipes in Favorite list, and put them on top
 		for (int i = 0; i < recipes.size(); ++i) {
 			currRecipe = recipes.get(i);
+			System.out.println(currRecipe.getName());
 			if (favoriteList.contains(currRecipe)) {
+				System.out.println("is contained in favorite list");
 				recipes.add(insertIndex, currRecipe);
 				recipes.remove(i+1);
 				++insertIndex;
@@ -120,11 +133,6 @@ public class ResultsPageServlet extends HttpServlet {
 				--i;
 			}
 		}
-		/*
-		 * Sort recipes in ascending order of prep time,
-		 * using compareTo method overridden in Recipe class
-		 */
-		Collections.sort(recipes);
 		// vector size should be resultCount (discard extra data)
 		restaurants.setSize(resultCount);
 		recipes.setSize(resultCount);

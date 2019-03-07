@@ -35,7 +35,6 @@ private static final long serialVersionUID = 1L;
 		}
 		int arrNum = Integer.parseInt(request.getParameter("arrNum"));
 		Restaurant r = restaurantResults[arrNum];
-
 		
 		String addToListParam;
 		if ((addToListParam = request.getParameter("listType")) != null) {

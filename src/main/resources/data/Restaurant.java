@@ -65,7 +65,18 @@ public class Restaurant implements Comparable<Restaurant>, Serializable {
 	 * 	ascending order of drive time from Tommy Trojan
 	 */
 	public int compareTo(Restaurant o) {
-		return this.getDrivingTime() - o.getDrivingTime();
+		return this.getDrivingTime() - o.getDrivingTime();			
 	}
-	
+	/*
+	 * Equals overridden for vector::contains() method
+	 */
+	public boolean equals(Object obj) {
+		if (obj instanceof Restaurant) {
+			Restaurant o = (Restaurant) obj;
+			return (this.name.equals(o.name));
+		}
+		else {
+			return false;
+		}
+	}
 }

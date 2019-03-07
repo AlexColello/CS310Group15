@@ -58,5 +58,16 @@ public class Recipe implements Comparable<Recipe>, Serializable {
 	public int compareTo(Recipe arg0) {
 		return (int) (this.getPrepTime() - arg0.getPrepTime());
 	}
-	
+	/*
+	 * Equals overridden for vector::contains() method
+	 */
+	public boolean equals(Object obj) {
+		if (obj instanceof Recipe) {
+			Recipe o = (Recipe) obj;
+			return (this.name.equals(o.name));
+		}
+		else {
+			return false;
+		}
+	}
 }
