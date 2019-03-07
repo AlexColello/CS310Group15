@@ -92,13 +92,15 @@
         			<div style="background-color:<%=colorStyle %>;"class="col p-4 d-flex flex-column position-static">
           			<div class="container">
   						<div class="row">
-    						<div class="col-sm">
-
-      							<strong>Name:</strong> <br><p><%=restaurantArr[i].getName() %> </p>
-   							</div>
+    					<div class="col-sm">
+							<strong>Name:</strong> <br><p><%=restaurantArr[i].getName() %> </p>
+   						</div>
 
     					<div class="col-sm">
      	 						<strong>Stars:</strong> <br> <p> <%=restaurantArr[i].getRating() %> </p>
+    					</div>
+    					<div class="col-sm">
+     	 						
     					</div>
   						</div>
   						<div class="row">
@@ -118,29 +120,30 @@
     					<div class="col-sm">
      	 						<strong>Address: </strong><br> <p><%=restaurantArr[i].getAddress() %></p>
     					</div>
+    					<div class="col-sm text-right">
+    							<%
+        							String restaurantPrice = "";
+        							int price = (int)restaurantArr[i].getPrice();
+        							if (price == 1){
+        							restaurantPrice = "$";
+        							}
+        							else if (price == 2){
+        							restaurantPrice = "$$";
+        							}
+        							else{
+        								restaurantPrice = "$$$";
+        							}
+        							%>
+     	 						<strong>Price: <%=restaurantPrice%></strong>
+    					</div>
   						</div>
 					</div>
 
-
-					
           			<a href="/FeedMe/restaurantDetails?arrNum=<%=i%>" class="stretched-link"></a>
         			</div>
         			<div class="col-auto d-none d-lg-block">
-        			<%
-        				String restaurantPrice = "";
-        				int price = (int)restaurantArr[i].getPrice();
-        				if (price == 1){
-        					restaurantPrice = "$";
-        				}
-        				else if (price == 2){
-        					restaurantPrice = "$$";
-        				}
-        				else{
-        					restaurantPrice = "$$$";
-        				}
-        			%>
-          			<svg class="bd-placeholder-img" width="100" height="280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: $$$"><title>$$</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="20%" y="50%" fill="#eceeef" dy=".3em">Price:<%=restaurantPrice %> </text></svg>
-        			</div>
+        			
+          			</div>
       				</div>
           		<% } %>
        		 </ul>
@@ -171,6 +174,7 @@
     						<% String recipeRating = String.format("%.1f",recipeArr[i].getRating()); %>
      	 						<strong>Stars:</strong> <br> <p> <%=recipeRating %> </p>
     					</div>
+    				
   						</div>
   						<div class="row">
     						<div class="col-sm">
@@ -208,6 +212,7 @@
     					<div class="col-sm">
      	 						<strong>Prep Time: </strong><br> <p><%=renderPrepTime%></p>
     					</div>
+    				
   						</div>
 					</div>
 
@@ -216,8 +221,7 @@
           			<a href="/FeedMe/recipeDetails?arrNum=<%=i%>" class="stretched-link"></a>
         			</div>
         			<div class="col-auto d-none d-lg-block">
-          			<svg class="bd-placeholder-img" width="100" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: $$$"><title>$$</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="20%" y="50%" fill="#eceeef" dy=".3em">No Price</text></svg>
-        			</div>
+          			</div>
       				</div>
           		<% } %>
        		 </ul>
