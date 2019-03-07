@@ -8,79 +8,47 @@
   	<servlet-name>SearchPageServlet</servlet-name>
   	<display-name>SearchPageServlet</display-name>
   	<description></description>
-  	<servlet-class>SearchPageServlet</servlet-class>
+  	<servlet-class>servlets.SearchPageServlet</servlet-class>
   </servlet>
   <servlet>
 	<servlet-name>ResultsPageServlet</servlet-name>
-	<servlet-class>ResultsPageServlet</servlet-class>
+	<servlet-class>servlets.ResultsPageServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>RecipeDetailsPageServlet</servlet-name>
     <display-name>RecipeDetailsPageServlet</display-name>
     <description></description>
-    <servlet-class>RecipeDetailsPageServlet</servlet-class>
+    <servlet-class>servlets.RecipeDetailsPageServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>RestaurantDetailsPageServlet</servlet-name>
     <display-name>RestaurantDetailsPageServlet</display-name>
     <description></description>
-    <servlet-class>RestaurantDetailsPageServlet</servlet-class>
+    <servlet-class>servlets.RestaurantDetailsPageServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>ListManagementPageServlet</servlet-name>
     <display-name>ListManagementPageServlet</display-name>
     <description></description>
-    <servlet-class>ListManagementPageServlet</servlet-class>
+    <servlet-class>servlets.ListManagementPageServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>printableVersionRestaurantServlet</servlet-name>
   	<display-name>printableVersionRestaurantServlet</display-name>
   	<description></description>
-  	<servlet-class>printableVersionRestaurantServlet</servlet-class>
+  	<servlet-class>servlets.printableVersionRestaurantServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>RestaurantDetailsPagePrintableVersionServlet</servlet-name>
   	<display-name>RestaurantDetailsPagePrintableVersionServlet</display-name>
   	<description></description>
-  	<servlet-class>RestaurantDetailsPagePrintableVersionServlet</servlet-class>
+  	<servlet-class>servlets.RestaurantDetailsPagePrintableVersionServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>RecipeDetailsPagePrintableVersionServlet</servlet-name>
   	<display-name>RecipeDetailsPagePrintableVersionServlet</display-name>
   	<description></description>
-  	<servlet-class>RecipeDetailsPagePrintableVersionServlet</servlet-class>
+  	<servlet-class>servlets.RecipeDetailsPagePrintableVersionServlet</servlet-class>
   </servlet>
-  <servlet-mapping>
-  	<servlet-name>SearchPageServlet</servlet-name>
-  	<url-pattern>/search</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>ResultsPageServlet</servlet-name>
-  	<url-pattern>/results</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>RecipeDetailsPageServlet</servlet-name>
-    <url-pattern>/recipeDetails</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>RestaurantDetailsPageServlet</servlet-name>
-    <url-pattern>/restaurantDetails</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ListManagementPageServlet</servlet-name>
-    <url-pattern>/listManagement</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>printableVersionRestaurantServlet</servlet-name>
-  	<url-pattern>/printableVersionRestaurantServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>RestaurantDetailsPagePrintableVersionServlet</servlet-name>
-  	<url-pattern>/restaurantDetailsPagePrintableVersion</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>RecipeDetailsPagePrintableVersionServlet</servlet-name>
-  	<url-pattern>/recipeDetailsPagePrintableVersion</url-pattern>
-  </servlet-mapping>
 
 </web-app>

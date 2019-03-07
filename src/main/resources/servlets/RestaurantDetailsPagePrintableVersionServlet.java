@@ -1,3 +1,4 @@
+package servlets;
 
 
 import java.io.IOException;
@@ -10,32 +11,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import data.Recipe;
+import data.Restaurant;
 import data.UserList;
 
 /**
- * Servlet implementation class RecipeDetailsPagePrintableVersionServlet
+ * Servlet implementation class RestaurantDetailsPagePrintableVersionServlet
  */
-@WebServlet("/recipeDetailsPagePrintableVersion")
-public class RecipeDetailsPagePrintableVersionServlet extends HttpServlet {
+
+@WebServlet("/restaurantDetailsPagePrintableVersion")
+public class RestaurantDetailsPagePrintableVersionServlet extends HttpServlet {
 private static final long serialVersionUID = 1L;
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		// if Recipe results are not stored in session (meaning session has expired), 
+		// if restaurant results are not stored in session (meaning session has expired), 
 		//  send the user back to the search page
-		Recipe[] recipeResults = (Recipe[]) session.getAttribute("recipeResults");
-		if (recipeResults == null) {
-			// if recipe results are not stored in session (meaning session has expired), 
+		Restaurant[] restaurantResults = (Restaurant[]) session.getAttribute("restaurantResults");
+		if (restaurantResults == null) {
+			// if restaurant results are not stored in session (meaning session has expired), 
 			//  send the user back to the search page
 			RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/search.jsp");
 			dispatch.forward(request,  response);
 			return;
 		}
 		int arrNum = Integer.parseInt(request.getParameter("arrNum"));
-		Recipe r = recipeResults[arrNum];
-		System.out.println("Yes");
-		System.out.println(r.getName());
+		Restaurant r = restaurantResults[arrNum];
 		
 		String addToListParam;
 		if ((addToListParam = request.getParameter("listType")) != null) {
@@ -54,11 +54,10 @@ private static final long serialVersionUID = 1L;
 			}
 			session.setAttribute("userLists", userLists);
 		}
-		request.setAttribute("recipeVal", recipeResults[arrNum]);
-		
+		request.setAttribute("restaurantVal", restaurantResults[arrNum]);
+		request.setAttribute("arrNum", arrNum);
 
-		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/recipeDetailsPrintableVersion.jsp");
-		dispatch.forward(request,  response);				
+		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/restaurantDetailsPrintableVersion.jsp");
+		dispatch.forward(request,  response);			
 	}
-
 }

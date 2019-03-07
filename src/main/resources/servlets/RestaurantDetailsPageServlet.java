@@ -1,3 +1,4 @@
+package servlets;
 
 import java.io.IOException;
 
@@ -9,34 +10,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import data.Recipe;
 import data.Restaurant;
 import data.UserList;
 
-@WebServlet("/recipeDetails")
-public class RecipeDetailsPageServlet extends HttpServlet {
+@WebServlet("/restaurantDetails")
+public class RestaurantDetailsPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		// if Recipe results are not stored in session (meaning session has expired), 
+		// if restaurant results are not stored in session (meaning session has expired), 
 		//  send the user back to the search page
-		Recipe[] recipeResults = (Recipe[]) session.getAttribute("recipeResults");
-		if (recipeResults == null) {
-			// if recipe results are not stored in session (meaning session has expired), 
+		Restaurant[] restaurantResults = (Restaurant[]) session.getAttribute("restaurantResults");
+		if (restaurantResults == null) {
+			// if restaurant results are not stored in session (meaning session has expired), 
 			//  send the user back to the search page
 			RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/search.jsp");
 			dispatch.forward(request,  response);
 			return;
 		}
-		// Arrnum allows backend to know which recipe the user is viewing
+		// Arrnum allows backend to know which restaurant the user is viewing
 		int arrNum = Integer.parseInt(request.getParameter("arrNum"));
-		Recipe r = recipeResults[arrNum];
+		Restaurant r = restaurantResults[arrNum];
+
 		
 		String addToListParam;
 		if ((addToListParam = request.getParameter("listType")) != null) {
 			// When "Add to List" Button is clicked
-			// Add to list only if the recipe is not in another list
+			// Add to list only if the restaurant is not in other lists
 			UserList[] userLists = (UserList[]) session.getAttribute("userLists");
 			switch (addToListParam.charAt(0)) {
 			case 'f':
@@ -61,11 +62,12 @@ public class RecipeDetailsPageServlet extends HttpServlet {
 			// Update the userLists variable in session
 			session.setAttribute("userLists", userLists);
 		}
-		// Pass recipe object and arrNum to jsp
-		request.setAttribute("recipeVal", recipeResults[arrNum]);
+		// Pass restaurant object and arrNum to jsp
+		request.setAttribute("restaurantVal", restaurantResults[arrNum]);
 		request.setAttribute("arrNum", arrNum);
 
-		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/recipeDetails.jsp");
-		dispatch.forward(request,  response);				
+		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/restaurantDetails.jsp");
+		dispatch.forward(request,  response);			
 	}
+
 }
