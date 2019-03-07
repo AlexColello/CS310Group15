@@ -29,28 +29,39 @@ public class RecipeDetailsPageServlet extends HttpServlet {
 			dispatch.forward(request,  response);
 			return;
 		}
+		// Arrnum allows backend to know which recipe the user is viewing
 		int arrNum = Integer.parseInt(request.getParameter("arrNum"));
 		Recipe r = recipeResults[arrNum];
-		System.out.println("Yes");
-		System.out.println(r.getName());
 		
 		String addToListParam;
 		if ((addToListParam = request.getParameter("listType")) != null) {
 			// When "Add to List" Button is clicked
+			// Add to list only if the recipe is not in another list
 			UserList[] userLists = (UserList[]) session.getAttribute("userLists");
 			switch (addToListParam.charAt(0)) {
 			case 'f':
-				userLists[0].add(r);
+				// Adding to favorite list
+				if (!userLists[1].contains(r) && !userLists[2].contains(r)) {
+					userLists[0].add(r);					
+				}
 				break;
 			case 'd':
-				userLists[1].add(r);
+				// Adding to do not show list
+				if (!userLists[0].contains(r) && !userLists[2].contains(r)) {
+					userLists[1].add(r);
+				}
 				break;
 			case 't':
-				userLists[2].add(r);
+				// adding to To Explore list
+				if (!userLists[0].contains(r) && !userLists[1].contains(r)) {
+					userLists[2].add(r);
+				}
 				break;
 			}
+			// Update the userLists variable in session
 			session.setAttribute("userLists", userLists);
 		}
+		// Pass recipe object and arrNum to jsp
 		request.setAttribute("recipeVal", recipeResults[arrNum]);
 		request.setAttribute("arrNum", arrNum);
 

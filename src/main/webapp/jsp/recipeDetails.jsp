@@ -51,7 +51,7 @@
         <h2>Instructions</h2>
         <ul id=instructions>
           <% ArrayList<String> ins = (ArrayList<String>) recipeVal.getInstructions();%>
-          <% for(int i = 0; i < ins.size(); i++){ %>
+          <% for(int i = 0; i < ins.size(); i++) { %>
           	<p>	<%=ins.get(i) %></p>
           <% } %>
         </ul>
