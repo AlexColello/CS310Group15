@@ -70,7 +70,7 @@
 
 		<!-- Search For xx  -->
 		<div class="py-5 text-center">
-   			<h2>Results For <%=searchTerm %></h2>
+   			<h2 id="titleHeader">Results For <%=searchTerm %></h2>
    		</div>
 
    		<!-- Restaurants and Recipes lists  -->

@@ -18,9 +18,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import servlets.SearchPageServlet;
+import servlets.ResultsPageServlet;
 
-public class SearchPageServletTest {
+public class ResultsPageServletTest {
 
 	@Mock
 	HttpServletRequest request;
@@ -33,7 +33,7 @@ public class SearchPageServletTest {
 	RequestDispatcher rd;
 
 	@Before
-	public void setUp(){
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 	}
 
@@ -44,12 +44,25 @@ public class SearchPageServletTest {
 		HttpServletResponse response = mock(HttpServletResponse.class);
 		HttpSession session = mock(HttpSession.class);
 		RequestDispatcher rd = mock(RequestDispatcher.class);
-		
-        when(request.getRequestDispatcher("/jsp/search.jsp")).thenReturn(rd);
 
-		new SearchPageServlet().service(request, response);
+		when(request.getSession()).thenReturn(session);
+		when(request.getRequestDispatcher("/jsp/search.jsp")).thenReturn(rd);
+		
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+
+		when(response.getWriter()).thenReturn(pw);
+
+		new ResultsPageServlet().service(request, response);
+
+		// Verify the session attribute value
+		verify(session).setAttribute("user", "abhinav");
 
 		verify(rd).forward(request, response);
+
+		String result = sw.getBuffer().toString().trim();
+
+		System.out.println("Result: " + result);
 
 	}
 }

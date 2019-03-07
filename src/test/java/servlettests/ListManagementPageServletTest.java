@@ -1,12 +1,8 @@
 package servlettests;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +14,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import servlets.SearchPageServlet;
+import servlets.ListManagementPageServlet;
 
-public class SearchPageServletTest {
+public class ListManagementPageServletTest {
 
 	@Mock
 	HttpServletRequest request;
@@ -47,9 +43,10 @@ public class SearchPageServletTest {
 		
         when(request.getRequestDispatcher("/jsp/search.jsp")).thenReturn(rd);
 
-		new SearchPageServlet().service(request, response);
+		new ListManagementPageServlet().service(request, response);
 
 		verify(rd).forward(request, response);
 
 	}
+
 }
