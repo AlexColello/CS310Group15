@@ -16,6 +16,7 @@
 	<%@page import="java.util.*" %>
 	<%@page import="data.*"%>
   <% 
+    request.getSession().setAttribute("resultsOrList", "list");
     String listName = "";
     String listID = (String) request.getAttribute("listName");
     

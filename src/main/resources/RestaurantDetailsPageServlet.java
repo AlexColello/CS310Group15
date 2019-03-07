@@ -28,6 +28,7 @@ public class RestaurantDetailsPageServlet extends HttpServlet {
 			dispatch.forward(request,  response);
 			return;
 		}
+	    String resultsOrList = (String) request.getSession().getAttribute("resultsOrList");
 		int arrNum = Integer.parseInt(request.getParameter("arrNum"));
 		Restaurant r = restaurantResults[arrNum];
 

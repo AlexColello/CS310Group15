@@ -14,9 +14,11 @@
     <%@page import="java.util.*" %>
 	<%@page import="data.*"%>
     <% 
+    // To check if we came from results page or list page
+    String resultsOrList = (String) request.getSession().getAttribute("resultsOrList");
 	Restaurant restaurantVal = (Restaurant) request.getAttribute("restaurantVal");
     int arrNum = Integer.parseInt((String) request.getParameter("arrNum"));
-	if(restaurantVal == null){
+	if(resultsOrList.equals("list")){
 		ArrayList<Restaurant> rest = (ArrayList<Restaurant>) request.getSession().getAttribute("restaurants");
 		System.out.println(rest.size());
 		restaurantVal = rest.get(arrNum);

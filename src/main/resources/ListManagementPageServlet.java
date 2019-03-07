@@ -125,7 +125,8 @@ public class ListManagementPageServlet extends HttpServlet {
 				break;
 			}			
 		}
-		
+
+		session.setAttribute("userLists", userLists);
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/listManagement.jsp");
 		dispatch.forward(request,  response);			
 	}

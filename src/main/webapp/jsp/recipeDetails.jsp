@@ -12,9 +12,10 @@
   	 <%@page import="java.util.*" %>
 	<%@page import="data.*"%>
     <% 
+    String resultsOrList = (String) request.getSession().getAttribute("resultsOrList");
 	Recipe recipeVal = (Recipe) request.getAttribute("recipeVal");
     int arrNum = Integer.parseInt((String) request.getParameter("arrNum"));
-	if(recipeVal == null){
+	if(resultsOrList.equals("list")){
 		ArrayList<Recipe> rest = (ArrayList<Recipe>) request.getSession().getAttribute("recipes");
 		recipeVal = rest.get(arrNum);
 	}
