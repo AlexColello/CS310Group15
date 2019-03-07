@@ -80,9 +80,16 @@
           		<%
 
           		for(int i = 0; i < resultCount; i++){
+          			String colorStyle = "";
+          			if (i%2 == 0){
+          				colorStyle = "silver";
+          			}
+          			else{
+          				colorStyle = "grey";
+          			}
           		%>
          			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        			<div class="col p-4 d-flex flex-column position-static">
+        			<div style="background-color:<%=colorStyle %>;"class="col p-4 d-flex flex-column position-static">
           			<div class="container">
   						<div class="row">
     						<div class="col-sm">
@@ -143,9 +150,17 @@
     	<!-- Recipes -->
     		<div class="col-md-6">
       			<h2 class= "text-center"> Recipes</h2>
-          		<% for(int i = 0; i < resultCount; i++){ %>
+          		<% for(int i = 0; i < resultCount; i++){ 
+          			String colorStyle = "";
+          			if (i%2 == 0){
+          				colorStyle = "silver";
+          			}
+          			else{
+          				colorStyle = "grey";
+          			}
+          		%>
          			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        			<div class="col p-4 d-flex flex-column position-static">
+        			<div style="background-color:<%=colorStyle %>;" class="col p-4 d-flex flex-column position-static">
           			<div class="container">
   						<div class="row">
     						<div class="col-sm">
@@ -177,13 +192,21 @@
     								else{
     									renderCookTime = Double.toString(cookTime);
     								}
-    							
+    								
+    								double prepTime = recipeArr[i].getPrepTime();
+    								String renderPrepTime = "";
+    								if (prepTime < 0){
+    									renderPrepTime = "Not Available";
+    								}
+    								else{
+    									renderPrepTime = Double.toString(prepTime);
+    								}			
     							%>
       							<strong>Cook Time:</strong> <br> <p><%=renderCookTime %></p>
    							</div>
 
     					<div class="col-sm">
-     	 						<strong>Prep Time: </strong><br> <p><%=recipeArr[i].getPrepTime() %></p>
+     	 						<strong>Prep Time: </strong><br> <p><%=renderPrepTime%></p>
     					</div>
   						</div>
 					</div>

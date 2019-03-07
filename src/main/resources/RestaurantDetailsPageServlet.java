@@ -28,7 +28,7 @@ public class RestaurantDetailsPageServlet extends HttpServlet {
 			dispatch.forward(request,  response);
 			return;
 		}
-	    String resultsOrList = (String) request.getSession().getAttribute("resultsOrList");
+		// Arrnum allows backend to know which restaurant the user is viewing
 		int arrNum = Integer.parseInt(request.getParameter("arrNum"));
 		Restaurant r = restaurantResults[arrNum];
 
@@ -36,20 +36,32 @@ public class RestaurantDetailsPageServlet extends HttpServlet {
 		String addToListParam;
 		if ((addToListParam = request.getParameter("listType")) != null) {
 			// When "Add to List" Button is clicked
+			// Add to list only if the restaurant is not in other lists
 			UserList[] userLists = (UserList[]) session.getAttribute("userLists");
 			switch (addToListParam.charAt(0)) {
 			case 'f':
-				userLists[0].add(r);
+				// Adding to favorite list
+				if (!userLists[1].contains(r) && !userLists[2].contains(r)) {
+					userLists[0].add(r);					
+				}
 				break;
 			case 'd':
-				userLists[1].add(r);
+				// Adding to do not show list
+				if (!userLists[0].contains(r) && !userLists[2].contains(r)) {
+					userLists[1].add(r);
+				}
 				break;
 			case 't':
-				userLists[2].add(r);
+				// adding to To Explore list
+				if (!userLists[0].contains(r) && !userLists[1].contains(r)) {
+					userLists[2].add(r);
+				}
 				break;
 			}
+			// Update the userLists variable in session
 			session.setAttribute("userLists", userLists);
 		}
+		// Pass restaurant object and arrNum to jsp
 		request.setAttribute("restaurantVal", restaurantResults[arrNum]);
 		request.setAttribute("arrNum", arrNum);
 

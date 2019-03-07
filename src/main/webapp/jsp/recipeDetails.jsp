@@ -34,8 +34,8 @@
       <div id="details">
       	<% String picUrl = recipeVal.getPictureUrl(); %>
         <img id="recipePicture" src="<%= picUrl %>" alt="Recipe Image"/>
-        <p id="prepTime"><strong>Prep Time: </strong><%=recipeVal.getPrepTime() %></p>
-        <p id="cookTime"><strong>Cook Time: </strong><%=recipeVal.getCookTime() %></p>
+        <p id="prepTime"><strong>Prep Time: </strong><%=(int)recipeVal.getPrepTime() %> minutes</p>
+        <p id="cookTime"><strong>Cook Time: </strong><%=(int)recipeVal.getCookTime() %> minutes</p>
       </div>
       <!-- Ingredients -->
       <div id="ingredientsBloc">
@@ -43,7 +43,7 @@
         <ul id=ingredients>
           <% ArrayList<String> ingredients = (ArrayList<String>) recipeVal.getIngredients();%>
           <% for(int i = 0; i < ingredients.size(); i++){ %>
-          	<p>	<%=ingredients.get(i) %>></p>
+          	<p>	<%=ingredients.get(i) %></p>
           <% } %>
         </ul>
       </div>
@@ -52,7 +52,7 @@
         <h2>Instructions</h2>
         <ul id=instructions>
           <% ArrayList<String> ins = (ArrayList<String>) recipeVal.getInstructions();%>
-          <% for(int i = 0; i < ins.size(); i++){ %>
+          <% for(int i = 0; i < ins.size(); i++) { %>
           	<p>	<%=ins.get(i) %></p>
           <% } %>
         </ul>
