@@ -148,11 +148,6 @@ public class AccessYelpAPI {
 			    		rating = jsonobj_1.get("rating").getAsDouble();
 			    		// rating = rating.replace("\"", "");
 			    	}
-			    	
-			    	if(jsonobj_1.get("distance") != null) {	//yelp returns the straight line distance from tommy trojan to the 
-			    		drivingTime = jsonobj_1.get("distance").getAsInt(); //restaurant in meters...
-			    		// drivingTime = drivingTime.replace("\"", "");
-			    	}
 			    		
 			    	if(jsonobj_1.get("location") != null) {
 			    		JsonObject jsonobj_2 = (JsonObject) jsonobj_1.get("location");
@@ -188,6 +183,10 @@ public class AccessYelpAPI {
 			    	GoogleDirections gd = new GoogleDirections();
 			    	drivingTime = gd.getDrivingTime(ttLat, ttLong, restLat, restLong);
 			    	drivingTime = drivingTime/60;
+			    	// Set drivingTime to be greater than zero
+			    	if (drivingTime == 0) {
+			    		++drivingTime;
+			    	}
 	
 			    	Restaurant restaurantObj = new Restaurant(name, websiteUrl, price, fullAddress, phoneNumber, rating, drivingTime);
 			    	resultsAL.add(restaurantObj);

@@ -26,13 +26,12 @@ public class GoogleImageSearch {
 	// Returns an array of image urls using the search term
 	public static Vector<String> GetImagesFromGoogle(String searchTerm) throws UnsupportedEncodingException {
 		
-		
 		searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
 		
 		String query = "https://www.googleapis.com/customsearch/v1?searchType=image&imgType=photo&key=" + API_KEY
 				+ "&cx=" + SEARCH_ENGINE_ID + "&q=" + searchTerm;
 		
-		// Parse JSON
+		// Get JSON string
 		String json = jsonGetRequest(query);
 		
 		if(json == null) {
@@ -40,6 +39,7 @@ public class GoogleImageSearch {
 			return null;
 		}
 		
+		// Parse JSON string 
 		JsonElement root = new JsonParser().parse(json);
 		JsonObject rootObj = root.getAsJsonObject();
 		int count = rootObj.getAsJsonObject("queries").getAsJsonArray("request").get(0)
@@ -58,7 +58,9 @@ public class GoogleImageSearch {
 		}
 		return imageVec;
 	}
-	
+	/*
+	 * Returns json string given query url
+	 */
 	private static String jsonGetRequest(String urlQueryString) {
 		String json = null;
 		try {
@@ -71,13 +73,15 @@ public class GoogleImageSearch {
 			connection.setRequestProperty("charset", "utf-8");
 			connection.connect();
 			InputStream inStream = connection.getInputStream();
-			json = streamToString(inStream); // input stream to string
+			json = streamToString(inStream);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 		return json;
 	}
-
+	/*
+	 * Converts inputStream from HttpURLConnection to String and returns it
+	 */
 	private static String streamToString(InputStream inputStream) {
 		Scanner scan = new Scanner(inputStream, "UTF-8");
 		String text = scan.useDelimiter("\\Z").next();
