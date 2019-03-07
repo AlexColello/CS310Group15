@@ -3,15 +3,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import apitests.GoogleDirectionsTest;
-import apitests.GoogleImageSearchTest;
-import apitests.ScrapperTest;
-import apitests.YelpTest;
-import datatests.RecipeTest;
-import datatests.RestaurantTest;
+import apitests.APITests;
+import datatests.DataTests;
+import servlettests.ServletTests;
 
 @RunWith(Suite.class)
-@SuiteClasses({ GoogleDirectionsTest.class, GoogleImageSearchTest.class, ScrapperTest.class, YelpTest.class, RecipeTest.class, RestaurantTest.class })
+@SuiteClasses({ APITests.class, DataTests.class, ServletTests.class })
 public class AllTests {
 	
 	@BeforeClass
