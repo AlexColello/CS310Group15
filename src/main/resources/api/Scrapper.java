@@ -15,7 +15,7 @@ import data.Recipe;
 public class Scrapper {
 
 	// Returns a vector of recipes of size n that satisfy the search.
-	public static Vector<Recipe> search(String searchTerm, int n) throws UnsupportedEncodingException{
+	public static Vector<Recipe> search(String searchTerm, int n) throws IOException{
 	
 		searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
 		
@@ -24,50 +24,45 @@ public class Scrapper {
 		
 		String baseUrl =  "https://allrecipes.com/search/results/?wt=" + searchTerm + "&sort=re";
 		int currentPage = 1;
-		try {
-			String url = baseUrl + "&page=" + currentPage;
-			Document doc = Jsoup.connect(url).get();
-			Element elem = doc.getElementById("fixedGridSection");
-			if(elem == null) {
-				return recipes;
-			}
+		String pagUrl = baseUrl + "&page=" + currentPage;
+		Document doc = Jsoup.connect(pagUrl).get();
+		Element elem = doc.getElementById("fixedGridSection");
+		if(elem == null) {
+			return recipes;
+		}
+		
+		Elements recipeBoxes = elem.getElementsByClass("fixed-recipe-card__info");
+					
+		
+		for(int i = 0; i < n; i++) {
 			
-			Elements recipeBoxes = elem.getElementsByClass("fixed-recipe-card__info");
-						
-			
-			for(int i = 0; i < n; i++) {
+			try {
+				Element recipeBox = recipeBoxes.get(i);
+				
+				Elements links = recipeBox.getElementsByTag("a");
+				String link = links.get(0).attr("href");
+				urls.add(link);
+				
+			} catch (IndexOutOfBoundsException e) {
 				
 				try {
-					Element recipeBox = recipeBoxes.get(i);
-					
-					Elements links = recipeBox.getElementsByTag("a");
-					String link = links.get(0).attr("href");
-					urls.add(link);
-					
-				} catch (IndexOutOfBoundsException e) {
-					
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
-					}
-										
-					currentPage++;
-					doc = Jsoup.connect(baseUrl + "&page=" + currentPage).get();
-					elem = doc.getElementById("fixedGridSection");
-					if(elem == null) {
-						break;
-					}
-					recipeBoxes = elem.getElementsByClass("fixed-recipe-card__info");
-					
-					n -= i - 1;
-					i = 0;
-					
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
 				}
+									
+				currentPage++;
+				doc = Jsoup.connect(baseUrl + "&page=" + currentPage).get();
+				elem = doc.getElementById("fixedGridSection");
+				if(elem == null) {
+					break;
+				}
+				recipeBoxes = elem.getElementsByClass("fixed-recipe-card__info");
+				
+				n -= i - 1;
+				i = 0;
+				
 			}
-						
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		
 		System.out.println("Urls: " + urls.size());
@@ -80,7 +75,7 @@ public class Scrapper {
 	}
 	
 	// Returns a Recipe object representation of the recipe at the url on allrecipes.com.
-	public static Recipe get(String url) {
+	public static Recipe get(String url) throws IOException {
 		
 		try {
 			Thread.sleep(1000);
@@ -88,12 +83,7 @@ public class Scrapper {
 			e1.printStackTrace();
 		}
 		
-		Document doc = null;
-		try {
-			doc = Jsoup.connect(url).get();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Document doc = Jsoup.connect(url).get();
 		
 		// Read recipe name
 		Element recipeName = doc.getElementById("recipe-main-content");

@@ -1,11 +1,13 @@
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
 import org.junit.Test;
 
+import api.GoogleDirections;
 import api.Scrapper;
 import data.Recipe;
 
@@ -38,7 +40,10 @@ public class ScrapperTest {
 	
 	
 	@Test
-	public void getTest() {
+	public void getTest() throws IOException {
+		
+		// This is necessary for complete coverage, even though the functions are supposed to be accessed statically.
+		Scrapper sr = new Scrapper();
 		
 		String url = "https://www.allrecipes.com/recipe/228293/curry-stand-chicken-tikka-masala-sauce/";
 		
@@ -63,17 +68,17 @@ public class ScrapperTest {
 	
 	
 	@Test
-	public void searchTest() throws UnsupportedEncodingException {
+	public void searchTest() throws IOException {
 		Vector<Recipe> recipes = Scrapper.search("chicken", 5);
 		assertEquals(5, recipes.size());
 		
-		recipes = Scrapper.search("broccoli", 23);
-		assertEquals(23, recipes.size());
+		recipes = Scrapper.search("broccoli", 21);
+		assertEquals(21, recipes.size());
 		
 	}
 	
 	@Test
-	public void searchBadRequestTest() throws UnsupportedEncodingException {
+	public void searchBadRequestTest() throws IOException {
 		Vector<Recipe> recipes = Scrapper.search("qwertyuiop", 25);
 		assertEquals(0, recipes.size());
 		
@@ -83,7 +88,7 @@ public class ScrapperTest {
 	}
 	
 	@Test
-	public void searchMultipleTermsTest() throws UnsupportedEncodingException {
+	public void searchMultipleTermsTest() throws IOException {
 		Vector<Recipe> recipes = Scrapper.search("chicken curry", 2);
 		assertEquals(2, recipes.size());
 		

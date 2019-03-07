@@ -1,17 +1,23 @@
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
 import org.junit.Test;
 
 import api.AccessYelpAPI;
+import api.GoogleDirections;
 import data.Restaurant;
 
 public class YelpTest {
 
 	@Test
-	public void testBasicFunctionality() throws UnsupportedEncodingException {
+	public void testBasicFunctionality() throws IOException {
+		
+		// This is necessary for complete coverage, even though the functions are supposed to be accessed statically.
+		AccessYelpAPI y = new AccessYelpAPI();
+		
 		int count = 20;
 		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("mexican", count);
 		assertEquals(count, arr.size());
@@ -24,7 +30,7 @@ public class YelpTest {
 	}
 
 	@Test
-	public void testMultipleWordInput() throws UnsupportedEncodingException {
+	public void testMultipleWordInput() throws IOException {
 		int count = 20;
 		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("mexican chicken", count);
 		assertEquals(count, arr.size());
@@ -37,10 +43,18 @@ public class YelpTest {
 	}
 	
 	@Test
-	public void testBadInput() throws UnsupportedEncodingException {
+	public void testBadInput() throws IOException {
 		int count = 20;
 		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("qwertyuioiuytrewwdc", count);
 		assertEquals(0, arr.size());
+		
+	}
+	
+	@Test
+	public void testLargeInput() throws IOException {
+		int count = 55;
+		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("pizza", count);
+		assertEquals(55, arr.size());
 		
 	}
 

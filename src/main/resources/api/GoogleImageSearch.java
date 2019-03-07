@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Scanner;
@@ -24,7 +25,7 @@ public class GoogleImageSearch {
 	static final String SEARCH_ENGINE_ID = "012879953607576427254:2cidu_it4hw";
 	
 	// Returns an array of image urls using the search term
-	public static Vector<String> GetImagesFromGoogle(String searchTerm) throws UnsupportedEncodingException {
+	public static Vector<String> GetImagesFromGoogle(String searchTerm) throws IOException {
 		
 		searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
 		
@@ -33,11 +34,6 @@ public class GoogleImageSearch {
 		
 		// Get JSON string
 		String json = jsonGetRequest(query);
-		
-		if(json == null) {
-			System.out.println("Google Image query failed!");
-			return null;
-		}
 		
 		// Parse JSON string 
 		JsonElement root = new JsonParser().parse(json);
@@ -61,22 +57,18 @@ public class GoogleImageSearch {
 	/*
 	 * Returns json string given query url
 	 */
-	private static String jsonGetRequest(String urlQueryString) {
+	private static String jsonGetRequest(String urlQueryString) throws IOException {
 		String json = null;
-		try {
-			URL url = new URL(urlQueryString);
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setDoOutput(true);
-			connection.setInstanceFollowRedirects(false);
-			connection.setRequestMethod("GET");
-			connection.setRequestProperty("Content-Type", "application/json");
-			connection.setRequestProperty("charset", "utf-8");
-			connection.connect();
-			InputStream inStream = connection.getInputStream();
-			json = streamToString(inStream);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
+		URL url = new URL(urlQueryString);
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.setDoOutput(true);
+		connection.setInstanceFollowRedirects(false);
+		connection.setRequestMethod("GET");
+		connection.setRequestProperty("Content-Type", "application/json");
+		connection.setRequestProperty("charset", "utf-8");
+		connection.connect();
+		InputStream inStream = connection.getInputStream();
+		json = streamToString(inStream);
 		return json;
 	}
 	/*

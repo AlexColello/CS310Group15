@@ -16,7 +16,7 @@ public class GoogleDirections {
 	private final static String apiKey = "AIzaSyCVTgss5eiM_qBXwsnz_UgVK4d-FWiXZIM";
 	
 	// Returns the driving time in seconds from one point to another.
-	public static int getDrivingTime(double startLatitude, double startLongitude, double endLatitude, double endLongitude) {
+	public static int getDrivingTime(double startLatitude, double startLongitude, double endLatitude, double endLongitude) throws IOException {
 		
 		String urlString = "https://maps.googleapis.com/maps/api/distancematrix/json?";
 		urlString += "origins=" + Double.toString(startLatitude) + "," + Double.toString(startLongitude);
@@ -24,23 +24,12 @@ public class GoogleDirections {
 		urlString += "&key=" + apiKey;
 		
 		//System.out.println("Distance Request URL: " + urlString);
-		
-		URL url;
-		HttpURLConnection httpCon;
-		BufferedReader br = null;
-		try {
 			
-			url = new URL(urlString);
-			httpCon = (HttpURLConnection) url.openConnection();			
-			httpCon.connect();
-			br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
-			
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-			    
+		URL url = new URL(urlString);
+		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();			
+		httpCon.connect();
+		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+			  
 		int durationSeconds = -1;
 		
 		try {

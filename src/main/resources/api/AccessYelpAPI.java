@@ -24,39 +24,9 @@ public class AccessYelpAPI {
 	
 	static double ttLat = 34.020807;	//Latitude & Longitude of tommy trojan
 	static double ttLong = -118.284668;
-		
-//	public static void main (String args[]) {
-//		////////////////////////////////////////////
-//		//main method is just for testing purposes//
-//		////////////////////////////////////////////
-//		
-//		String searchTerm = "tofu";
-//		
-//		Vector<Restaurant> output = YelpRestaurantSearch(searchTerm, 20);
-//		for(int i = 0; i < output.size(); i++) {
-//			Restaurant tempObj = output.get(i);
-//			String name = tempObj.getName();
-//			String url = tempObj.getwebsiteUrl();
-//			int price = tempObj.getPrice();
-//			String address = tempObj.getAddress();
-//			String phone = tempObj.getPhoneNumber();
-//			double rating = tempObj.getRating();
-//			int drivingTime = tempObj.getDrivingTime();
-//			
-//			System.out.println("	restaurant " + i);
-//			System.out.println("	name: " + name);
-//			System.out.println("	url: " + url);
-//			System.out.println("	price: " + price);
-//			System.out.println("	address: " + address);
-//			System.out.println("	phone: " + phone);
-//			System.out.println("	rating: " + rating);
-//			System.out.println("	drivingTime: " + drivingTime);
-//			System.out.println("");
-//			System.out.println("");
-//		}
-//	}
+
 	
-	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount) throws UnsupportedEncodingException {
+	public static Vector<Restaurant> YelpRestaurantSearch(String searchTerm, int resultCount) throws UnsupportedEncodingException, IOException {
 		
 		
 		searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
@@ -99,118 +69,101 @@ public class AccessYelpAPI {
 				limit = resultsLeft;
 				resultsLeft = 0;
 			}
-			try {
-				URL url = new URL(GET_URL + "&limit=" + limit + "&offset=" + offset);
-				offset += limit;
-				HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-				httpCon.setRequestMethod("GET");
-				httpCon.setRequestProperty("Content-Type", "application/json");
-				httpCon.setRequestProperty("Authorization", "Bearer" + " " +  API_KEY);	//request object, set authorization key to access yelp API
-				httpCon.connect();
-				
-			    BufferedReader br  = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
-			    
-			    JsonParser parser = new JsonParser(); 
-			    
-			    JsonObject jsonObj = (JsonObject)parser.parse(br); 
-			    JsonArray jsonArr = (JsonArray) jsonObj.get("businesses");
-		
-			    for(int i = 0; i < limit; i++) {		//change i to get desired # of search terms
-			    	JsonObject jsonobj_1 = null;
-			    	try {
-			    		jsonobj_1 = (JsonObject)jsonArr.get(i);
-			    	} catch (IndexOutOfBoundsException e) {
-			    		System.out.println("Could not get " + resultCount + " results from the Yelp API for query\n" + GET_URL);	
-			    		break;
-			    	}
-			    	
-			    	if(jsonobj_1.get("name") != null) {
-			    		name = jsonobj_1.get("name").toString();
-			    		name = name.replace("\"", "");
-			    	}
-			    	
-			    	if(jsonobj_1.get("url") != null) {		//returns URL to yelp restaurant page
-			    		websiteUrl = jsonobj_1.get("url").toString();	//no way to grab URL of restaurant website
-			    		websiteUrl = websiteUrl.replace("\"", "");
-			    	}
-			    	
-			    	if(jsonobj_1.get("price") != null) {
-			    		price_string = jsonobj_1.get("price").getAsString();
-			    		price_string = price_string.replace("\"", "");
-			    		price = price_string.length();		//price represents the number of dollar signs ($) returned from Yelp
-			    	}
-			    	
-			    	if(jsonobj_1.get("phone") != null && jsonobj_1.get("phone").getAsString().length() > 0) {
-			    		phoneNumber = jsonobj_1.get("phone").toString();
-			    		phoneNumber = phoneNumber.replace("\"", "");
-			    		phoneNumber = phoneNumber.substring(1, 1) + "(" + phoneNumber.substring(2,5) + ")-" + phoneNumber.substring(5,8) + "-" + phoneNumber.substring(8,phoneNumber.length());
-			    	}
-			    	
-			    	if(jsonobj_1.get("rating") != null) {
-			    		rating = jsonobj_1.get("rating").getAsDouble();
-			    		// rating = rating.replace("\"", "");
-			    	}
-			    		
-			    	if(jsonobj_1.get("location") != null) {
-			    		JsonObject jsonobj_2 = (JsonObject) jsonobj_1.get("location");
-			    		
-			    		if(jsonobj_2.get("address1") != null) {
-			    			address1 = jsonobj_2.get("address1").toString();
-			    		}
-			    		
-			    		if(jsonobj_2.get("city") != null) {
-			    			address2 = jsonobj_2.get("city").toString();
-			    		}
-			    		
-			    		if(jsonobj_2.get("state") != null) {
-			    			address3 = jsonobj_2.get("state").toString();
-			    		}
-				    	
-			    		if(jsonobj_2.get("zip_code") != null) {
-			    			address4 = jsonobj_2.get("zip_code").toString();
-			    		}
-			    		
-			    	}
-			    	
-			    	String fullAddress = address1 + ", " + address2 + ", " + address3 + ", " + address4;
-			    	fullAddress = fullAddress.replace("\"", "");
-			    	
-			    	
-			    	if(jsonobj_1.get("coordinates") != null) {
-			    		JsonObject jsonobj_3 = (JsonObject) jsonobj_1.get("coordinates");
-			    		restLat = jsonobj_3.get("latitude").getAsDouble();
-			    		restLong = jsonobj_3.get("longitude").getAsDouble();
-			    	}
-			    	
-			    	GoogleDirections gd = new GoogleDirections();
-			    	drivingTime = gd.getDrivingTime(ttLat, ttLong, restLat, restLong);
-			    	drivingTime = drivingTime/60;
-			    	// Set drivingTime to be greater than zero
-			    	if (drivingTime == 0) {
-			    		++drivingTime;
-			    	}
+			URL url = new URL(GET_URL + "&limit=" + limit + "&offset=" + offset);
+			offset += limit;
+			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+			httpCon.setRequestMethod("GET");
+			httpCon.setRequestProperty("Content-Type", "application/json");
+			httpCon.setRequestProperty("Authorization", "Bearer" + " " +  API_KEY);	//request object, set authorization key to access yelp API
+			httpCon.connect();
+			
+		    BufferedReader br  = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+		    
+		    JsonParser parser = new JsonParser(); 
+		    
+		    JsonObject jsonObj = (JsonObject)parser.parse(br); 
+		    JsonArray jsonArr = (JsonArray) jsonObj.get("businesses");
 	
-			    	Restaurant restaurantObj = new Restaurant(name, websiteUrl, price, fullAddress, phoneNumber, rating, drivingTime);
-			    	resultsAL.add(restaurantObj);
-			    }
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
+		    for(int i = 0; i < limit; i++) {		//change i to get desired # of search terms
+		    	JsonObject jsonobj_1 = null;
+		    	try {
+		    		jsonobj_1 = (JsonObject)jsonArr.get(i);
+		    	} catch (IndexOutOfBoundsException e) {
+		    		System.out.println("Could not get " + resultCount + " results from the Yelp API for query\n" + GET_URL);	
+		    		break;
+		    	}
+		    	
+		    	if(jsonobj_1.get("name") != null) {
+		    		name = jsonobj_1.get("name").toString();
+		    		name = name.replace("\"", "");
+		    	}
+		    	
+		    	if(jsonobj_1.get("url") != null) {		//returns URL to yelp restaurant page
+		    		websiteUrl = jsonobj_1.get("url").toString();	//no way to grab URL of restaurant website
+		    		websiteUrl = websiteUrl.replace("\"", "");
+		    	}
+		    	
+		    	if(jsonobj_1.get("price") != null) {
+		    		price_string = jsonobj_1.get("price").getAsString();
+		    		price_string = price_string.replace("\"", "");
+		    		price = price_string.length();		//price represents the number of dollar signs ($) returned from Yelp
+		    	}
+		    	
+		    	if(jsonobj_1.get("phone") != null && jsonobj_1.get("phone").getAsString().length() > 0) {
+		    		phoneNumber = jsonobj_1.get("phone").toString();
+		    		phoneNumber = phoneNumber.replace("\"", "");
+		    		phoneNumber = phoneNumber.substring(1, 1) + "(" + phoneNumber.substring(2,5) + ")-" + phoneNumber.substring(5,8) + "-" + phoneNumber.substring(8,phoneNumber.length());
+		    	}
+		    	
+		    	if(jsonobj_1.get("rating") != null) {
+		    		rating = jsonobj_1.get("rating").getAsDouble();
+		    		// rating = rating.replace("\"", "");
+		    	}
+		    		
+		    	if(jsonobj_1.get("location") != null) {
+		    		JsonObject jsonobj_2 = (JsonObject) jsonobj_1.get("location");
+		    		
+		    		if(jsonobj_2.get("address1") != null) {
+		    			address1 = jsonobj_2.get("address1").toString();
+		    		}
+		    		
+		    		if(jsonobj_2.get("city") != null) {
+		    			address2 = jsonobj_2.get("city").toString();
+		    		}
+		    		
+		    		if(jsonobj_2.get("state") != null) {
+		    			address3 = jsonobj_2.get("state").toString();
+		    		}
+			    	
+		    		if(jsonobj_2.get("zip_code") != null) {
+		    			address4 = jsonobj_2.get("zip_code").toString();
+		    		}
+		    		
+		    	}
+		    	
+		    	String fullAddress = address1 + ", " + address2 + ", " + address3 + ", " + address4;
+		    	fullAddress = fullAddress.replace("\"", "");
+		    	
+		    	
+		    	if(jsonobj_1.get("coordinates") != null) {
+		    		JsonObject jsonobj_3 = (JsonObject) jsonobj_1.get("coordinates");
+		    		restLat = jsonobj_3.get("latitude").getAsDouble();
+		    		restLong = jsonobj_3.get("longitude").getAsDouble();
+		    	}
+		    	
+		    	drivingTime = GoogleDirections.getDrivingTime(ttLat, ttLong, restLat, restLong);
+		    	drivingTime = drivingTime/60;
+		    	// Set drivingTime to be greater than zero
+		    	if (drivingTime == 0) {
+		    		++drivingTime;
+		    	}
+
+		    	Restaurant restaurantObj = new Restaurant(name, websiteUrl, price, fullAddress, phoneNumber, rating, drivingTime);
+		    	resultsAL.add(restaurantObj);
+		    }
 		}
 		
 		return resultsAL;		//returns ArrayList of restaurant objects
 	}
 
-	//Uncomment main method and run as Java Application to test
-	/*
-	public static void main(String[] args) {
-		int count = 60;
-		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("mexican", count);
-		for (int i = 0; i < count; i++) {
-			System.out.println(i);
-			System.out.println("name: " + arr.get(i).getName());
-			System.out.println("driveTime: " + arr.get(i).getDrivingTime());
-		}
-	}
-	*/
 }
