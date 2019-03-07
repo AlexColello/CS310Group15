@@ -20,7 +20,7 @@ import data.Restaurant;
 import data.UserList;
 
 /*
- * Receive search term from user via "q" parameter
+ * Back-end code for generating the Results Page
  */
 @WebServlet("/results")
 public class ResultsPageServlet extends HttpServlet {
@@ -45,28 +45,27 @@ public class ResultsPageServlet extends HttpServlet {
 		String searchTerm = request.getParameter("q");
 		String resultCountRaw = request.getParameter("n");
 		Integer resultCount = null;
-		//session.setAttribute("userLists", userLists);
-	//	resultCount = Integer.parseInt(resultCountRaw);
 		
+		/*
+		 *  If user clicked "return to search", get parameters from session.
+		 * 	Else, get parameters from url
+		 */
 		if (searchTerm == null && resultCountRaw == null) {
 			searchTerm = (String) session.getAttribute("searchTerm");
 			resultCount = (Integer) session.getAttribute("resultCount");
-			System.out.println(searchTerm);
-			System.out.println(resultCount);
-
 		}
 		else {
 			resultCount = Integer.parseInt(resultCountRaw);
-			System.out.println(searchTerm);
-			System.out.println(resultCount);
 		}
-		
-		
-		// Sort restaurants according to user lists
-		// Assumes that a restaurant or a recipe cannot be inside more than one list
+	
+		/* 
+		 * Fetch a list of restaurant objects made from query results given by Yelp API
+		 * Get enough results to make up for restaurants/recipes in Do Not Show list, which will not be displayed
+		 */
 		Vector<Restaurant> restaurants = AccessYelpAPI.YelpRestaurantSearch(searchTerm, resultCount + doNotShowRestaurants.size());
 		Restaurant currRestaurant;
 		int insertIndex = 0;
+		// Check for restaurants in Favorite list, and put them on top
 		for (int i = 0; i < restaurants.size(); ++i) {
 			currRestaurant = restaurants.get(i);
 			if (favoriteList.contains(currRestaurant)) {
@@ -75,6 +74,8 @@ public class ResultsPageServlet extends HttpServlet {
 				++insertIndex;
 			}
 		}
+		// Check for restaurants in Do Not Show list, and remove them, 
+		// 	assuming a restaurant cannot be in more than one predefined list
 		for (int i = insertIndex; i < restaurants.size(); ++i) {
 			currRestaurant = restaurants.get(i);
 			if (doNotShowList.contains(currRestaurant)) {
@@ -82,11 +83,18 @@ public class ResultsPageServlet extends HttpServlet {
 				--i;
 			}
 		}
+		/*
+		 * Sort restaurants in ascending order of drive time from Tommy Trojan,
+		 * using compareTo method overridden in Restaurant class
+		 */
 		Collections.sort(restaurants);
-		// Sort recipes according to user lists
+		/* 
+		 * Fetch a list of recipe objects made by web scraping from allrecipes.com
+		 */
 		Vector<Recipe> recipes  = Scrapper.search(searchTerm, resultCount + doNotShowRecipes.size());
 		Recipe currRecipe;
 		insertIndex = 0;
+		// Check for recipes in Favorite list, and put them on top
 		for (int i = 0; i < recipes.size(); ++i) {
 			currRecipe = recipes.get(i);
 			if (favoriteList.contains(currRecipe)) {
@@ -95,6 +103,8 @@ public class ResultsPageServlet extends HttpServlet {
 				++insertIndex;
 			}
 		}
+		// Check for recipes in Do Not Show list, and remove them, 
+		// 	assuming a recipe cannot be in more than one predefined list
 		for (int i = insertIndex; i < recipes.size(); ++i) {
 			currRecipe = recipes.get(i);
 			if (doNotShowList.contains(currRecipe)) {
@@ -102,34 +112,39 @@ public class ResultsPageServlet extends HttpServlet {
 				--i;
 			}
 		}
-		
+		/*
+		 * Sort recipes in ascending order of prep time,
+		 * using compareTo method overridden in Recipe class
+		 */
 		Collections.sort(recipes);
 		// vector size should be resultCount (discard extra data)
 		restaurants.setSize(resultCount);
 		recipes.setSize(resultCount);
-		// Make vectors into arrays (to pass to jsp)
-		// pass to jsp as attributes
+		// Make vectors into arrays and pass to jsp as attributes
 		Restaurant[] restaurantArr = new Restaurant[resultCount];
 		Recipe[] recipeArr = new Recipe[resultCount];
 		restaurants.toArray(restaurantArr);
 		recipes.toArray(recipeArr);
 
-		// Google Image Search to get collages
+		// Google Image Search to make collage of images
 		// array of image URLs passed to jsp as "imageUrlVec"
 		Vector<String> imageUrlVec = GoogleImageSearch.GetImagesFromGoogle(searchTerm);
 		String[] imageUrlArr = new String[imageUrlVec.size()];
 		imageUrlVec.toArray(imageUrlArr);
 		
+		// Pass variables needed for generating front-end
 		request.setAttribute("imageUrlVec", imageUrlArr);
 		request.setAttribute("restaurantArr", restaurantArr);
 		request.setAttribute("recipeArr", recipeArr);
 		request.setAttribute("searchTerm", searchTerm);
 		request.setAttribute("resultCount", resultCount);
-		// store result arrays in session (used for details page)
+		// store result arrays in session -> used for details page
 		session.setAttribute("restaurantResults", restaurantArr);
 		session.setAttribute("recipeResults", recipeArr);
+		// store searchTerm and resultCount -> used when user clicks "Return to Search"
 		session.setAttribute("searchTerm", searchTerm);
 		session.setAttribute("resultCount", resultCount);
+		
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/results.jsp");
 		dispatch.forward(request,  response);			
 	}

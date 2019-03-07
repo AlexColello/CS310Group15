@@ -60,7 +60,10 @@ public class Restaurant implements Comparable<Restaurant>, Serializable {
 	public int getDrivingTime() {
 		return drivingTime;
 	}
-
+	/*
+	 * comparing method to sort restaurant results in 
+	 * 	ascending order of drive time from Tommy Trojan
+	 */
 	public int compareTo(Restaurant o) {
 		return this.getDrivingTime() - o.getDrivingTime();
 	}
