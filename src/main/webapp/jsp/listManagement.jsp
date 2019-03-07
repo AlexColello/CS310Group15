@@ -37,7 +37,7 @@
     <title>List Management</title>
   </head>
   <body style="background-color:whitesmoke;">
-    <div id="main" class="d-inline-flex p-2">
+    <div id="main" class="d-inline-flex p-1">
       <div class="p-2 ml-2">
       <!-- Restaurants and Recipes lists  -->
       	<h1><%=listName %> List</h1>
@@ -211,9 +211,9 @@
         <% i++; k++;} }%>
         </div>
 
-   	<div id="buttons" class="align-middle p-2">
+   	<div id="buttons" class="align-middle p-1">
 		<form name="list" onsubmit="return manageList(this);">
-      	<select id="listname" name="listName">
+      	<select id="listname" name="listName" class="dropDownBar">
       		<option disabled selected value>Select an option</option>
        		<option value ="f" >Favorites</option>
         	<option value ="t">To Explore</option>
