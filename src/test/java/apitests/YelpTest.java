@@ -2,37 +2,29 @@ package apitests;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
 import org.junit.Test;
 
 import api.AccessYelpAPI;
-import api.GoogleDirections;
 import data.Restaurant;
 
+/*
+ * Tests for the AccessYelpAPI class.
+ */
 public class YelpTest {
 
+
+	/*
+	 *  Test to make sure that the Restaurants will be returned correctly with multiple words in the input.
+	 */
 	@Test
-	public void testBasicFunctionality() throws IOException {
+	public void testMultipleWordInput() throws IOException {
 		
 		// This is necessary for complete coverage, even though the functions are supposed to be accessed statically.
 		AccessYelpAPI y = new AccessYelpAPI();
 		
-		int count = 20;
-		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("mexican", count);
-		assertEquals(count, arr.size());
-		
-		for (int i = 0; i < count; i++) {
-			System.out.println(i);
-			System.out.println("name: " + arr.get(i).getName());
-			System.out.println("driveTime: " + arr.get(i).getDrivingTime());
-		}
-	}
-
-	@Test
-	public void testMultipleWordInput() throws IOException {
-		int count = 20;
+		int count = 4;
 		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("mexican chicken", count);
 		assertEquals(count, arr.size());
 		
@@ -43,14 +35,21 @@ public class YelpTest {
 		}
 	}
 	
+	/*
+	 *  Test to make sure that no errors will be thrown if there are no results from the input.
+	 */
 	@Test
 	public void testBadInput() throws IOException {
-		int count = 20;
+		int count = 4;
 		Vector<Restaurant> arr = AccessYelpAPI.YelpRestaurantSearch("qwertyuioiuytrewwdc", count);
 		assertEquals(0, arr.size());
 		
 	}
 	
+	/*
+	 *  Test to make sure that enough Restaurants will be returned 
+	 *  if the requested amount is more than the limit of the API for one query.
+	 */
 	@Test
 	public void testLargeInput() throws IOException {
 		int count = 55;

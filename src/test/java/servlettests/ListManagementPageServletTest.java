@@ -1,6 +1,5 @@
 package servlettests;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -24,6 +23,9 @@ import data.Restaurant;
 import data.UserList;
 import servlets.ListManagementPageServlet;
 
+/*
+ *  Tests for the ListManagementPageServlet servlet.
+ */
 public class ListManagementPageServletTest {
 
 	@Mock
@@ -75,10 +77,11 @@ public class ListManagementPageServletTest {
 			userLists[i] = new UserList();
 		}	
 		
-		
-		
 	}
 	
+	/*
+	 * Test to make sure that the servlet will redirect back to the search page if the session expired.	
+	 */
 	@Test
 	public void testExpiredSession() throws Exception {
 		
@@ -91,6 +94,9 @@ public class ListManagementPageServletTest {
 
 	}
 	
+	/*
+	 * Test to make sure that nothing moves if there are only null inputs.
+	 */
 	@Test
 	public void testNullValues() throws Exception {
 		
@@ -104,6 +110,9 @@ public class ListManagementPageServletTest {
 
 	}
 	
+	/*
+	 * Test to make sure that nothing moves if an invalid list is given.
+	 */
 	@Test
 	public void testIncorrectListType() throws Exception {
 		
@@ -118,6 +127,9 @@ public class ListManagementPageServletTest {
 
 	}
 	
+	/*
+	 * Test to make sure a Restaurant can be removed from the list.
+	 */
 	@Test
 	public void testRestaurantRemove() throws Exception {
 		
@@ -147,7 +159,9 @@ public class ListManagementPageServletTest {
 		
 	}
 	
-	
+	/*
+	 * Test to make sure a Recipe can be removed from the list.
+	 */
 	@Test
 	public void testRecipeRemove() throws Exception {
 		
@@ -175,6 +189,9 @@ public class ListManagementPageServletTest {
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
 	
+	/*
+	 * Test to make sure a Restaurant can be moved from one list to another successfully.
+	 */
 	@Test
 	public void testMoveRestaurant() throws Exception {
 		
@@ -210,6 +227,9 @@ public class ListManagementPageServletTest {
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[0].getRecipes()));
 	}
 	
+	/*
+	 * Test to make sure a Recipe can be moved from one list to another successfully.
+	 */
 	@Test
 	public void testMoveRecipe() throws Exception {
 		
@@ -245,6 +265,9 @@ public class ListManagementPageServletTest {
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
 	
+	/*
+	 * Test to make sure a Recipe will not move to a list if it already exists in the other list.
+	 */
 	@Test
 	public void testMoveRecipeFail() throws Exception {
 		
@@ -279,6 +302,9 @@ public class ListManagementPageServletTest {
 		verify(session).setAttribute(ArgumentMatchers.eq("recipes"), ArgumentMatchers.eq(userLists[2].getRecipes()));
 	}
 	
+	/*
+	 * Test to make sure a Recipe will not move to a list if it already exists in the other list.
+	 */	
 	@Test
 	public void testMoveRestaurantFail() throws Exception {
 		
