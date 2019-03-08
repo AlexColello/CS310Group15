@@ -93,10 +93,7 @@ public class ScrapperTest {
 	public void searchBadRequestTest() throws IOException {
 		Vector<Recipe> recipes = Scrapper.search("qwertyuiop", 25);
 		assertEquals(0, recipes.size());
-		
-		recipes = Scrapper.search("shoe", 25); // There are only three results for recipes with shoe in the name.
-		assertEquals(3, recipes.size());
-		
+				
 	}
 	
 	/*
