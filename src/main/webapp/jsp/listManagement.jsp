@@ -8,25 +8,31 @@
     <meta charset="ISO-8859-1">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Homebrew CSS FeedMe/css/buttons.css ${pageContext.request.contextPath}/css/Login.css" -->
+    <!-- Homebrew CSS" -->
+    
+    <!-- Import java data structures -->
 	<%@page import="java.util.*" %>
 	<%@page import="data.*"%>
-  <% 
+  	<% 
+  	// Set the session attribute to indicate that this page was last seen
     request.getSession().setAttribute("resultsOrList", "list");
+  	// Name of the list
     String listName = "";
+  	// List name value pull from servlet
     String listID = (String) request.getAttribute("listName");
-    
+    // If value doesn't exist, we shouldn't be here on this page
     if(listID == null){
     	listName = "error";
     }
     else{
     	listName = listID;
     }
-
+	// Get the List that is needed from servlet
     UserList lists = (UserList) request.getAttribute("listVal");
     ArrayList<Restaurant> restaurantArr = null;
     ArrayList<Recipe> recipeArr = null;
-    if(lists != null){
+    // Check if the list exists
+    if(lists != null){ // If it does, get the two different lists from it
     	restaurantArr = lists.getRestaurants();
         recipeArr = lists.getRecipes();
     }
@@ -41,9 +47,9 @@
       <div class="p-2 ml-2">
       <!-- Restaurants and Recipes lists  -->
       	<h1><%=listName %> List</h1>
-      		<%
+      		<% // Used to alternate colors
    			int j = 0;
-          	while(j < restaurantArr.size()){
+          	while(j < restaurantArr.size()){ 
           	String colorStyle = "";
         	if (j%2 == 0){
           		colorStyle = "silver";
@@ -52,6 +58,7 @@
           		colorStyle = "grey";
           	}
           	%>
+          	<!-- This is the restaurant div -->
           	<div class="col-12" id="Restaurant<%=j%>">
          			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-8 shadow-sm h-md-250 position-relative">
         			<div style="background-color:<%=colorStyle %>;"class="col p-4 d-flex flex-column position-static">
