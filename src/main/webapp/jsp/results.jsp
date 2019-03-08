@@ -7,6 +7,7 @@
 	<%@page import="data.*"%>
 	<%
 
+	request.getSession().setAttribute("resultsOrList", "results");
 	String[] imageUrlVec = (String[])request.getAttribute("imageUrlVec");
 	String searchTerm =  (String) request.getAttribute("searchTerm");
 	Integer resultCount =  (Integer) request.getAttribute("resultCount");

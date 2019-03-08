@@ -129,17 +129,17 @@
    			int k = 0;
           	while(k < recipeArr.size()){
           	String colorStyle = "";
-        	if (k%2 == 0 && restaurantArr.size() % 2 == 0){
-          		colorStyle = "grey";
+        	if     (k%2 == 0 && restaurantArr.size() % 2 == 0){
+          		colorStyle = "silver";
         	}
-          	else{
-          		colorStyle = "silver";
+        	else if(k%2 != 0 && restaurantArr.size() % 2 == 0){
+          		colorStyle = "grey";
           	}
-          	if(k%2 == 0 && restaurantArr.size()%2 != 0){
-          		colorStyle = "silver";
-          	}
-          	else{
-          		colorStyle = "grey";	
+        	else if(k%2 == 0 && restaurantArr.size() % 2 != 0){
+        		colorStyle = "grey";
+        	}
+          	else if(k%2 != 0 && restaurantArr.size() % 2 != 0){
+          		colorStyle = "silver";	
           	}
           	%>
     		<div class="col-12">
