@@ -41,17 +41,17 @@
       <div class="p-2 ml-2">
       <!-- Restaurants and Recipes lists  -->
       	<h1><%=listName %> List</h1>
-   			<%
-   			for(int i = 0, j = 0, k = 0; i < restaurantArr.size() + recipeArr.size();){
-          		String colorStyle = "";
-          		if (i%2 == 0){
-          			colorStyle = "silver";
-          		}
-          		else{
-          			colorStyle = "grey";
-          		}
+      		<%
+   			int j = 0;
+          	while(j < recipeArr.size()){
+          	String colorStyle = "";
+        	if (j%2 == 0){
+          		colorStyle = "silver";
+        	}
+          	else{
+          		colorStyle = "grey";
+          	}
           	%>
-          	<% while(j < restaurantArr.size()){ %>
           	<div class="row ">
          			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         			<div style="background-color:<%=colorStyle %>;"class="col p-4 d-flex flex-column position-static">
@@ -125,12 +125,27 @@
 	                	<button class="form-control" type="submit">Move</button>
 					</form>
     	</div>
-         <% i++; j++;} %>
+         <% j++;} %>
 
     	<!-- Recipes -->
-    		<% while(k < recipeArr.size()){ %>
+    		<%
+   			int k = 0;
+          	while(k < recipeArr.size()){
+          	String colorStyle = "";
+        	if (k%2 == 0 && restaurantArr.size() % 2 == 0){
+          		colorStyle = "grey";
+        	}
+          	else{
+          		colorStyle = "silver";
+          	}
+          	if(k%2 == 0 && restaurantArr.size()%2 != 0){
+          		colorStyle = "silver";
+          	}
+          	else{
+          		colorStyle = "grey";	
+          	}
+          	%>
     		<div class="row">
-    				<p><%=i %></p>
          			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         			<div style="background-color:<%=colorStyle %>;" class="col p-4 d-flex flex-column position-static">
           			<div class="container">
@@ -208,7 +223,7 @@
 					</form>
     	</div>
     	
-        <% i++; k++;} }%>
+        <%k++; }%>
         </div>
 
    	<div id="buttons" class="align-middle p-1">
