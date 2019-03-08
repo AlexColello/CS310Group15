@@ -107,7 +107,7 @@
     <!-- Homebrew JS -->
     <script>
     function addToList(form){
-    	var userInput = document.getElementById('listName').value;
+    	var userInput = document.getElementById('dropDownBar').value;
     	console.log(userInput);
     	if (userInput == null || userInput.length == 0){
     		return false;	

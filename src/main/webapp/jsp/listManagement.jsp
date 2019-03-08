@@ -258,7 +258,7 @@ function recipeRedirect(form){
 	form.submit();
 }
 function manageList(form){
-	var userInput = document.getElementById('listname').value;
+	var userInput = document.getElementById('dropDownBar').value;
 	if (userInput == null || userInput.length == 0){
 		return false;	
 	}
