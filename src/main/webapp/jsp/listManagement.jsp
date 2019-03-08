@@ -117,6 +117,7 @@
           			<a href="/FeedMe/restaurantDetails?arrNum=<%=j%>" class="stretched-link"></a>
         			</div>
       				</div>
+      				<!-- This form takes the item to the specified list page -->
       				<form style="display:flex;flex-direction:column;justify-content:center;" method="POST" action="/FeedMe/listManagement">
              			<input type="hidden" name="listName" value="<%=listName.toLowerCase().charAt(0)%>">
 	 	            	<input type="hidden" name="fromList" value="<%=listName.toLowerCase().charAt(0)%>">
@@ -136,6 +137,7 @@
 
     	<!-- Recipes -->
     		<%
+    		// Use the number of items in the restauarant array to coordinate the background color for the recipes
    			int k = 0;
           	while(k < recipeArr.size()){
           	String colorStyle = "";
@@ -152,6 +154,7 @@
           		colorStyle = "silver";	
           	}
           	%>
+          	<!-- Where the recipes start -->
     		<div class="col-12" id="Recipe<%=k%>">
          			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-8 shadow-sm h-md-250 position-relative">
         			<div style="background-color:<%=colorStyle %>;" class="col p-4 d-flex flex-column position-static">
@@ -179,6 +182,7 @@
   						<div class="row">
     						<div class="col-sm">
     							<%
+    								// Check the cook time for proper values
     								double cookTime = recipeArr.get(k).getCookTime();
     								String renderCookTime = "";
     								if (cookTime < 0){
@@ -187,7 +191,7 @@
     								else{
     									renderCookTime = Double.toString(cookTime);
     								}
-    								
+    								// Check the prep time for proper values
     								double prepTime = recipeArr.get(k).getPrepTime();
     								String renderPrepTime = "";
     								if (prepTime < 0){
@@ -208,12 +212,13 @@
 					</div>
 
 
-
+					<!-- Link that takes user to recipe details page -->
           			<a href="/FeedMe/recipeDetails?arrNum=<%=k%>" class="stretched-link"></a>
         			</div>
         			<div class="col-auto d-none d-lg-block">
           			</div>
       				</div>
+      				<!-- Moves the recipe to the specified list -->
       				<form style="display:flex;flex-direction:column;justify-content:center;" method="POST" action="/FeedMe/listManagement">
              			<input type="hidden" name="listName" value="<%=listName.toLowerCase().charAt(0)%>">
 	 	            	<input type="hidden" name="fromList" value="<%=listName.toLowerCase().charAt(0)%>">
@@ -232,7 +237,7 @@
     	
         <%k++; }%>
         </div>
-
+	<!-- Takes the user to the specified list -->
    	<div id="buttons" class="buttons align-middle p-1">
 		<form name="list" onsubmit="return manageList(this);">
       	<select id="dropDownBar" name="listName" class="dropDownBar">
@@ -245,10 +250,11 @@
      	<button class="Button" id="manageListButton">Manage List</button> <br>
 
        </form>
-
+	  <!-- Takes user to the search page -->
       <form action ="/FeedMe/jsp/search.jsp">
       	<button class="Button" id="returnToSearch" onclick="javascript:location.href = this.value;">Return to Search</button>
       </form>
+      <!-- Takes the user to the results page -->
 	  <form action ="/FeedMe/results">
       	<button class="Button" id="backToResults" onclick="javascript:location.href = this.value;">Return to Results</button>
       </form>
@@ -258,16 +264,17 @@
 
     <!-- Homebrew JS -->
     <script>
-function restaurantRedirect(form){
-	form.submit();
-}
-function recipeRedirect(form){
-	form.submit();
-}
-function manageList(form){
-	var userInput = document.getElementById('dropDownBar').value;
-	if (userInput == null || userInput.length == 0){
-		return false;	
+	function restaurantRedirect(form){
+		form.submit();
+	}
+	function recipeRedirect(form){
+		form.submit();
+	}
+	// Makes sure that the page does nothing if the default value for which list to manage is still there
+	function manageList(form){
+		var userInput = document.getElementById('dropDownBar').value;
+		if (userInput == null || userInput.length == 0){
+			return false;	
 	}
 	else{
 		form.action = "/FeedMe/listManagement";
@@ -278,7 +285,6 @@ function manageList(form){
 </script>
   </body>
   <style>
-  
     <%@ include file="/css/buttons.css"%>
   </style>
 </html>
