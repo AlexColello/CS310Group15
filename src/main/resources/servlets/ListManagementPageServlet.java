@@ -32,13 +32,13 @@ public class ListManagementPageServlet extends HttpServlet {
 		if (op != null) {
 //			Get Variables to help move the item
 			String recOrRest = request.getParameter("recOrRest");
-			String fromList = request.getParameter("fromList");
-			int listNum = 0;
+			String sFromList = request.getParameter("fromList");
+			int listNum = -1;
 //			Map the letter name of list to an int
-			if(fromList.equals("f")) {
+			if(sFromList.equals("f")) {
 				listNum = 0;
 			}
-			else if(fromList.equals("d")) {
+			else if(sFromList.equals("d")) {
 				listNum = 1;
 			}
 			else {
@@ -47,60 +47,47 @@ public class ListManagementPageServlet extends HttpServlet {
 //			Get position of item in question from current list
 			int arrNum = Integer.parseInt(request.getParameter("arrNum"));
 //			Get either recipe lists or restaurant lists from the Userlists in question
-			UserList arr1 = userLists[listNum];
-//			Check if we're moving the item to the Favorites list
-			if(op.equals("f")) {
-				if(recOrRest.equals("rec")) { // Check if it is a recipe item
-					if(!userLists[0].contains(arr1.getRecipes().get(arrNum))) { // Check if the list already has the item
-						userLists[0].add(arr1.getRecipes().get(arrNum)); // Add the item to the new list
-						arr1.remove(arr1.getRecipes().get(arrNum)); // Remove the item from the old list
-					}
-				}
-				else { // Restaurant Item
-					if(!userLists[0].contains(arr1.getRestaurants().get(arrNum))) {
-						userLists[0].add(arr1.getRestaurants().get(arrNum));
-						arr1.remove(arr1.getRestaurants().get(arrNum));
-					}
-				}
-			}
-			else if(op.equals("t")) { // Check if we're moving item to To Explore list
-				if(recOrRest.equals("rec")) {
-					if(!userLists[2].contains(arr1.getRecipes().get(arrNum))) {
-						userLists[2].add(arr1.getRecipes().get(arrNum));
-						arr1.remove(arr1.getRecipes().get(arrNum));
-					}
-				}
-				else {
-					if(!userLists[2].contains(arr1.getRestaurants().get(arrNum))) {
-						userLists[2].add(arr1.getRestaurants().get(arrNum));
-						arr1.remove(arr1.getRestaurants().get(arrNum));
-					}
-				}
-			}
-			else if(op.equals("d")) {
-				if(recOrRest.equals("rec")) {
-					if(!userLists[1].contains(arr1.getRecipes().get(arrNum))) {
-						userLists[1].add(arr1.getRecipes().get(arrNum));
-						arr1.remove(arr1.getRecipes().get(arrNum));
-					}
-				}
-				else {
-					if(!userLists[1].contains(arr1.getRestaurants().get(arrNum))) {
-						userLists[1].add(arr1.getRestaurants().get(arrNum));
-						arr1.remove(arr1.getRestaurants().get(arrNum));
-					}
-				}
-			}
-			else {
-				if(recOrRest.equals("rec")) {
-					arr1.remove(arr1.getRecipes().get(arrNum));
-				}
-				else {
-					arr1.remove(arr1.getRestaurants().get(arrNum));
-				}	
-			}
+			UserList fromList = userLists[listNum];
 			
+			if(op.equals("r")) {
+				if(recOrRest.equals("rec")) {
+					fromList.remove(fromList.getRecipes().get(arrNum));
+				}
+				else {
+					fromList.remove(fromList.getRestaurants().get(arrNum));
+				}
+			}else {
+				
+				// Calculate the new list value
+				int toListNum = -1;
+				if(op.equals("f")) {
+					toListNum = 0;
+				}
+				else if(op.equals("d")) {
+					toListNum = 1;
+				}
+				else {
+					toListNum = 2;
+				}
+				UserList toList = userLists[toListNum];
+				
+				// Decide whether the data type is a Recipe or Restaurant.
+				if(recOrRest.equals("rec")) {
+					if(!toList.contains(fromList.getRecipes().get(arrNum))) {
+						toList.add(fromList.getRecipes().get(arrNum));
+						fromList.remove(fromList.getRecipes().get(arrNum));
+					}
+				}
+				else {
+					if(!toList.contains(fromList.getRestaurants().get(arrNum))) {  // Check if the list already has the item
+						toList.add(fromList.getRestaurants().get(arrNum));  // Add the item to the new list
+						fromList.remove(fromList.getRestaurants().get(arrNum));  // Remove the item from the old list
+					}
+				}
+				
+			}
 		}
+
 		// Pass list to display to jsp
 		if (listType != null) {
 			switch (listType.charAt(0)) {
