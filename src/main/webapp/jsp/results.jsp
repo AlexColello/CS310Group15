@@ -245,7 +245,7 @@
 <script>
 
 function manageList(form){
-	var userInput = document.getElementById('listName').value;
+	var userInput = document.getElementById('listDropDown').value;
 	console.log(userInput);
 	if (userInput == null || userInput.length == 0){
 		return false;
