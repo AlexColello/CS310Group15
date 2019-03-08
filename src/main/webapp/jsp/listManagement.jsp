@@ -279,8 +279,6 @@
 	else{
 		form.action = "/FeedMe/listManagement";
 	}
-	
-
 } 
 </script>
   </body>

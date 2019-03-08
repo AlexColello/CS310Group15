@@ -8,10 +8,12 @@ import java.util.ArrayList;
 // Implements Serializable Interface to allow storing in session 
 public class UserList implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	// ArrayList of restaurants and recipes in the predefined list
 	private ArrayList<Restaurant> restaurants;
 	private ArrayList<Recipe> recipes;
 	
+	// Empty when the list is created (created when a new session is started)
 	public UserList() {
 		restaurants = new ArrayList<Restaurant>();
 		recipes = new ArrayList<Recipe>();

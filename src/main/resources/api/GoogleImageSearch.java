@@ -22,13 +22,13 @@ import com.google.gson.JsonParser;
 public class GoogleImageSearch {
 
 	static final String API_KEY = "AIzaSyD1JgSwkEQEGgW3tDCFa2pAhYGGYM52Nmw";
-	static final String SEARCH_ENGINE_ID = "012879953607576427254:2cidu_it4hw";
+	static final String SEARCH_ENGINE_ID = "012879953607576427254:2cidu_it4hw"; //searches for images on the web
 	
-	// Returns an array of image urls using the search term
+	// Returns a vector of image urls using the user-provided search term
 	public static Vector<String> GetImagesFromGoogle(String searchTerm) throws IOException {
 		
-		searchTerm = URLEncoder.encode(searchTerm, "UTF-8");
-		
+		searchTerm = URLEncoder.encode(searchTerm, "UTF-8"); // Encode before constructing url
+		// Construct query url using user-provided search term - this can return non-food pictures
 		String query = "https://www.googleapis.com/customsearch/v1?searchType=image&imgType=photo&key=" + API_KEY
 				+ "&cx=" + SEARCH_ENGINE_ID + "&q=" + searchTerm;
 		
@@ -46,6 +46,7 @@ public class GoogleImageSearch {
 		Vector<String> imageVec = new Vector<String>();
 		for (int i = 0; i < count; ++i) {
 			try {
+				// store only the url of the image
 				imageVec.add(items.get(i).getAsJsonObject().getAsJsonPrimitive("link").getAsString());
 			} catch (NullPointerException e) {
 				System.out.println("Could not find enough images for in query\n" + query);
