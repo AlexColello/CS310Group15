@@ -22,6 +22,7 @@ public class ListManagementPageServlet extends HttpServlet {
 		if (userLists == null) {
 			RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/search.jsp");
 			dispatch.forward(request,  response);
+			return;
 		}
 		String listType = request.getParameter("listName");
 //		System.out.println("ListType: " + listType.charAt(0));

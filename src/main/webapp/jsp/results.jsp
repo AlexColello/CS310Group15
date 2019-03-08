@@ -31,7 +31,7 @@
 </head>
 
 <body style="background-color:whitesmoke;">
-	<div class="container sm-5">
+	<div class="container mt-5">
 		<!-- Row for collage and buttons -->
 		<div class = "row align-items-start">
 			<div class="col-sm-2 order-3">
@@ -56,7 +56,7 @@
 		 		</div>
 		 	</div>
 
-		 	<div id="collageDiv" style=" max-width: 60vw; min-width:40vw; max-height: 50vh;text-align: center; min-height: 35vh; border: 2px solid black;" class="col-sm-6 order-2 overflow-hidden">
+		 	<div id="collageDiv" style=" max-width: 60vw; min-width:40vw; max-height: 50vh;text-align: center; min-height: 35vh; border: 2px solid black;" class="col-sm-6 order-2 pt-3 overflow-hidden">
 		 	<% for (int i = 0; i < 10; i++) {
 		 		Random rand = new Random();
 		 		int angle = rand.nextInt(90) -45;
