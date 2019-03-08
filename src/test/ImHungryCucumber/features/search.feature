@@ -31,5 +31,11 @@ Scenario: Check the Transition to the results page
 	And press search
 	Then I should see results for "burger"
 
+Scenario: Check the background color
+	
+	Then the background color is smoke white
+
+Scenario: Check the title of search page
+	Then the title of search page is I'm Hungry
 
 
