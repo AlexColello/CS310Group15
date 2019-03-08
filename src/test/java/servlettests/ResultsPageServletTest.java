@@ -35,6 +35,14 @@ public class ResultsPageServletTest {
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
+		
+		request = mock(HttpServletRequest.class);
+		response = mock(HttpServletResponse.class);
+		session = mock(HttpSession.class);
+		rd = mock(RequestDispatcher.class);
+		
+		when(request.getSession()).thenReturn(session);
+		
 	}
 
 	@Test

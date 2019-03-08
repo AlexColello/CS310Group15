@@ -56,5 +56,8 @@ Then(/^there is a Feed Me! button$/) do
   expect(page.find_by_id("feedMeButton").native.text).to eq "Feed Me!"
 end
 
+Then(/^the title of search page is I'm Hungry$/) do
+  page.should have_content("I'm Hungry")
+end
 
 

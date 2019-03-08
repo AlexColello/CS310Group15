@@ -31,6 +31,7 @@
   </head>
 
   <body style="background-color:whitesmoke;">
+<<<<<<< HEAD
     <!-- Row -->
     <div class="row">
 	    <div class="col-sm-8">
@@ -59,12 +60,12 @@
 	      <!-- This is the drop-down menu -->
 	      <form method="POST" onsubmit="return addToList(this)">
 	      <input type="hidden" name="arrNum" value="<%= arrNum %>">
-	      <select name="listType" id="dropDownBar">
-	        <option disabled selected value> -- select an option -- </option>
-	        <option value="f" >Favorites</option>
-	        <option value="t">To Explore</option>
-	        <option value="d">Do Not Show</option>
-	      </select>
+	      <select name="listType" id="dropDownBar" class="dropDownBar">
+          	<option disabled selected id="defaultOption"> -- select an option -- </option>
+          	<option id="favoriteOption" value="f" >Favorites</option>
+          	<option id="toExploreOption" value="t">To Explore</option>
+          	<option id="doNotShowOption" value="d">Do Not Show</option>
+      	  </select>
 	      <!-- Button to add item to selected list, doesn't do anything if choice is empty -->
 	      <button type="submit" id="addToList" class="Button">Add to List</button>
 	      </form>
