@@ -6,6 +6,7 @@
 
 	<!-- Javascript -->
 	<script type="text/javascript" src="../javascript/searchEmoji.js"></script>
+	title
 </head>
 
 <body>
@@ -23,7 +24,7 @@
   		 <input id="searchTermTest" title="Number of items to show in results" type="text" name="n" value="5" >
   			<br>
   			<img src="https://images.emojiterra.com/twitter/v11/512px/1f620.png" id ="emoji" height = 20 width = 20>
-  			<button class="text-center" type="submit" value="Feed Me" name ="feedMeButton"id="feedMeButton" style="color: red;"">Feed Me!</button>
+  			<button class="text-center" type="submit" value="Feed Me" name ="feedMeButton"id="feedMeButton" style="color: red;">Feed Me!</button>
   			</div>
 		</form>
 
