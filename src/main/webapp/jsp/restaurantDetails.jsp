@@ -18,9 +18,12 @@
     String resultsOrList = (String) request.getSession().getAttribute("resultsOrList");
 	Restaurant restaurantVal = (Restaurant) request.getAttribute("restaurantVal");
     int arrNum = Integer.parseInt((String) request.getParameter("arrNum"));
+    // Check to see what the previous page was
 	if(resultsOrList.equals("list")){
+		// Get data from session
 		ArrayList<Restaurant> rest = (ArrayList<Restaurant>) request.getSession().getAttribute("restaurants");
 		System.out.println(rest.size());
+		// Put restaurant item into local variable
 		restaurantVal = rest.get(arrNum);
 	}
     %>
@@ -72,6 +75,7 @@
 	 </div>
     <!-- Homebrew JS -->
     <script>
+    // Adds the item to the specified list, if the proper one is selected
     function addToList(form){
     	var userInput = document.getElementById('listType').value;
     	console.log(userInput);
