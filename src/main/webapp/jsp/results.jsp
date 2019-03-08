@@ -36,7 +36,7 @@
 		<div class = "row">
 			<div class="col-md-2 order-3">
 		 		<div class="buttons">
-		 			<form name="list" onsubmit="return manageList(this);">
+		 			<form id="listDropDown" name="list" onsubmit="return manageList(this);">
       					<select id="listName" name="listName" class="dropDownBar">
       					<option id="nOptionButton" disabled selected> -- select an option -- </option>
        				    <option id="fOptionButton" value ="f">Favorites</option>
