@@ -68,7 +68,7 @@ public class RecipeDetailsPagePrintableVersionServletTest {
 	}
 
 	@Test
-	public void testAddToFavorites() throws Exception {
+	public void testStandard() throws Exception {
 
         when(request.getRequestDispatcher("/jsp/recipeDetailsPrintableVersion.jsp")).thenReturn(rd);
         
@@ -78,127 +78,12 @@ public class RecipeDetailsPagePrintableVersionServletTest {
         
         when(session.getAttribute("recipeResults")).thenReturn(results);
         when(request.getParameter("arrNum")).thenReturn("1");
-        when(request.getParameter("listType")).thenReturn("f");
-
-		UserList[] userLists = new UserList[3];
-		for (int i = 0; i < 3; ++i) {
-			userLists[i] = new UserList();
-		}
-		when(session.getAttribute("userLists")).thenReturn(userLists);
 		
 		new RecipeDetailsPagePrintableVersionServlet().service(request, response);
 
 		verify(rd).forward(request, response);
-		
-		userLists[0].add(results[1]);
-		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
+		verify(request).setAttribute(ArgumentMatchers.eq("recipeVal"), ArgumentMatchers.eq(results[1]));
 
-	}
-	
-	@Test
-	public void testAddToToExplore() throws Exception {
-
-        when(request.getRequestDispatcher("/jsp/recipeDetailsPrintableVersion.jsp")).thenReturn(rd);
-        
-        Recipe[] results = new Recipe[2];
-		results[0] = recipe1;
-		results[1] = recipe2;
-        
-        when(session.getAttribute("recipeResults")).thenReturn(results);
-        when(request.getParameter("arrNum")).thenReturn("1");
-        when(request.getParameter("listType")).thenReturn("t");
-
-		UserList[] userLists = new UserList[3];
-		for (int i = 0; i < 3; ++i) {
-			userLists[i] = new UserList();
-		}
-		when(session.getAttribute("userLists")).thenReturn(userLists);
-		
-		new RecipeDetailsPagePrintableVersionServlet().service(request, response);
-
-		verify(rd).forward(request, response);
-		userLists[2].add(results[1]);
-		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
-
-	}
-	
-	@Test
-	public void testAddToDoNotShow() throws Exception {
-
-        when(request.getRequestDispatcher("/jsp/recipeDetailsPrintableVersion.jsp")).thenReturn(rd);
-        
-        Recipe[] results = new Recipe[2];
-		results[0] = recipe1;
-		results[1] = recipe2;
-        
-        when(session.getAttribute("recipeResults")).thenReturn(results);
-        when(request.getParameter("arrNum")).thenReturn("1");
-        when(request.getParameter("listType")).thenReturn("d");
-
-		UserList[] userLists = new UserList[3];
-		for (int i = 0; i < 3; ++i) {
-			userLists[i] = new UserList();
-		}
-		when(session.getAttribute("userLists")).thenReturn(userLists);
-		
-		new RecipeDetailsPagePrintableVersionServlet().service(request, response);
-
-		verify(rd).forward(request, response);
-		
-		userLists[1].add(results[1]);
-		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
-
-	}
-	
-	@Test
-	public void testNoList() throws Exception {
-
-        when(request.getRequestDispatcher("/jsp/recipeDetailsPrintableVersion.jsp")).thenReturn(rd);
-        
-        Recipe[] results = new Recipe[2];
-		results[0] = recipe1;
-		results[1] = recipe2;
-        
-        when(session.getAttribute("recipeResults")).thenReturn(results);
-        when(request.getParameter("arrNum")).thenReturn("1");
-        when(request.getParameter("listType")).thenReturn(null);
-
-		UserList[] userLists = new UserList[3];
-		for (int i = 0; i < 3; ++i) {
-			userLists[i] = new UserList();
-		}
-		when(session.getAttribute("userLists")).thenReturn(userLists);
-		
-		new RecipeDetailsPagePrintableVersionServlet().service(request, response);
-
-		verify(rd).forward(request, response);
-		verify(session, never()).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
-
-	}
-	
-	@Test
-	public void testIncorrectList() throws Exception {
-
-        when(request.getRequestDispatcher("/jsp/recipeDetailsPrintableVersion.jsp")).thenReturn(rd);
-        
-        Recipe[] results = new Recipe[2];
-		results[0] = recipe1;
-		results[1] = recipe2;
-        
-        when(session.getAttribute("recipeResults")).thenReturn(results);
-        when(request.getParameter("arrNum")).thenReturn("1");
-        when(request.getParameter("listType")).thenReturn("a");
-
-		UserList[] userLists = new UserList[3];
-		for (int i = 0; i < 3; ++i) {
-			userLists[i] = new UserList();
-		}
-		when(session.getAttribute("userLists")).thenReturn(userLists);
-		
-		new RecipeDetailsPagePrintableVersionServlet().service(request, response);
-
-		verify(rd).forward(request, response);
-		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
 
 	}
 	
