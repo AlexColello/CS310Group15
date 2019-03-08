@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Recipe implements Comparable<Recipe>, Serializable {
 	private static final long serialVersionUID = 1L;
 
+	// String variables = "", numeric variables = -1 if data is not available from allrecipes.com
 	private String name = "";
 	private String pictureUrl = "";
 	private double prepTime = -1;
@@ -14,6 +15,7 @@ public class Recipe implements Comparable<Recipe>, Serializable {
 	private ArrayList<String> instructions;
 	private double rating = -1;
 	
+	// Constructor
 	public Recipe(String name, String pictureUrl, double prepTime, double cookTime, ArrayList<String> ingredients,
 			ArrayList<String> instructions, double rating) {
 		this.name = name;

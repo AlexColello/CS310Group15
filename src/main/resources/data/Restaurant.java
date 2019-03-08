@@ -15,6 +15,7 @@ public class Restaurant implements Comparable<Restaurant>, Serializable {
 	private double rating;
 	private int drivingTime;
 	
+	// Constructor
 	public Restaurant(String name, String websiteUrl, int price, String address, String phoneNumber, double rating,
 			int drivingTime) {
 		this.name = name;
@@ -25,37 +26,30 @@ public class Restaurant implements Comparable<Restaurant>, Serializable {
 		this.rating = rating;
 		this.drivingTime = drivingTime;
 	}
-
 	
 	public String getName() {
 		return name;
 	}
 
-
 	public String getWebsiteUrl() {
 		return websiteUrl;
 	}
-
 
 	public int getPrice() {
 		return price;
 	}
 
-
 	public String getAddress() {
 		return address;
 	}
-
 
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-
 	public double getRating() {
 		return rating;
 	}
-
 
 	public int getDrivingTime() {
 		return drivingTime;
