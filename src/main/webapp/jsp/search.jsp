@@ -18,7 +18,7 @@
       	<h2 class="text-center">I'm Hungry</h2>
       <p>
       <div class="col-md-12 text-center"> 
-    	<form id="form" onsubmit= "changeEmoji(this);"> <!-- Calls the js function that changes the emoji -->
+    	<form id="form" onsubmit= "return changeEmoji(this);"> <!-- Calls the js function that changes the emoji -->
   		<input id="userInput" type="text" name="q" placeholder="Enter Food">
   		 <input id="searchTermTest" title="Number of items to show in results" type="text" name="n" value="5" >
   			<br>
