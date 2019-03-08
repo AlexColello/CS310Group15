@@ -69,7 +69,7 @@ public class Restaurant implements Comparable<Restaurant>, Serializable {
 	}
 	/*
 	 * Equals overridden for vector::contains() method
-	 */
+	 */	
 	public boolean equals(Object obj) {
 		if (obj instanceof Restaurant) {
 			Restaurant o = (Restaurant) obj;
