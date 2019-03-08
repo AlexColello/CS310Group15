@@ -6,7 +6,7 @@
 
 	<!-- Javascript -->
 	<script type="text/javascript" src="../javascript/searchEmoji.js"></script>
-	title
+	<title>Search Page</title>
 </head>
 
 <body>
