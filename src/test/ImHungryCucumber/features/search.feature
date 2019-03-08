@@ -24,20 +24,12 @@ Scenario: Requirements for the Emoji
 	Then there is a Emoji Image
 	And there is a grumpy Emoji Image
 
-#Scenario: Check the emoji transition
+Scenario: Check the Transition to the results page
 
-	#When I enter "burger" in the search box
-	#And I enter "10" in the search number box
-	#And press search
-	#Then there is a happy Emoji Image
-
-
-#Scenario: Check the Transition to the results page
-
-	#When I enter "burger" in the search box
-	#And I enter "10" in the search number box
-	#And press search
-	#Then I should see results for "burger"
+	When I enter "burger" in the search box
+	And I enter "10" in the search number box
+	And press search
+	Then I should see results for "burger"
 
 
 

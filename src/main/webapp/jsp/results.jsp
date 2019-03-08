@@ -46,7 +46,7 @@
 
 
       				<form action ="/FeedMe/jsp/search.jsp">
-      					<button id="backtoResults" onclick="javascript:location.href = this.value;">Return to Search</button>
+      					<button id="returntoSearch" onclick="javascript:location.href = this.value;">Return to Search</button>
       				</form>
 
 		 		</div>
