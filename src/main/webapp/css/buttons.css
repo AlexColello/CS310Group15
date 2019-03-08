@@ -2,12 +2,11 @@
 *{
   box-sizing: border-box;
 }
-#buttons{
+.buttons{
 	align-items: center;
 	float: left;
 	width: 15%;
   	height: 100%;
-  	margin-left: 10%;
 }
 .Button{
   float: left;

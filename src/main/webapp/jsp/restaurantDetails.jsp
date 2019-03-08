@@ -30,7 +30,7 @@
     <title>Restaurant Details</title>
   </head>
 
-  <body>
+  <body style="background-color:whitesmoke;">
     <!-- Main Div -->
     <div id="main">
        <!-- Title -->
@@ -43,17 +43,17 @@
        </div>
     </div>
     <!-- Holds all the buttons -->
-    <div id="buttons">
+    <div class="buttons" class="align-middle p-1">
       <!-- Brings user to a printable version of the page -->
       
       <form action="/FeedMe/restaurantDetailsPagePrintableVersion?arrNum=<%=arrNum%>" method="POST">
-      <button id="printButton">Printable Version</button>
+      <button class="Button" id="printButton">Printable Version</button>
       <!-- Brings user back to results page -->
       
       </form>
             <!-- Brings user back to results page -->
       <form action="/FeedMe/results" method="POST">
-        <button id="backToResults" class="bttn">Back To Results</button>
+        <button id="backToResults" class="Button">Back To Results</button>
       </form>
       <!-- This is the drop-down menu -->
       <form method="POST" onsubmit="return addToList(this)">
@@ -65,7 +65,7 @@
         <option value="d">Do Not Show</option>
       </select>
       <!-- Button to add item to selected list, doesn't do anything if choice is empty -->
-      <button type="submit" id="addToList">Add to List</button>
+      <button type="submit" id="addToList" class="Button">Add to List</button>
       </form>
     </div>
     <!-- Homebrew JS -->

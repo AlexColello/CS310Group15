@@ -43,7 +43,7 @@
       	<h1><%=listName %> List</h1>
       		<%
    			int j = 0;
-          	while(j < recipeArr.size()){
+          	while(j < restaurantArr.size()){
           	String colorStyle = "";
         	if (j%2 == 0){
           		colorStyle = "silver";
@@ -223,7 +223,7 @@
         <%k++; }%>
         </div>
 
-   	<div id="buttons" class="align-middle p-1">
+   	<div id="buttons" class="buttons align-middle p-1">
 		<form name="list" onsubmit="return manageList(this);">
       	<select id="listname" name="listName" class="dropDownBar">
       		<option disabled selected value>Select an option</option>

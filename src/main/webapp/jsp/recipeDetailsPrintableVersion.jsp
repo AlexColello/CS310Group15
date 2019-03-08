@@ -20,7 +20,7 @@
   </head>
 
 
-  <body>
+  <body style="background-color:whitesmoke;">
     <!-- Main Div -->
     <div id="main">
       <!-- Title -->

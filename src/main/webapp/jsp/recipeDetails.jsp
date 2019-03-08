@@ -25,7 +25,7 @@
   </head>
 
 
-  <body>
+  <body style="background-color:whitesmoke;">
     <!-- Main Div -->
     <div id="main">
       <!-- Title -->
@@ -34,40 +34,59 @@
       <div id="details">
       	<% String picUrl = recipeVal.getPictureUrl(); %>
         <img id="recipePicture" src="<%= picUrl %>" alt="Recipe Image"/>
-        <p id="prepTime"><strong>Prep Time: </strong><%=(int)recipeVal.getPrepTime() %> minutes</p>
-        <p id="cookTime"><strong>Cook Time: </strong><%=(int)recipeVal.getCookTime() %> minutes</p>
+        <%     
+			double cookTime = recipeVal.getCookTime();
+			String renderCookTime = "";
+			if (cookTime < 0){
+				renderCookTime = "Not Available";
+			}
+			else{
+				renderCookTime = Double.toString(cookTime) + " minutes";
+			}
+		
+			double prepTime = recipeVal.getPrepTime();
+			String renderPrepTime = "";
+			if (prepTime < 0){
+				renderPrepTime = "Not Available";
+			}
+			else{
+				renderPrepTime = Double.toString(prepTime) + " minutes";
+			}			
+        %>
+        <p id="prepTime"><strong>Prep Time: </strong><%=renderPrepTime %></p>
+        <p id="cookTime"><strong>Cook Time: </strong><%=renderCookTime %></p>
       </div>
       <!-- Ingredients -->
-      <div id="ingredientsBloc">
+      <div id="ingredientsBloc" class="d-inline-flex p-2">
         <h2>Ingredients</h2>
-        <ul id=ingredients>
+        <ul id="ingredients" class="list-group">
           <% ArrayList<String> ingredients = (ArrayList<String>) recipeVal.getIngredients();%>
           <% for(int i = 0; i < ingredients.size(); i++){ %>
-          	<p>	<%=ingredients.get(i) %></p>
+          	<li class="list-group-item"><p><%=ingredients.get(i) %></p></li>
           <% } %>
         </ul>
       </div>
       <!-- Instructions -->
-      <div id="instructionsBloc">
-        <h2>Instructions</h2>
-        <ul id=instructions>
+      <div id="instructionsBloc" class="d-inline-flex p-2">
+        <h2 class="">Instructions</h2>
+        <ol id="instructions" class="list-group ">
           <% ArrayList<String> ins = (ArrayList<String>) recipeVal.getInstructions();%>
           <% for(int i = 0; i < ins.size(); i++) { %>
-          	<p>	<%=ins.get(i) %></p>
+          	<li class="list-group-item "><p><%=ins.get(i) %></p></li>
           <% } %>
-        </ul>
+        </ol>
       </div>
     </div>
     <!-- Holds all the buttons -->
-    <div id="buttons">
+    <div class="buttons">
       <!-- Brings user to a printable version of the page -->
       <form action="/FeedMe/recipeDetailsPagePrintableVersion?arrNum=<%= arrNum%>" method= "POST">
-      	<button id="printButton">Printable Version</button>
+      	<button id="printButton" class="Button">Printable Version</button>
       </form>
       
       <!-- Brings user back to results page -->
        <form action="/FeedMe/results" method="POST">
-        <button id="backToResults" class="bttn">Back To Results</button>
+        <button id="backToResults" class="Button">Back To Results</button>
       </form>
       <!-- This is the drop-down menu -->
       <form method="POST" onsubmit="return addToList(this)">
@@ -79,7 +98,7 @@
         <option value="d">Do Not Show</option>
       </select>
       <!-- Button to add item to selected list, doesn't do anything if choice is empty -->
-      <button type="submit" id="addToList">Add to List</button>
+      <button type="submit" id="addToList" class="Button">Add to List</button>
       </form>
     </div>
     <!-- Homebrew JS -->
