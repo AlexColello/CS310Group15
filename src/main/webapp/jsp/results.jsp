@@ -52,7 +52,7 @@
 		 		</div>
 		 	</div>
 
-		 	<div style="text-align: center; max-width: 60vw; min-width:40vw; max-height: 50vh; min-height: 35vh; border: 2px solid black;" class="col-md-8 order-md-1">
+		 	<div style=" max-width: 60vw; min-width:40vw; max-height: 50vh;text-align: center; min-height: 35vh; border: 2px solid black;" class="col-md-8 order-md-1">
 		 	<% for (int i = 0; i < 10; i++) {
 		 		Random rand = new Random();
 		 		int angle = rand.nextInt(90) -45;
