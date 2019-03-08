@@ -31,7 +31,7 @@
   		 			<input id="searchTermTest" title="Number of items to show in results" type="text" name="n" value="5" >
   					<br>
   					<!-- Feed Me button with the emoji image -->
-  					<button class="text-center" type="submit" value="Feed Me" name ="feedMeButton"id="feedMeButton" style="color: red;"><img src="https://images.emojiterra.com/twitter/v11/512px/1f620.png" id ="emoji" height = 20 width = 20><br><p>Feed Me!</p></button>
+  					<button class="text-center" type="submit" value="Feed Me" name ="feedMeButton"id="feedMeButton" style="color: red;"><p>Feed Me!</p><img src="https://images.emojiterra.com/twitter/v11/512px/1f620.png" id ="emoji" height = 20 width = 20><br></button>
   				</div>
 				</form>
     			</p>
