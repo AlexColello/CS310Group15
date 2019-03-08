@@ -122,7 +122,7 @@
         	        		<option value="d">Do Not Show</option>
             	    		<option value="r">Trash</option>
                 		</select>
-	                	<button class="form-control" type="submit">Move</button>
+	                	<button id="moveButton" class="form-control" type="submit">Move</button>
 					</form>
     	</div>
          <% j++;} %>
