@@ -22,6 +22,7 @@
     <link rel="stylesheet"  href="/css/results.css"  type="text/css">
 	  <!-- Javascript -->
 	<script type="text/javascript" src="../javascript/manageListButton.js"></script>
+	 <title><%=searchTerm %></title>
 </head>
 
 <body>
