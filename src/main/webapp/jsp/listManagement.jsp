@@ -116,7 +116,7 @@
     	            	<input type="hidden" name="recOrRest" value="rest">
         	        	<input type="hidden" name="arrNum" value="<%=j%>">
             	    	<% request.setAttribute("item", restaurantArr.get(j)); %>
-                		<select class="form-control" name="opType">
+                		<select id="moveDropDown" class="form-control" name="opType">
 	                		<option value="f">Favorites</option>
     	            		<option value="t">To Explore</option>
         	        		<option value="d">Do Not Show</option>
