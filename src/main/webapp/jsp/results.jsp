@@ -32,7 +32,7 @@
 		<div class = "row">
 			<div class="col-md-4 order-md-2 mb-4">
 		 		<div id="buttons">
-		 			<form name="list" onsubmit="return manageList(this);">
+		 			<form id="listDropDown" name="list" onsubmit="return manageList(this);">
       					<select id="listName" name="listName">
       					<option id="nOptionButton" disabled selected value> -- select an option -- </option>
        				    <option id="fOptionButton" value ="f" >Favorites</option>

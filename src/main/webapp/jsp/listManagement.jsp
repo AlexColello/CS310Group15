@@ -52,7 +52,7 @@
           		colorStyle = "grey";
           	}
           	%>
-          	<div class="col-12">
+          	<div class="col-12" id="Restaurant<%=j%>">
          			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-8 shadow-sm h-md-250 position-relative">
         			<div style="background-color:<%=colorStyle %>;"class="col p-4 d-flex flex-column position-static">
           			<div class="container">
@@ -95,8 +95,11 @@
         							else if (price == 2){
         							restaurantPrice = "$$";
         							}
-        							else{
+        							else if (price == 3) {
         								restaurantPrice = "$$$";
+        							}
+        							else {
+        								restaurantPrice = "$$$$";
         							}
         							%>
      	 						<strong>Price: <%=restaurantPrice%></strong>
@@ -142,7 +145,7 @@
           		colorStyle = "silver";	
           	}
           	%>
-    		<div class="col-12">
+    		<div class="col-12" id="Recipe<%=k%>">
          			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-8 shadow-sm h-md-250 position-relative">
         			<div style="background-color:<%=colorStyle %>;" class="col p-4 d-flex flex-column position-static">
           			<div class="container">
@@ -210,13 +213,13 @@
     	            	<input type="hidden" name="recOrRest" value="rec">
         	        	<input type="hidden" name="arrNum" value="<%=k%>">
             	    	<% request.setAttribute("item", recipeArr.get(k)); %>
-                		<select class="form-control" name="opType">
+                		<select id="moveDropDown" class="form-control" name="opType">
 	                		<option value="f">Favorites</option>
     	            		<option value="t">To Explore</option>
         	        		<option value="d">Do Not Show</option>
             	    		<option value="r">Trash</option>
                 		</select>
-	                	<button class="form-control" type="submit">Move</button>
+	                	<button id="moveButton" class="form-control" type="submit">Move</button>
 					</form>
     	</div>
     	
@@ -232,15 +235,15 @@
         	<option value ="d">Do Not Show</option>
       	</select>
      	<!-- Button to add item to selected list, doesn't do anything if choice is empty -->
-     	<button class="Button" id="addToList">Manage List</button> <br>
+     	<button class="Button" id="manageListButton">Manage List</button> <br>
 
        </form>
 
       <form action ="/FeedMe/jsp/search.jsp">
-      	<button class="Button" id="backtoResults" onclick="javascript:location.href = this.value;">Return to Search</button>
+      	<button class="Button" id="returnToSearch" onclick="javascript:location.href = this.value;">Return to Search</button>
       </form>
 	  <form action ="/FeedMe/results">
-      	<button class="Button" id="backtoResults" onclick="javascript:location.href = this.value;">Return to Results</button>
+      	<button class="Button" id="backToResults" onclick="javascript:location.href = this.value;">Return to Results</button>
       </form>
 	
 	</div>
