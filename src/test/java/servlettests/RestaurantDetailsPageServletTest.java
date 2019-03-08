@@ -33,7 +33,10 @@ public class RestaurantDetailsPageServletTest {
 
 	@Mock
 	RequestDispatcher rd;
-
+	
+	Restaurant[] results;
+	UserList[] userLists;
+	
 	@Before
 	public void setUp(){
 		MockitoAnnotations.initMocks(this);
@@ -44,26 +47,26 @@ public class RestaurantDetailsPageServletTest {
 		rd = mock(RequestDispatcher.class);
 		
 		when(request.getSession()).thenReturn(session);
+		
+		userLists = new UserList[3];
+		for (int i = 0; i < 3; ++i) {
+			userLists[i] = new UserList();
+		}
+		
+        results = new Restaurant[2];
+		results[0] = new Restaurant("A Good Restaurant", "https://www.mcdonalds.com/us/en-us.html", 1, "Everywhere", "(123)456-7890", 2.25, 5);
+		results[1] = new Restaurant("A Bad Restaurant", "https://www.bk.com/", 2, "Almost everywhere", "(123)456-7896", 1.25, 50);
+        
+        when(session.getAttribute("restaurantResults")).thenReturn(results);
+        when(request.getParameter("arrNum")).thenReturn("1");
+        when(session.getAttribute("userLists")).thenReturn(userLists);
 	}
 
 	@Test
 	public void testAddToFavorites() throws Exception {
 
         when(request.getRequestDispatcher("/jsp/restaurantDetails.jsp")).thenReturn(rd);
-        
-        Restaurant[] results = new Restaurant[2];
-		results[0] = new Restaurant("A Good Restaurant", "https://www.mcdonalds.com/us/en-us.html", 1, "Everywhere", "(123)456-7890", 2.25, 5);
-		results[1] = new Restaurant("A Bad Restaurant", "https://www.bk.com/", 2, "Almost everywhere", "(123)456-7896", 1.25, 50);
-        
-        when(session.getAttribute("restaurantResults")).thenReturn(results);
-        when(request.getParameter("arrNum")).thenReturn("1");
         when(request.getParameter("listType")).thenReturn("f");
-
-		UserList[] userLists = new UserList[3];
-		for (int i = 0; i < 3; ++i) {
-			userLists[i] = new UserList();
-		}
-		when(session.getAttribute("userLists")).thenReturn(userLists);
 		
 		new RestaurantDetailsPageServlet().service(request, response);
 
@@ -78,24 +81,12 @@ public class RestaurantDetailsPageServletTest {
 	public void testAddToToExplore() throws Exception {
 
         when(request.getRequestDispatcher("/jsp/restaurantDetails.jsp")).thenReturn(rd);
-        
-        Restaurant[] results = new Restaurant[2];
-		results[0] = new Restaurant("A Good Restaurant", "https://www.mcdonalds.com/us/en-us.html", 1, "Everywhere", "(123)456-7890", 2.25, 5);
-		results[1] = new Restaurant("A Bad Restaurant", "https://www.bk.com/", 2, "Almost everywhere", "(123)456-7896", 1.25, 50);
-        
-        when(session.getAttribute("restaurantResults")).thenReturn(results);
-        when(request.getParameter("arrNum")).thenReturn("1");
         when(request.getParameter("listType")).thenReturn("t");
-
-		UserList[] userLists = new UserList[3];
-		for (int i = 0; i < 3; ++i) {
-			userLists[i] = new UserList();
-		}
-		when(session.getAttribute("userLists")).thenReturn(userLists);
 		
 		new RestaurantDetailsPageServlet().service(request, response);
 
 		verify(rd).forward(request, response);
+		
 		userLists[2].add(results[1]);
 		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
 
@@ -105,21 +96,8 @@ public class RestaurantDetailsPageServletTest {
 	public void testAddToDoNotShow() throws Exception {
 
         when(request.getRequestDispatcher("/jsp/restaurantDetails.jsp")).thenReturn(rd);
-        
-        Restaurant[] results = new Restaurant[2];
-		results[0] = new Restaurant("A Good Restaurant", "https://www.mcdonalds.com/us/en-us.html", 1, "Everywhere", "(123)456-7890", 2.25, 5);
-		results[1] = new Restaurant("A Bad Restaurant", "https://www.bk.com/", 2, "Almost everywhere", "(123)456-7896", 1.25, 50);
-        
-        when(session.getAttribute("restaurantResults")).thenReturn(results);
-        when(request.getParameter("arrNum")).thenReturn("1");
         when(request.getParameter("listType")).thenReturn("d");
 
-		UserList[] userLists = new UserList[3];
-		for (int i = 0; i < 3; ++i) {
-			userLists[i] = new UserList();
-		}
-		when(session.getAttribute("userLists")).thenReturn(userLists);
-		
 		new RestaurantDetailsPageServlet().service(request, response);
 
 		verify(rd).forward(request, response);
@@ -130,23 +108,106 @@ public class RestaurantDetailsPageServletTest {
 	}
 	
 	@Test
+	public void testAddToFavoritesDuplicate1() throws Exception {
+
+        when(request.getRequestDispatcher("/jsp/restaurantDetails.jsp")).thenReturn(rd);
+        when(request.getParameter("listType")).thenReturn("f");
+
+        userLists[1].add(results[1]);
+        
+		new RestaurantDetailsPageServlet().service(request, response);
+
+		verify(rd).forward(request, response);
+		
+		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
+
+	}
+	
+	@Test
+	public void testAddToToExploreDuplicate1() throws Exception {
+
+        when(request.getRequestDispatcher("/jsp/restaurantDetails.jsp")).thenReturn(rd);
+        when(request.getParameter("listType")).thenReturn("t");
+
+        userLists[0].add(results[1]);
+		
+		new RestaurantDetailsPageServlet().service(request, response);
+
+		verify(rd).forward(request, response);
+		
+		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
+
+	}
+	
+	@Test
+	public void testAddToDoNotShowDuplicate1() throws Exception {
+
+        when(request.getRequestDispatcher("/jsp/restaurantDetails.jsp")).thenReturn(rd);
+        when(request.getParameter("listType")).thenReturn("d");
+
+        userLists[0].add(results[1]);
+
+		new RestaurantDetailsPageServlet().service(request, response);
+
+		verify(rd).forward(request, response);
+		
+		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
+
+	}
+	
+	@Test
+	public void testAddToFavoritesDuplicate2() throws Exception {
+
+        when(request.getRequestDispatcher("/jsp/restaurantDetails.jsp")).thenReturn(rd);
+        when(request.getParameter("listType")).thenReturn("f");
+
+        userLists[2].add(results[1]);
+        
+		new RestaurantDetailsPageServlet().service(request, response);
+
+		verify(rd).forward(request, response);
+		
+		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
+
+	}
+	
+	@Test
+	public void testAddToToExploreDuplicate2() throws Exception {
+
+        when(request.getRequestDispatcher("/jsp/restaurantDetails.jsp")).thenReturn(rd);
+        when(request.getParameter("listType")).thenReturn("t");
+
+        userLists[1].add(results[1]);
+		
+		new RestaurantDetailsPageServlet().service(request, response);
+
+		verify(rd).forward(request, response);
+		
+		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
+
+	}
+	
+	@Test
+	public void testAddToDoNotShowDuplicate2() throws Exception {
+
+        when(request.getRequestDispatcher("/jsp/restaurantDetails.jsp")).thenReturn(rd);
+        when(request.getParameter("listType")).thenReturn("d");
+
+        userLists[2].add(results[1]);
+
+		new RestaurantDetailsPageServlet().service(request, response);
+
+		verify(rd).forward(request, response);
+		
+		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
+
+	}	
+	
+	@Test
 	public void testNoList() throws Exception {
 
         when(request.getRequestDispatcher("/jsp/restaurantDetails.jsp")).thenReturn(rd);
-        
-        Restaurant[] results = new Restaurant[2];
-		results[0] = new Restaurant("A Good Restaurant", "https://www.mcdonalds.com/us/en-us.html", 1, "Everywhere", "(123)456-7890", 2.25, 5);
-		results[1] = new Restaurant("A Bad Restaurant", "https://www.bk.com/", 2, "Almost everywhere", "(123)456-7896", 1.25, 50);
-        
-        when(session.getAttribute("restaurantResults")).thenReturn(results);
-        when(request.getParameter("arrNum")).thenReturn("1");
         when(request.getParameter("listType")).thenReturn(null);
-
-		UserList[] userLists = new UserList[3];
-		for (int i = 0; i < 3; ++i) {
-			userLists[i] = new UserList();
-		}
-		when(session.getAttribute("userLists")).thenReturn(userLists);
 		
 		new RestaurantDetailsPageServlet().service(request, response);
 
@@ -159,20 +220,8 @@ public class RestaurantDetailsPageServletTest {
 	public void testIncorrectList() throws Exception {
 
         when(request.getRequestDispatcher("/jsp/restaurantDetails.jsp")).thenReturn(rd);
-        
-        Restaurant[] results = new Restaurant[2];
-		results[0] = new Restaurant("A Good Restaurant", "https://www.mcdonalds.com/us/en-us.html", 1, "Everywhere", "(123)456-7890", 2.25, 5);
-		results[1] = new Restaurant("A Bad Restaurant", "https://www.bk.com/", 2, "Almost everywhere", "(123)456-7896", 1.25, 50);
-        
-        when(session.getAttribute("restaurantResults")).thenReturn(results);
-        when(request.getParameter("arrNum")).thenReturn("1");
         when(request.getParameter("listType")).thenReturn("a");
 
-		UserList[] userLists = new UserList[3];
-		for (int i = 0; i < 3; ++i) {
-			userLists[i] = new UserList();
-		}
-		when(session.getAttribute("userLists")).thenReturn(userLists);
 		
 		new RestaurantDetailsPageServlet().service(request, response);
 

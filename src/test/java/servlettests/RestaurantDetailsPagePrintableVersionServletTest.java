@@ -47,7 +47,7 @@ public class RestaurantDetailsPagePrintableVersionServletTest {
 	}
 
 	@Test
-	public void testAddToFavorites() throws Exception {
+	public void testStandard() throws Exception {
 
         when(request.getRequestDispatcher("/jsp/restaurantDetailsPrintableVersion.jsp")).thenReturn(rd);
         
