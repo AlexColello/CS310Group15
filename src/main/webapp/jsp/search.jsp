@@ -9,7 +9,7 @@
 	<title>Search Page</title>
 </head>
 
-<body>
+<body style="background-color:whitesmoke;">
 
 <div class="container">
   <div class="row">

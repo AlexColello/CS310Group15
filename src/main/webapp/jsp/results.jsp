@@ -26,7 +26,7 @@
 	 <title><%=searchTerm %></title>
 </head>
 
-<body>
+<body style="background-color:whitesmoke;">
 	<div class="container">
 		<!-- Row for collage and buttons -->
 		<div class = "row">
