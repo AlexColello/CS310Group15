@@ -26,81 +26,83 @@
 
 
   <body style="background-color:whitesmoke;">
-    <!-- Main Div -->
-    <div id="main">
-      <!-- Title -->
-      <h1 id="recipeName"><%= recipeVal.getName() %></h1>
-      <!-- Holds image, prep and cook time of recipe-->
-      <div id="details">
-      	<% String picUrl = recipeVal.getPictureUrl(); %>
-        <img id="recipePicture" src="<%= picUrl %>" alt="Recipe Image"/>
-        <%     
-			double cookTime = recipeVal.getCookTime();
-			String renderCookTime = "";
-			if (cookTime < 0){
-				renderCookTime = "Not Available";
-			}
-			else{
-				renderCookTime = Double.toString(cookTime) + " minutes";
-			}
-		
-			double prepTime = recipeVal.getPrepTime();
-			String renderPrepTime = "";
-			if (prepTime < 0){
-				renderPrepTime = "Not Available";
-			}
-			else{
-				renderPrepTime = Double.toString(prepTime) + " minutes";
-			}			
-        %>
-        <p id="prepTime"><strong>Prep Time: </strong><%=renderPrepTime %></p>
-        <p id="cookTime"><strong>Cook Time: </strong><%=renderCookTime %></p>
-      </div>
-      <!-- Ingredients -->
-      <div id="ingredientsBloc" class="">
-        <h2>Ingredients</h2>
-        <ul id="ingredients" class="r-inline-flex clearfix">
-          <% ArrayList<String> ingredients = (ArrayList<String>) recipeVal.getIngredients();%>
-          <% for(int i = 0; i < ingredients.size(); i++){ %>
-          	<li class="" style="width:45%;float:left;margin-right:5%;"><p><%=ingredients.get(i) %></p></li>
-          <% } %>
-        </ul>
-      </div>
-      <!-- Instructions -->
-      <div id="instructionsBloc" class="">
-        <h2 class="">Instructions</h2>
-        <ol id="instructions" class="r-inline-flex clearfix">
-          <% ArrayList<String> ins = (ArrayList<String>) recipeVal.getInstructions();%>
-          <% for(int i = 0; i < ins.size(); i++) { %>
-          	<li class=""><p><%=ins.get(i) %></p></li>
-          <% } %>
-        </ol>
-        <br/>
-      </div>
-    </div>
-    <!-- Holds all the buttons -->
-    <div class="buttons">
-      <!-- Brings user to a printable version of the page -->
-      <form action="/FeedMe/recipeDetailsPagePrintableVersion?arrNum=<%= arrNum%>" method= "POST">
-      	<button id="printButton" class="Button">Printable Version</button>
-      </form>
-      
-      <!-- Brings user back to results page -->
-       <form action="/FeedMe/results" method="POST">
-        <button id="backToResults" class="Button">Back To Results</button>
-      </form>
-      <!-- This is the drop-down menu -->
-      <form method="POST" onsubmit="return addToList(this)">
-      <input type="hidden" name="arrNum" value="<%= arrNum %>">
-      <select name="listType" id="dropDownBar">
-        <option disabled selected value id="defaultOption"> -- select an option -- </option>
-        <option id="favoriteOption" value="f" >Favorites</option>
-        <option id="toExploreOption" value="t">To Explore</option>
-        <option id="doNotShowOption" value="d">Do Not Show</option>
-      </select>
-      <!-- Button to add item to selected list, doesn't do anything if choice is empty -->
-      <button type="submit" id="addToList" class="Button">Add to List</button>
-      </form>
+    <!-- Row -->
+    <div class="row">
+	    <div class="col-sm-10">
+	      <!-- Title -->
+	      <h1 id="recipeName"><%= recipeVal.getName() %></h1>
+	      <!-- Holds image, prep and cook time of recipe-->
+	      <div id="details">
+	      	<% String picUrl = recipeVal.getPictureUrl(); %>
+	        <img id="recipePicture" src="<%= picUrl %>" alt="Recipe Image"/>
+	        <%     
+				double cookTime = recipeVal.getCookTime();
+				String renderCookTime = "";
+				if (cookTime < 0){
+					renderCookTime = "Not Available";
+				}
+				else{
+					renderCookTime = Double.toString(cookTime) + " minutes";
+				}
+			
+				double prepTime = recipeVal.getPrepTime();
+				String renderPrepTime = "";
+				if (prepTime < 0){
+					renderPrepTime = "Not Available";
+				}
+				else{
+					renderPrepTime = Double.toString(prepTime) + " minutes";
+				}			
+	        %>
+	        <p id="prepTime"><strong>Prep Time: </strong><%=renderPrepTime %></p>
+	        <p id="cookTime"><strong>Cook Time: </strong><%=renderCookTime %></p>
+	      </div>
+	      <!-- Ingredients -->
+	      <div id="ingredientsBloc" class="">
+	        <h2>Ingredients</h2>
+	        <ul id="ingredients" class="r-inline-flex clearfix">
+	          <% ArrayList<String> ingredients = (ArrayList<String>) recipeVal.getIngredients();%>
+	          <% for(int i = 0; i < ingredients.size(); i++){ %>
+	          	<li class="" style="width:45%;float:left;margin-right:5%;"><p><%=ingredients.get(i) %></p></li>
+	          <% } %>
+	        </ul>
+	      </div>
+	      <!-- Instructions -->
+	      <div id="instructionsBloc" class="">
+	        <h2 class="">Instructions</h2>
+	        <ol id="instructions" class="r-inline-flex clearfix">
+	          <% ArrayList<String> ins = (ArrayList<String>) recipeVal.getInstructions();%>
+	          <% for(int i = 0; i < ins.size(); i++) { %>
+	          	<li class=""><p><%=ins.get(i) %></p></li>
+	          <% } %>
+	        </ol>
+	        <br/>
+	      </div>
+	    </div>
+	    <!-- Holds all the buttons -->
+	    <div class="buttons col-sm">
+	      <!-- Brings user to a printable version of the page -->
+	      <form action="/FeedMe/recipeDetailsPagePrintableVersion?arrNum=<%= arrNum%>" method= "POST">
+	      	<button id="printButton" class="Button">Printable Version</button>
+	      </form>
+	      
+	      <!-- Brings user back to results page -->
+	       <form action="/FeedMe/results" method="POST">
+	        <button id="backToResults" class="Button">Back To Results</button>
+	      </form>
+	      <!-- This is the drop-down menu -->
+	      <form method="POST" onsubmit="return addToList(this)">
+	      <input type="hidden" name="arrNum" value="<%= arrNum %>">
+	      <select name="listType" id="dropDownBar" class="dropDownBar">
+          	<option disabled selected value id="defaultOption"> -- select an option -- </option>
+          	<option id="favoriteOption" value="f" >Favorites</option>
+          	<option id="toExploreOption" value="t">To Explore</option>
+          	<option id="doNotShowOption" value="d">Do Not Show</option>
+          </select>
+	      <!-- Button to add item to selected list, doesn't do anything if choice is empty -->
+	      <button type="submit" id="addToList" class="Button">Add to List</button>
+	      </form>
+	    </div>
     </div>
     <!-- Homebrew JS -->
     <script>

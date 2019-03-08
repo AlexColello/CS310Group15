@@ -29,28 +29,48 @@
       <div id="details">
       	<% String picUrl = recipeVal.getPictureUrl(); %>
         <img id="recipePicture" src="<%= picUrl %>" alt="Recipe Image"/>
-        <p id="prepTime"><strong>Prep Time: </strong><%=recipeVal.getPrepTime() %></p>
-        <p id="cookTime"><strong>Cook Time: </strong><%=recipeVal.getCookTime() %></p>
+        <%     
+			double cookTime = recipeVal.getCookTime();
+			String renderCookTime = "";
+			if (cookTime < 0){
+				renderCookTime = "Not Available";
+			}
+			else{
+				renderCookTime = Double.toString(cookTime) + " minutes";
+			}
+		
+			double prepTime = recipeVal.getPrepTime();
+			String renderPrepTime = "";
+			if (prepTime < 0){
+				renderPrepTime = "Not Available";
+			}
+			else{
+				renderPrepTime = Double.toString(prepTime) + " minutes";
+			}			
+        %>
+        <p id="prepTime"><strong>Prep Time: </strong><%=renderPrepTime %></p>
+        <p id="cookTime"><strong>Cook Time: </strong><%=renderCookTime %></p>
       </div>
       <!-- Ingredients -->
-      <div id="ingredientsBloc">
+      <div id="ingredientsBloc" class="">
         <h2>Ingredients</h2>
-        <ul id=ingredients>
+        <ul id="ingredients" class="r-inline-flex clearfix">
           <% ArrayList<String> ingredients = (ArrayList<String>) recipeVal.getIngredients();%>
           <% for(int i = 0; i < ingredients.size(); i++){ %>
-          	<p>	<%=ingredients.get(i) %></p>
+          	<li class="" style="width:45%;float:left;margin-right:5%;"><p><%=ingredients.get(i) %></p></li>
           <% } %>
         </ul>
       </div>
       <!-- Instructions -->
-      <div id="instructionsBloc">
-        <h2>Instructions</h2>
-        <ul id=instructions>
+      <div id="instructionsBloc" class="">
+        <h2 class="">Instructions</h2>
+        <ol id="instructions" class="r-inline-flex clearfix">
           <% ArrayList<String> ins = (ArrayList<String>) recipeVal.getInstructions();%>
-          <% for(int i = 0; i < ins.size(); i++){ %>
-          	<p>	<%=ins.get(i) %></p>
+          <% for(int i = 0; i < ins.size(); i++) { %>
+          	<li class=""><p><%=ins.get(i) %></p></li>
           <% } %>
-        </ul>
+        </ol>
+        <br/>
       </div>
     </div>
     <!-- Holds all the buttons -->

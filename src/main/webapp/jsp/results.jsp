@@ -13,6 +13,7 @@
 	Integer resultCount =  (Integer) request.getAttribute("resultCount");
 	Restaurant[] restaurantArr = (Restaurant[]) request.getAttribute("restaurantArr");
 	Recipe[] recipeArr = (Recipe[]) request.getAttribute("recipeArr");
+	
 	%>
 	  <!-- Bootstrap CSS  -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -21,38 +22,41 @@
     <link href="../css/details.css" rel="stylesheet" type="text/css">
     <link href="../css/list.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet"  href="/css/results.css"  type="text/css">
+    <style>
+    <%@ include file="/css/buttons.css"%>
+    </style>
 	  <!-- Javascript -->
 	<script type="text/javascript" src="../javascript/manageListButton.js"></script>
 	 <title><%=searchTerm %></title>
 </head>
 
 <body style="background-color:whitesmoke;">
-	<div class="container">
+	<div class="container sm-5">
 		<!-- Row for collage and buttons -->
-		<div class = "row">
-			<div class="col-md-4 order-md-2 mb-4">
-		 		<div id="buttons">
-		 			<form name="list" onsubmit="return manageList(this);">
-      					<select id="listName" name="listName">
-      					<option id="nOptionButton" disabled selected value> -- select an option -- </option>
-       				    <option id="fOptionButton" value ="f" >Favorites</option>
+		<div class = "row justify-content-center align-items-start">
+			<div class="col-sm-2 order-3">
+		 		<div class="buttons">
+		 			<form id="listDropDown" name="list" onsubmit="return manageList(this);">
+      					<select id="listName" name="listName" class="dropDownBar">
+      					<option id="nOptionButton" disabled selected> -- select an option -- </option>
+       				    <option id="fOptionButton" value ="f">Favorites</option>
         				<option id="tOptionButton" value ="t">To Explore</option>
         				<option id="dOptionButton" value ="d">Do Not Show</option>
       					</select> <br>
       					<!-- Button to add item to selected list, doesn't do anything if choice is empty -->
-     					<button id="addToList">Manage Lists</button> <br>
+     					<button id="addToList" class="Button">Manage Lists</button> <br>
 
       				</form>
 
 
       				<form action ="/FeedMe/jsp/search.jsp">
-      					<button id="returntoSearch" onclick="javascript:location.href = this.value;">Return to Search</button>
+      					<button id="returntoSearch" onclick="javascript:location.href = this.value;" class="Button">Return to Search</button>
       				</form>
 
 		 		</div>
 		 	</div>
 
-		 	<div id="collageDiv" style=" max-width: 60vw; min-width:40vw; max-height: 50vh;text-align: center; min-height: 35vh; border: 2px solid black;" class="col-md-8 order-md-1">
+		 	<div id="collageDiv" style=" max-width: 60vw; min-width:40vw; max-height: 50vh;text-align: center; min-height: 35vh; border: 2px solid black;" class="col-sm-6 order-2 overflow-hidden">
 		 	<% for (int i = 0; i < 10; i++) {
 		 		Random rand = new Random();
 		 		int angle = rand.nextInt(90) -45;
@@ -67,6 +71,7 @@
 		 	--%>
 
 			</div>
+			<div class="col-sm-3 order-1"></div>
 		</div>
 
 		<!-- Search For xx  -->
@@ -75,9 +80,8 @@
    		</div>
 
    		<!-- Restaurants and Recipes lists  -->
-   		<div class="row mb-2">
-
-   			<div class="col-md-6">
+   		<div class="row sm-2">
+   			<div class="col-sm-6">
       			<h2 id="restaurantTitle" class="text-center"> Restaurants</h2>
           		<%
 
@@ -90,7 +94,9 @@
           				colorStyle = "grey";
           			}
           		%>
-         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" id="Restaurant<%=i%>">
+          		<% if(restaurantArr[i] != null){ %>
+          			<% System.out.println("Rest Arr: " + i + " " + (restaurantArr[i] == null));  %>
+         			<div class="row no-gutters border rounded overflow-hidden flex-sm-row sm-4 shadow-sm h-md-250 position-relative" id="Restaurant<%=i%>">
         			<div style="background-color:<%=colorStyle %>;"class="col p-4 d-flex flex-column position-static">
           			<div class="container">
   						<div class="row">
@@ -147,13 +153,14 @@
         			
           			</div>
       				</div>
-          		<% } %>
-       		 </ul>
-
+      				
+          		<% }} %>
+		
     	</div>
+    	
 
     	<!-- Recipes -->
-    		<div class="col-md-6">
+    		<div class="col-sm-6">
       			<h2 id="recipeTitle" class= "text-center"> Recipes</h2>
           		<% for(int i = 0; i < resultCount; i++){ 
           			String colorStyle = "";
@@ -164,7 +171,9 @@
           				colorStyle = "grey";
           			}
           		%>
-         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" id="Recipe<%=i%>">
+          			<% if(recipeArr[i] != null){ %>
+          			<% System.out.println("Rest Arr: " + i + " " + (restaurantArr[i] == null));  %>
+         			<div class="row no-gutters border rounded overflow-hidden flex-sm-row sm-4 shadow-sm h-sm-250 position-relative" id="Recipe<%=i%>">
         			<div style="background-color:<%=colorStyle %>;" class="col p-4 d-flex flex-column position-static">
           			<div class="container">
   						<div class="row">
@@ -225,8 +234,7 @@
         			<div class="col-auto d-none d-lg-block">
           			</div>
       				</div>
-          		<% } %>
-       		 </ul>
+          		<% }} %>
 
     	</div>
 
@@ -250,5 +258,4 @@ function manageList(form){
 
 } 
 </script>
-
 </body>
