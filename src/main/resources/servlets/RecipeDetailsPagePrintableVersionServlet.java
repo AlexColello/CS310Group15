@@ -37,26 +37,8 @@ private static final long serialVersionUID = 1L;
 		int arrNum = Integer.parseInt(request.getParameter("arrNum"));
 		Recipe r = recipeResults[arrNum];
 		
-		String addToListParam;
-		if ((addToListParam = request.getParameter("listType")) != null) {
-			// When "Add to List" Button is clicked
-			UserList[] userLists = (UserList[]) session.getAttribute("userLists");
-			switch (addToListParam.charAt(0)) {
-			case 'f':
-				userLists[0].add(r);
-				break;
-			case 'd':
-				userLists[1].add(r);
-				break;
-			case 't':
-				userLists[2].add(r);
-				break;
-			}
-			session.setAttribute("userLists", userLists);
-		}
-		request.setAttribute("recipeVal", recipeResults[arrNum]);
+		request.setAttribute("recipeVal", r);
 		
-
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/recipeDetailsPrintableVersion.jsp");
 		dispatch.forward(request,  response);				
 	}

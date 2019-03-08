@@ -36,26 +36,8 @@ private static final long serialVersionUID = 1L;
 		}
 		int arrNum = Integer.parseInt(request.getParameter("arrNum"));
 		Restaurant r = restaurantResults[arrNum];
-		
-		String addToListParam;
-		if ((addToListParam = request.getParameter("listType")) != null) {
-			// When "Add to List" Button is clicked
-			UserList[] userLists = (UserList[]) session.getAttribute("userLists");
-			switch (addToListParam.charAt(0)) {
-			case 'f':
-				userLists[0].add(r);
-				break;
-			case 'd':
-				userLists[1].add(r);
-				break;
-			case 't':
-				userLists[2].add(r);
-				break;
-			}
-			session.setAttribute("userLists", userLists);
-		}
-		request.setAttribute("restaurantVal", restaurantResults[arrNum]);
-		request.setAttribute("arrNum", arrNum);
+
+		request.setAttribute("restaurantVal", r);
 
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/restaurantDetailsPrintableVersion.jsp");
 		dispatch.forward(request,  response);			
