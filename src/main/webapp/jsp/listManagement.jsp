@@ -229,7 +229,7 @@
    	<div id="buttons" class="buttons align-middle p-1">
 		<form name="list" onsubmit="return manageList(this);">
       	<select id="dropDownBar" name="listName" class="dropDownBar">
-      		<option disabled selected value>Select an option</option>
+      		<option disabled selected value> -- select an option -- </option>
        		<option value ="f" >Favorites</option>
         	<option value ="t">To Explore</option>
         	<option value ="d">Do Not Show</option>
