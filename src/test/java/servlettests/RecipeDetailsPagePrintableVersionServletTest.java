@@ -1,8 +1,11 @@
 package servlettests;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -11,12 +14,18 @@ import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import data.Recipe;
+import data.Restaurant;
+import data.UserList;
+import servlets.RecipeDetailsPagePrintableVersionServlet;
 import servlets.RecipeDetailsPagePrintableVersionServlet;
 
 public class RecipeDetailsPagePrintableVersionServletTest {
+
 
 	@Mock
 	HttpServletRequest request;
@@ -27,21 +36,179 @@ public class RecipeDetailsPagePrintableVersionServletTest {
 
 	@Mock
 	RequestDispatcher rd;
+	
+	private Recipe recipe1;
+	private Recipe recipe2;
 
 	@Before
 	public void setUp(){
 		MockitoAnnotations.initMocks(this);
+		
+		request = mock(HttpServletRequest.class);
+		response = mock(HttpServletResponse.class);
+		session = mock(HttpSession.class);
+		rd = mock(RequestDispatcher.class);
+		
+		when(request.getSession()).thenReturn(session);
+		
+		String name = "Good Food";
+		String pictureUrl = "http://www.todayifoundout.com/wp-content/uploads/2017/11/rick-astley.png";
+		double prepTime = 10;
+		double cookTime = 25;
+		ArrayList<String> ingredients = new ArrayList<String>();
+		ingredients.add("1 teaspoon ground ginger");
+		ingredients.add("1 rack of lamb");
+		ArrayList<String> instructions = new ArrayList<String>();
+		instructions.add("Throw in a pan.");
+		instructions.add("Cook until done.");
+		double rating = 4.5;
+		
+		recipe1 = new Recipe(name, pictureUrl, prepTime, cookTime, ingredients, instructions, rating);
+		recipe2 = new Recipe("Not" + name, pictureUrl, prepTime, cookTime, ingredients, instructions, rating);
 	}
 
 	@Test
-	public void test() throws Exception {
+	public void testAddToFavorites() throws Exception {
 
-		HttpServletRequest request = mock(HttpServletRequest.class);
-		HttpServletResponse response = mock(HttpServletResponse.class);
-		HttpSession session = mock(HttpSession.class);
-		RequestDispatcher rd = mock(RequestDispatcher.class);
+        when(request.getRequestDispatcher("/jsp/recipeDetailsPrintableVersion.jsp")).thenReturn(rd);
+        
+        Recipe[] results = new Recipe[2];
+		results[0] = recipe1;
+		results[1] = recipe2;
+        
+        when(session.getAttribute("recipeResults")).thenReturn(results);
+        when(request.getParameter("arrNum")).thenReturn("1");
+        when(request.getParameter("listType")).thenReturn("f");
+
+		UserList[] userLists = new UserList[3];
+		for (int i = 0; i < 3; ++i) {
+			userLists[i] = new UserList();
+		}
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		
+		new RecipeDetailsPagePrintableVersionServlet().service(request, response);
+
+		verify(rd).forward(request, response);
+		
+		userLists[0].add(results[1]);
+		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
+
+	}
+	
+	@Test
+	public void testAddToToExplore() throws Exception {
+
+        when(request.getRequestDispatcher("/jsp/recipeDetailsPrintableVersion.jsp")).thenReturn(rd);
+        
+        Recipe[] results = new Recipe[2];
+		results[0] = recipe1;
+		results[1] = recipe2;
+        
+        when(session.getAttribute("recipeResults")).thenReturn(results);
+        when(request.getParameter("arrNum")).thenReturn("1");
+        when(request.getParameter("listType")).thenReturn("t");
+
+		UserList[] userLists = new UserList[3];
+		for (int i = 0; i < 3; ++i) {
+			userLists[i] = new UserList();
+		}
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		
+		new RecipeDetailsPagePrintableVersionServlet().service(request, response);
+
+		verify(rd).forward(request, response);
+		userLists[2].add(results[1]);
+		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
+
+	}
+	
+	@Test
+	public void testAddToDoNotShow() throws Exception {
+
+        when(request.getRequestDispatcher("/jsp/recipeDetailsPrintableVersion.jsp")).thenReturn(rd);
+        
+        Recipe[] results = new Recipe[2];
+		results[0] = recipe1;
+		results[1] = recipe2;
+        
+        when(session.getAttribute("recipeResults")).thenReturn(results);
+        when(request.getParameter("arrNum")).thenReturn("1");
+        when(request.getParameter("listType")).thenReturn("d");
+
+		UserList[] userLists = new UserList[3];
+		for (int i = 0; i < 3; ++i) {
+			userLists[i] = new UserList();
+		}
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		
+		new RecipeDetailsPagePrintableVersionServlet().service(request, response);
+
+		verify(rd).forward(request, response);
+		
+		userLists[1].add(results[1]);
+		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
+
+	}
+	
+	@Test
+	public void testNoList() throws Exception {
+
+        when(request.getRequestDispatcher("/jsp/recipeDetailsPrintableVersion.jsp")).thenReturn(rd);
+        
+        Recipe[] results = new Recipe[2];
+		results[0] = recipe1;
+		results[1] = recipe2;
+        
+        when(session.getAttribute("recipeResults")).thenReturn(results);
+        when(request.getParameter("arrNum")).thenReturn("1");
+        when(request.getParameter("listType")).thenReturn(null);
+
+		UserList[] userLists = new UserList[3];
+		for (int i = 0; i < 3; ++i) {
+			userLists[i] = new UserList();
+		}
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		
+		new RecipeDetailsPagePrintableVersionServlet().service(request, response);
+
+		verify(rd).forward(request, response);
+		verify(session, never()).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
+
+	}
+	
+	@Test
+	public void testIncorrectList() throws Exception {
+
+        when(request.getRequestDispatcher("/jsp/recipeDetailsPrintableVersion.jsp")).thenReturn(rd);
+        
+        Recipe[] results = new Recipe[2];
+		results[0] = recipe1;
+		results[1] = recipe2;
+        
+        when(session.getAttribute("recipeResults")).thenReturn(results);
+        when(request.getParameter("arrNum")).thenReturn("1");
+        when(request.getParameter("listType")).thenReturn("a");
+
+		UserList[] userLists = new UserList[3];
+		for (int i = 0; i < 3; ++i) {
+			userLists[i] = new UserList();
+		}
+		when(session.getAttribute("userLists")).thenReturn(userLists);
+		
+		new RecipeDetailsPagePrintableVersionServlet().service(request, response);
+
+		verify(rd).forward(request, response);
+		verify(session).setAttribute(ArgumentMatchers.eq("userLists"), ArgumentMatchers.eq(userLists));
+
+	}
+	
+	
+	
+	@Test
+	public void testExpiredSession() throws Exception {
 		
         when(request.getRequestDispatcher("/jsp/search.jsp")).thenReturn(rd);
+        when(session.getAttribute("recipeResults")).thenReturn(null);
 
 		new RecipeDetailsPagePrintableVersionServlet().service(request, response);
 

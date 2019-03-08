@@ -17,6 +17,7 @@ import data.UserList;
 /**
  * Servlet implementation class RecipeDetailsPagePrintableVersionServlet
  */
+
 @WebServlet("/recipeDetailsPagePrintableVersion")
 public class RecipeDetailsPagePrintableVersionServlet extends HttpServlet {
 private static final long serialVersionUID = 1L;
@@ -35,8 +36,6 @@ private static final long serialVersionUID = 1L;
 		}
 		int arrNum = Integer.parseInt(request.getParameter("arrNum"));
 		Recipe r = recipeResults[arrNum];
-		System.out.println("Yes");
-		System.out.println(r.getName());
 		
 		String addToListParam;
 		if ((addToListParam = request.getParameter("listType")) != null) {

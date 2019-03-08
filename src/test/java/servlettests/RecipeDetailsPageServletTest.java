@@ -42,6 +42,7 @@ public class RecipeDetailsPageServletTest {
 		RequestDispatcher rd = mock(RequestDispatcher.class);
 		
         when(request.getRequestDispatcher("/jsp/search.jsp")).thenReturn(rd);
+        when(request.getSession()).thenReturn(session);
 
 		new RecipeDetailsPageServlet().service(request, response);
 

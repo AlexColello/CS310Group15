@@ -42,6 +42,7 @@ public class ListManagementPageServletTest {
 		RequestDispatcher rd = mock(RequestDispatcher.class);
 		
         when(request.getRequestDispatcher("/jsp/search.jsp")).thenReturn(rd);
+        when(request.getSession()).thenReturn(session);
 
 		new ListManagementPageServlet().service(request, response);
 

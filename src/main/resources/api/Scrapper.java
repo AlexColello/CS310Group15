@@ -73,6 +73,7 @@ public class Scrapper {
 	// Returns a Recipe object representation of the recipe at the url on allrecipes.com.
 	public static Recipe get(String url) throws IOException {
 		
+		System.out.println("Starting to scrape " + url);
 		wait(1000);
 		
 		Document doc = Jsoup.connect(url).get();

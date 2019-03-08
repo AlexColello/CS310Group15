@@ -46,6 +46,7 @@ public class SearchPageServletTest {
 		RequestDispatcher rd = mock(RequestDispatcher.class);
 		
         when(request.getRequestDispatcher("/jsp/search.jsp")).thenReturn(rd);
+        when(request.getSession()).thenReturn(session);
 
 		new SearchPageServlet().service(request, response);
 
