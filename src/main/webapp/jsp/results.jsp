@@ -31,10 +31,10 @@
 </head>
 
 <body style="background-color:whitesmoke;">
-	<div class="container mt-5">
+	<div class="container sm-5">
 		<!-- Row for collage and buttons -->
-		<div class = "row">
-			<div class="col-md-2 order-3">
+		<div class = "row justify-content-center align-items-start">
+			<div class="col-sm-2 order-3">
 		 		<div class="buttons">
 		 			<form name="list" onsubmit="return manageList(this);">
       					<select id="listName" name="listName" class="dropDownBar">
@@ -50,13 +50,13 @@
 
 
       				<form action ="/FeedMe/jsp/search.jsp">
-      					<button id="returntoSearch" onclick="javascript:location.href = this.value;">Return to Search</button>
+      					<button id="returntoSearch" onclick="javascript:location.href = this.value;" class="Button">Return to Search</button>
       				</form>
 
 		 		</div>
 		 	</div>
 
-		 	<div id="collageDiv" style=" max-width: 60vw; min-width:40vw; max-height: 50vh;text-align: center; min-height: 35vh; border: 2px solid black;" class="col-md-6 order-2 overflow-hidden">
+		 	<div id="collageDiv" style=" max-width: 60vw; min-width:40vw; max-height: 50vh;text-align: center; min-height: 35vh; border: 2px solid black;" class="col-sm-6 order-2 overflow-hidden">
 		 	<% for (int i = 0; i < 10; i++) {
 		 		Random rand = new Random();
 		 		int angle = rand.nextInt(90) -45;
@@ -71,7 +71,7 @@
 		 	--%>
 
 			</div>
-			<div class="col-md-3 order-1"></div>
+			<div class="col-sm-3 order-1"></div>
 		</div>
 
 		<!-- Search For xx  -->
@@ -80,8 +80,8 @@
    		</div>
 
    		<!-- Restaurants and Recipes lists  -->
-   		<div class="row mb-2">
-   			<div class="col-md-6">
+   		<div class="row sm-2">
+   			<div class="col-sm-6">
       			<h2 id="restaurantTitle" class="text-center"> Restaurants</h2>
           		<%
 
@@ -96,7 +96,7 @@
           		%>
           		<% if(restaurantArr[i] != null){ %>
           			<% System.out.println("Rest Arr: " + i + " " + (restaurantArr[i] == null));  %>
-         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" id="Restaurant<%=i%>">
+         			<div class="row no-gutters border rounded overflow-hidden flex-sm-row sm-4 shadow-sm h-md-250 position-relative" id="Restaurant<%=i%>">
         			<div style="background-color:<%=colorStyle %>;"class="col p-4 d-flex flex-column position-static">
           			<div class="container">
   						<div class="row">
@@ -160,7 +160,7 @@
     	
 
     	<!-- Recipes -->
-    		<div class="col-md-6">
+    		<div class="col-sm-6">
       			<h2 id="recipeTitle" class= "text-center"> Recipes</h2>
           		<% for(int i = 0; i < resultCount; i++){ 
           			String colorStyle = "";
@@ -173,7 +173,7 @@
           		%>
           			<% if(recipeArr[i] != null){ %>
           			<% System.out.println("Rest Arr: " + i + " " + (restaurantArr[i] == null));  %>
-         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" id="Recipe<%=i%>">
+         			<div class="row no-gutters border rounded overflow-hidden flex-sm-row sm-4 shadow-sm h-sm-250 position-relative" id="Recipe<%=i%>">
         			<div style="background-color:<%=colorStyle %>;" class="col p-4 d-flex flex-column position-static">
           			<div class="container">
   						<div class="row">
