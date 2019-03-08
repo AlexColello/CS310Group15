@@ -59,11 +59,12 @@ public class ResultsPageServlet extends HttpServlet {
 		 *  If user clicked "return to search", get parameters from session.
 		 * 	Else, get parameters from url
 		 */
-		if (searchTerm == null && resultCountRaw == null) {
+		if (searchTerm == null) {
 			searchTerm = (String) session.getAttribute("searchTerm");
-			resultCount = (Integer) session.getAttribute("resultCount");
 		}
-		else {
+		if (resultCountRaw == null) {
+			resultCount = (Integer) session.getAttribute("resultCount");
+		} else {
 			resultCount = Integer.parseInt(resultCountRaw);
 		}
 	
