@@ -52,8 +52,8 @@
           		colorStyle = "grey";
           	}
           	%>
-          	<div class="row ">
-         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          	<div class="col-12">
+         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-8 shadow-sm h-md-250 position-relative">
         			<div style="background-color:<%=colorStyle %>;"class="col p-4 d-flex flex-column position-static">
           			<div class="container">
   						<div class="row">
@@ -106,9 +106,6 @@
 
           			<a href="/FeedMe/restaurantDetails?arrNum=<%=j%>" class="stretched-link"></a>
         			</div>
-        			<div class="col-auto d-none d-lg-block">
-        			
-          			</div>
       				</div>
       				<form style="display:flex;flex-direction:column;justify-content:center;" method="POST" action="/FeedMe/listManagement">
              			<input type="hidden" name="listName" value="<%=listName.toLowerCase().charAt(0)%>">
@@ -145,8 +142,8 @@
           		colorStyle = "grey";	
           	}
           	%>
-    		<div class="row">
-         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+    		<div class="col-12">
+         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-8 shadow-sm h-md-250 position-relative">
         			<div style="background-color:<%=colorStyle %>;" class="col p-4 d-flex flex-column position-static">
           			<div class="container">
   						<div class="row">
