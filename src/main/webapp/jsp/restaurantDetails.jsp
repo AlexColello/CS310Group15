@@ -59,10 +59,10 @@
       <form method="POST" onsubmit="return addToList(this)">
       <input type="hidden" name="arrNum" value="<%= arrNum %>">
       <select name="listType" id="dropDownBar">
-        <option disabled selected value> -- select an option -- </option>
-        <option value="f" >Favorites</option>
-        <option value="t">To Explore</option>
-        <option value="d">Do Not Show</option>
+        <option disabled selected value id="defaultOption"> -- select an option -- </option>
+        <option id="favoriteOption" value="f" >Favorites</option>
+        <option id="toExploreOption" value="t">To Explore</option>
+        <option id="doNotShowOption" value="d">Do Not Show</option>
       </select>
       <!-- Button to add item to selected list, doesn't do anything if choice is empty -->
       <button type="submit" id="addToList" class="Button">Add to List</button>
