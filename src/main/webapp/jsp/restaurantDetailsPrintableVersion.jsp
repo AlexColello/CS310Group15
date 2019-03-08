@@ -14,7 +14,8 @@
     <%@page import="java.util.*" %>
 	<%@page import="data.*"%>
     <% 
-	Restaurant restaurantVal = (Restaurant) request.getAttribute("restaurantVal");
+    	// Get restaurant item from servlet
+		Restaurant restaurantVal = (Restaurant) request.getAttribute("restaurantVal");
     %>
     
     

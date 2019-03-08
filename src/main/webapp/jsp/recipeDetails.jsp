@@ -106,6 +106,7 @@
     </div>
     <!-- Homebrew JS -->
     <script>
+    // Adds the item to the specified list, if the user specifies the proper list
     function addToList(form){
     	var userInput = document.getElementById('listType').value;
     	console.log(userInput);

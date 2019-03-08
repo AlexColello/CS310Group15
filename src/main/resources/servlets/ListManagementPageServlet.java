@@ -47,7 +47,62 @@ public class ListManagementPageServlet extends HttpServlet {
 //			Get position of item in question from current list
 			int arrNum = Integer.parseInt(request.getParameter("arrNum"));
 //			Get either recipe lists or restaurant lists from the Userlists in question
+<<<<<<< HEAD
 			UserList fromList = userLists[listNum];
+=======
+			UserList arr1 = userLists[listNum];
+//			Check if we're moving the item to the Favorites list
+			if(op.equals("f")) {
+				if(recOrRest.equals("rec")) { // Check if it is a recipe item
+					if(!userLists[0].contains(arr1.getRecipes().get(arrNum))) { // Check if the list already has the item
+						userLists[0].add(arr1.getRecipes().get(arrNum)); // Add the item to the new list
+						arr1.remove(arr1.getRecipes().get(arrNum)); // Remove the item from the old list
+					}
+				}
+				else { // Restaurant Item
+					if(!userLists[0].contains(arr1.getRestaurants().get(arrNum))) { // Check if the list already has the item
+						userLists[0].add(arr1.getRestaurants().get(arrNum)); // Add the item to the new list
+						arr1.remove(arr1.getRestaurants().get(arrNum)); // Remove the item from the old list
+					}
+				}
+			}
+			else if(op.equals("t")) { // Check if we're moving item to To Explore list
+				if(recOrRest.equals("rec")) {// Check if it is a recipe item
+					if(!userLists[2].contains(arr1.getRecipes().get(arrNum))) { // Check if the list already has the item
+						userLists[2].add(arr1.getRecipes().get(arrNum)); // Add the item to the new list
+						arr1.remove(arr1.getRecipes().get(arrNum)); // Remove the item from the old list
+					}
+				}
+				else { 	// Restaurant Item
+					if(!userLists[2].contains(arr1.getRestaurants().get(arrNum))) { // Check if the list already has the item
+						userLists[2].add(arr1.getRestaurants().get(arrNum)); // Add the item to the new list
+						arr1.remove(arr1.getRestaurants().get(arrNum)); // Remove the item from the old list
+					}
+				}
+			}
+			else if(op.equals("d")) { // Check if we're moving item to To Do Not Show list
+				if(recOrRest.equals("rec")) { // Check if it is a recipe item
+					if(!userLists[1].contains(arr1.getRecipes().get(arrNum))) { // Check if the list already has the item
+						userLists[1].add(arr1.getRecipes().get(arrNum)); // Add the item to the new list
+						arr1.remove(arr1.getRecipes().get(arrNum)); // Remove the item from the old list
+					}
+				}
+				else { // Restaurant Item
+					if(!userLists[1].contains(arr1.getRestaurants().get(arrNum))) { // Check if the list already has the item
+						userLists[1].add(arr1.getRestaurants().get(arrNum)); // Add the item to the new list
+						arr1.remove(arr1.getRestaurants().get(arrNum)); // Remove the item from the old list
+					}
+				}
+			}
+			else { // Check if we're removing item from list
+				if(recOrRest.equals("rec")) { // Check if it is a recipe item
+					arr1.remove(arr1.getRecipes().get(arrNum)); // Remove the item from the list
+				}
+				else { // Restaurant Item
+					arr1.remove(arr1.getRestaurants().get(arrNum)); // Remove the item from the list
+				}	
+			}
+>>>>>>> branch 'master' of https://github.com/AlexColello/CS310Group15.git
 			
 			if(op.equals("r")) {
 				if(recOrRest.equals("rec")) {
@@ -89,35 +144,35 @@ public class ListManagementPageServlet extends HttpServlet {
 		}
 
 		// Pass list to display to jsp
-		if (listType != null) {
+		if (listType != null) { // Check to see if the user wanted to go to another list
 			switch (listType.charAt(0)) {
-			case 'f':
-				request.setAttribute("listVal", userLists[0]);
-				request.setAttribute("listName", "Favorites");
+			case 'f': // User wants to go to favorites list
+				request.setAttribute("listVal", userLists[0]); // Send the userList object that contains both restaurant and recipe files
+				request.setAttribute("listName", "Favorites"); // Send the list name
 				session.setAttribute("restaurants", userLists[0].getRestaurants()); // So that when user clicks on item, it shows in the details page
 				session.setAttribute("recipes", userLists[0].getRecipes()); // Same as previous comment
 				
 				break;
-			case 'd':
-				request.setAttribute("listVal", userLists[1]);
-				request.setAttribute("listName", "Don't Show");
-				session.setAttribute("restaurants", userLists[1].getRestaurants());
+			case 'd': // User wants to go to Do not Show list
+				request.setAttribute("listVal", userLists[1]); // Send the userList object that contains both restaurant and recipe files
+				request.setAttribute("listName", "Don't Show"); // Send the list name
+				session.setAttribute("restaurants", userLists[1].getRestaurants()); // So that when user clicks on item, it shows in the details page
 				session.setAttribute("recipes", userLists[1].getRecipes());
 				
 				break;
-			case 't':
-				request.setAttribute("listVal", userLists[2]);
-				request.setAttribute("listName", "To Explore");
-				session.setAttribute("restaurants", userLists[2].getRestaurants());
-				session.setAttribute("recipes", userLists[2].getRecipes());
+			case 't': // User wants to go to To Explore list
+				request.setAttribute("listVal", userLists[2]); // Send the userList object that contains both restaurant and recipe files
+				request.setAttribute("listName", "To Explore"); // Send the list name
+				session.setAttribute("restaurants", userLists[2].getRestaurants()); // So that when user clicks on item, it shows in the details page
+				session.setAttribute("recipes", userLists[2].getRecipes()); // Same as previous comment
 				
 				break;
 			}			
 		}
 
-		session.setAttribute("userLists", userLists);
+		session.setAttribute("userLists", userLists); // Send the entire array of lists to session, so that we can access any item on front end 
 		RequestDispatcher dispatch = request.getRequestDispatcher("/jsp/listManagement.jsp");
-		dispatch.forward(request,  response);			
+		dispatch.forward(request,  response);
 	}
 
 }

@@ -12,8 +12,9 @@
   	 <%@page import="java.util.*" %>
 	<%@page import="data.*"%>
     <% 
-	Recipe recipeVal = (Recipe) request.getAttribute("recipeVal");
-    Integer arrNum = (Integer) request.getAttribute("arrNum");
+    	// Get recipe item and it's place in the list from servlet
+		Recipe recipeVal = (Recipe) request.getAttribute("recipeVal");
+    	Integer arrNum = (Integer) request.getAttribute("arrNum");
     %>
     <!-- Title -->
     <title>Recipe Details</title>
@@ -30,6 +31,7 @@
       	<% String picUrl = recipeVal.getPictureUrl(); %>
         <img id="recipePicture" src="<%= picUrl %>" alt="Recipe Image"/>
         <%     
+        	// Get the proper cook time, makes sure it's not negative
 			double cookTime = recipeVal.getCookTime();
 			String renderCookTime = "";
 			if (cookTime < 0){
@@ -38,7 +40,7 @@
 			else{
 				renderCookTime = Double.toString(cookTime) + " minutes";
 			}
-		
+			// Get the proper prep time, makes sure it's not negative
 			double prepTime = recipeVal.getPrepTime();
 			String renderPrepTime = "";
 			if (prepTime < 0){
@@ -48,6 +50,7 @@
 				renderPrepTime = Double.toString(prepTime) + " minutes";
 			}			
         %>
+        <!-- Display both times -->
         <p id="prepTime"><strong>Prep Time: </strong><%=renderPrepTime %></p>
         <p id="cookTime"><strong>Cook Time: </strong><%=renderCookTime %></p>
       </div>
