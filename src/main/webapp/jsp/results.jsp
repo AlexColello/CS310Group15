@@ -33,12 +33,12 @@
 <body style="background-color:whitesmoke;">
 	<div class="container mt-5">
 		<!-- Row for collage and buttons -->
-		<div class = "row justify-content-center">
-			<div class="col-md-3 order-2">
+		<div class = "row">
+			<div class="col-md-2 order-3">
 		 		<div class="buttons">
 		 			<form name="list" onsubmit="return manageList(this);">
       					<select id="listName" name="listName" class="dropDownBar">
-      					<option id="nOptionButton" disabled selected value> -- select an option -- </option>
+      					<option id="nOptionButton" disabled selected> -- select an option -- </option>
        				    <option id="fOptionButton" value ="f">Favorites</option>
         				<option id="tOptionButton" value ="t">To Explore</option>
         				<option id="dOptionButton" value ="d">Do Not Show</option>
@@ -56,7 +56,7 @@
 		 		</div>
 		 	</div>
 
-		 	<div id="collageDiv" style=" max-width: 60vw; width:40vw; height: 50vh;text-align: center; min-height: 35vh; border: 2px solid black;" class="col-md-6 offset-md-3 pt-5 overflow-hidden">
+		 	<div id="collageDiv" style=" max-width: 60vw; min-width:40vw; max-height: 50vh;text-align: center; min-height: 35vh; border: 2px solid black;" class="col-md-6 order-2 overflow-hidden">
 		 	<% for (int i = 0; i < 10; i++) {
 		 		Random rand = new Random();
 		 		int angle = rand.nextInt(90) -45;
@@ -71,6 +71,7 @@
 		 	--%>
 
 			</div>
+			<div class="col-md-3 order-1"></div>
 		</div>
 
 		<!-- Search For xx  -->
