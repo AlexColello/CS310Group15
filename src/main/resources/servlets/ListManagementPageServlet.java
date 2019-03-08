@@ -47,62 +47,8 @@ public class ListManagementPageServlet extends HttpServlet {
 //			Get position of item in question from current list
 			int arrNum = Integer.parseInt(request.getParameter("arrNum"));
 //			Get either recipe lists or restaurant lists from the Userlists in question
-<<<<<<< HEAD
 			UserList fromList = userLists[listNum];
-=======
-			UserList arr1 = userLists[listNum];
-//			Check if we're moving the item to the Favorites list
-			if(op.equals("f")) {
-				if(recOrRest.equals("rec")) { // Check if it is a recipe item
-					if(!userLists[0].contains(arr1.getRecipes().get(arrNum))) { // Check if the list already has the item
-						userLists[0].add(arr1.getRecipes().get(arrNum)); // Add the item to the new list
-						arr1.remove(arr1.getRecipes().get(arrNum)); // Remove the item from the old list
-					}
-				}
-				else { // Restaurant Item
-					if(!userLists[0].contains(arr1.getRestaurants().get(arrNum))) { // Check if the list already has the item
-						userLists[0].add(arr1.getRestaurants().get(arrNum)); // Add the item to the new list
-						arr1.remove(arr1.getRestaurants().get(arrNum)); // Remove the item from the old list
-					}
-				}
-			}
-			else if(op.equals("t")) { // Check if we're moving item to To Explore list
-				if(recOrRest.equals("rec")) {// Check if it is a recipe item
-					if(!userLists[2].contains(arr1.getRecipes().get(arrNum))) { // Check if the list already has the item
-						userLists[2].add(arr1.getRecipes().get(arrNum)); // Add the item to the new list
-						arr1.remove(arr1.getRecipes().get(arrNum)); // Remove the item from the old list
-					}
-				}
-				else { 	// Restaurant Item
-					if(!userLists[2].contains(arr1.getRestaurants().get(arrNum))) { // Check if the list already has the item
-						userLists[2].add(arr1.getRestaurants().get(arrNum)); // Add the item to the new list
-						arr1.remove(arr1.getRestaurants().get(arrNum)); // Remove the item from the old list
-					}
-				}
-			}
-			else if(op.equals("d")) { // Check if we're moving item to To Do Not Show list
-				if(recOrRest.equals("rec")) { // Check if it is a recipe item
-					if(!userLists[1].contains(arr1.getRecipes().get(arrNum))) { // Check if the list already has the item
-						userLists[1].add(arr1.getRecipes().get(arrNum)); // Add the item to the new list
-						arr1.remove(arr1.getRecipes().get(arrNum)); // Remove the item from the old list
-					}
-				}
-				else { // Restaurant Item
-					if(!userLists[1].contains(arr1.getRestaurants().get(arrNum))) { // Check if the list already has the item
-						userLists[1].add(arr1.getRestaurants().get(arrNum)); // Add the item to the new list
-						arr1.remove(arr1.getRestaurants().get(arrNum)); // Remove the item from the old list
-					}
-				}
-			}
-			else { // Check if we're removing item from list
-				if(recOrRest.equals("rec")) { // Check if it is a recipe item
-					arr1.remove(arr1.getRecipes().get(arrNum)); // Remove the item from the list
-				}
-				else { // Restaurant Item
-					arr1.remove(arr1.getRestaurants().get(arrNum)); // Remove the item from the list
-				}	
-			}
->>>>>>> branch 'master' of https://github.com/AlexColello/CS310Group15.git
+
 			
 			if(op.equals("r")) {
 				if(recOrRest.equals("rec")) {
