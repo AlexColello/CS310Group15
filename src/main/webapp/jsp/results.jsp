@@ -7,6 +7,7 @@
 	<%@page import="data.*"%>
 	<%
 
+	request.getSession().setAttribute("resultsOrList", "results");
 	String[] imageUrlVec = (String[])request.getAttribute("imageUrlVec");
 	String searchTerm =  (String) request.getAttribute("searchTerm");
 	Integer resultCount =  (Integer) request.getAttribute("resultCount");
@@ -25,7 +26,7 @@
 	 <title><%=searchTerm %></title>
 </head>
 
-<body>
+<body style="background-color:whitesmoke;">
 	<div class="container">
 		<!-- Row for collage and buttons -->
 		<div class = "row">

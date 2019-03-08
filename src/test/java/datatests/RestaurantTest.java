@@ -1,11 +1,14 @@
 package datatests;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import org.junit.Test;
 
+import data.Recipe;
 import data.Restaurant;
 
 public class RestaurantTest {
@@ -69,6 +72,41 @@ public class RestaurantTest {
 		assertEquals(restaurant3, restaurants.get(3));
 		
 		
+	}
+	
+	@Test
+	public void testEquals() {
+		
+		String name = "A Good Restaurant";
+		String websiteUrl = "https://www.mcdonalds.com/us/en-us.html";
+		int price = 1;
+		String address = "Everywhere";
+		String phoneNumber = "(123)456-7890";
+		double rating = 2.25;
+		int drivingTime = 5;
+		
+		Restaurant restaurant1 = new Restaurant(name, websiteUrl, price, address, phoneNumber, rating, drivingTime);
+		Restaurant restaurant2 = new Restaurant("An Unhealthy and " + name, websiteUrl, price, address, phoneNumber, rating, drivingTime - 5);
+		
+		ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
+		restaurants.add(restaurant1);
+
+		assertTrue(restaurants.contains(restaurant1));
+		assertFalse(restaurants.contains(restaurant2));
+		
+		String pictureUrl = "http://www.todayifoundout.com/wp-content/uploads/2017/11/rick-astley.png";
+		double prepTime = 10;
+		double cookTime = 25;
+		ArrayList<String> ingredients = new ArrayList<String>();
+		ingredients.add("1 teaspoon ground ginger");
+		ingredients.add("1 rack of lamb");
+		ArrayList<String> instructions = new ArrayList<String>();
+		instructions.add("Throw in a pan.");
+		instructions.add("Cook until done.");
+		Recipe recipe1 = new Recipe(name, pictureUrl, prepTime, cookTime, ingredients, instructions, rating);
+
+		assertFalse(restaurant1.equals(recipe1));
+		assertFalse(restaurants.contains(recipe1));
 	}
 
 }
