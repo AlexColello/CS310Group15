@@ -51,12 +51,12 @@
 		 		</div>
 		 	</div>
 
-		 	<div class="col-md-8 order-md-1">
+		 	<div style="text-align: center; max-width: 60vw; min-width:40vw; max-height: 50vh; min-height: 35vh; border: 2px solid black;" class="col-md-8 order-md-1">
 		 	<% for (int i = 0; i < 10; i++) {
 		 		Random rand = new Random();
 		 		int angle = rand.nextInt(90) -45;
 		 	%>
-			<img style ="transform: rotate(<%=angle%>deg);" src="<%=imageUrlVec[i] %>" height="100" width="100">
+			<img style =" vertical-align: middle; transform: rotate(<%=angle%>deg);" src="<%=imageUrlVec[i] %>" height="100" width="100">
 		 	<% } %>
 		 	<%--
 
