@@ -26,7 +26,6 @@
 
 
   <body style="background-color:whitesmoke;">
-<<<<<<< HEAD
     <!-- Row -->
     <div class="row">
 	    <div class="col-sm-10">
