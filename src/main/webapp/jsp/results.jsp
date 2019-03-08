@@ -34,10 +34,10 @@
 		 		<div id="buttons">
 		 			<form name="list" onsubmit="return manageList(this);">
       					<select id="listName" name="listName">
-      					<option disabled selected value> -- select an option -- </option>
-       				    <option value ="f" >Favorites</option>
-        				<option value ="t">To Explore</option>
-        				<option value ="d">Do Not Show</option>
+      					<option id="nOptionButton" disabled selected value> -- select an option -- </option>
+       				    <option id="fOptionButton" value ="f" >Favorites</option>
+        				<option id="tOptionButton" value ="t">To Explore</option>
+        				<option id="dOptionButton" value ="d">Do Not Show</option>
       					</select> <br>
       					<!-- Button to add item to selected list, doesn't do anything if choice is empty -->
      					<button id="addToList">Manage Lists</button> <br>
@@ -52,7 +52,7 @@
 		 		</div>
 		 	</div>
 
-		 	<div style=" max-width: 60vw; min-width:40vw; max-height: 50vh;text-align: center; min-height: 35vh; border: 2px solid black;" class="col-md-8 order-md-1">
+		 	<div id="collageDiv" style=" max-width: 60vw; min-width:40vw; max-height: 50vh;text-align: center; min-height: 35vh; border: 2px solid black;" class="col-md-8 order-md-1">
 		 	<% for (int i = 0; i < 10; i++) {
 		 		Random rand = new Random();
 		 		int angle = rand.nextInt(90) -45;
@@ -78,7 +78,7 @@
    		<div class="row mb-2">
 
    			<div class="col-md-6">
-      			<h2  class="text-center"> Restaurants</h2>
+      			<h2 id="restaurantTitle" class="text-center"> Restaurants</h2>
           		<%
 
           		for(int i = 0; i < resultCount; i++){
@@ -95,11 +95,11 @@
           			<div class="container">
   						<div class="row">
     					<div class="col-sm">
-							<strong>Name:</strong> <br><p><%=restaurantArr[i].getName() %> </p>
+							<strong id="NameRestaurant">Name:</strong> <br><p><%=restaurantArr[i].getName() %> </p>
    						</div>
 
     					<div class="col-sm">
-     	 						<strong>Stars:</strong> <br> <p> <%=restaurantArr[i].getRating() %> </p>
+     	 						<strong id="starsRestaurant">Stars:</strong> <br> <p> <%=restaurantArr[i].getRating() %> </p>
     					</div>
     					<div class="col-sm">
      	 						
@@ -116,11 +116,11 @@
   						</div>
   						<div class="row">
     						<div class="col-sm">
-      							<strong>Minutes:</strong> <br> <p><%=restaurantArr[i].getDrivingTime() %> </p>
+      							<strong id="minutesRestaurant" >Minutes:</strong> <br> <p><%=restaurantArr[i].getDrivingTime() %> </p>
    							</div>
 
     					<div class="col-sm">
-     	 						<strong>Address: </strong><br> <p><%=restaurantArr[i].getAddress() %></p>
+     	 						<strong id="addressRestaurant">Address: </strong><br> <p><%=restaurantArr[i].getAddress() %></p>
     					</div>
     					<div class="col-sm text-right">
     							<%
@@ -154,7 +154,7 @@
 
     	<!-- Recipes -->
     		<div class="col-md-6">
-      			<h2 class= "text-center"> Recipes</h2>
+      			<h2 id="recipeTitle" class= "text-center"> Recipes</h2>
           		<% for(int i = 0; i < resultCount; i++){ 
           			String colorStyle = "";
           			if (i%2 == 0){
@@ -169,12 +169,12 @@
           			<div class="container">
   						<div class="row">
     						<div class="col-sm">
-      							<strong>Name:</strong> <br><p><%=recipeArr[i].getName() %></p>
+      							<strong id="NameRecipe">Name:</strong> <br><p><%=recipeArr[i].getName() %></p>
    							</div>
 
     					<div class="col-sm">
     						<% String recipeRating = String.format("%.1f",recipeArr[i].getRating()); %>
-     	 						<strong>Stars:</strong> <br> <p> <%=recipeRating %> </p>
+     	 						<strong id="starsRecipe">Stars:</strong> <br> <p> <%=recipeRating %> </p>
     					</div>
     				
   						</div>
@@ -208,11 +208,11 @@
     									renderPrepTime = Double.toString(prepTime);
     								}			
     							%>
-      							<strong>Cook Time:</strong> <br> <p><%=renderCookTime %></p>
+      							<strong id="cooktimeRecipe">Cook Time:</strong> <br> <p><%=renderCookTime %></p>
    							</div>
 
     					<div class="col-sm">
-     	 						<strong>Prep Time: </strong><br> <p><%=renderPrepTime%></p>
+     	 						<strong id="preptimeRecipe">Prep Time: </strong><br> <p><%=renderPrepTime%></p>
     					</div>
     				
   						</div>
