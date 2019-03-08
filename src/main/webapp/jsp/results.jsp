@@ -56,7 +56,7 @@
 		 		</div>
 		 	</div>
 
-		 	<div id="collageDiv" style=" max-width: 60vw; min-width:40vw; max-height: 50vh;text-align: center; min-height: 35vh; border: 2px solid black;" class="col-md-6 offset-md-3 pt-3 overflow-hidden">
+		 	<div id="collageDiv" style=" max-width: 60vw; width:40vw; height: 50vh;text-align: center; min-height: 35vh; border: 2px solid black;" class="col-md-6 offset-md-3 pt-5 overflow-hidden">
 		 	<% for (int i = 0; i < 10; i++) {
 		 		Random rand = new Random();
 		 		int angle = rand.nextInt(90) -45;
