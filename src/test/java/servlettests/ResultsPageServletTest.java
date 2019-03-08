@@ -85,7 +85,6 @@ public class ResultsPageServletTest {
 	@Test
 	public void testFromSearch() throws Exception {
 
-		when(session.getAttribute("userLists")).thenReturn(userLists);
 		when(request.getParameter("q")).thenReturn("Chicken");
 		when(request.getParameter("n")).thenReturn("3");
 		
@@ -115,7 +114,6 @@ public class ResultsPageServletTest {
 		when(session.getAttribute("searchTerm")).thenReturn("Chicken");		
 		when(session.getAttribute("resultCount")).thenReturn(3);
 
-		
 		new ResultsPageServlet().service(request, response);
 		
 		verify(rd).forward(request, response);
@@ -132,29 +130,9 @@ public class ResultsPageServletTest {
 		
 	}
 	
-	@Test
-	public void testNullValues() throws Exception {
-		
-		when(session.getAttribute("resultCount")).thenReturn(3);
-		when(session.getAttribute("searchTerm")).thenReturn("Chicken");
-		
-		new ResultsPageServlet().service(request, response);
-		
-		verify(rd).forward(request, response);
-		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(session).setAttribute(ArgumentMatchers.eq("resultsOrList"), ArgumentMatchers.eq("results"));
-		verify(request).setAttribute(ArgumentMatchers.eq("imageUrlVec"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("restaurantArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("recipeArr"), ArgumentMatchers.any());
-		verify(request).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
-		verify(request).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
-		verify(session).setAttribute(ArgumentMatchers.eq("restaurantResults"), ArgumentMatchers.any());
-		verify(session).setAttribute(ArgumentMatchers.eq("recipeResults"), ArgumentMatchers.any());
-		verify(session).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
-		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
-		
-	}
-	
+	/*
+	 *  Test for favorites list logic.
+	 */
 	@Test
 	public void testFavorites() throws Exception{
 		
@@ -182,7 +160,9 @@ public class ResultsPageServletTest {
 		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
 	}
 	
-	
+	/*
+	 *  Test for Do Not Show list logic.
+	 */
 	@Test
 	public void testDoNotShow() throws Exception{
 		
@@ -209,9 +189,6 @@ public class ResultsPageServletTest {
 		verify(session).setAttribute(ArgumentMatchers.eq("searchTerm"), ArgumentMatchers.eq("Chicken"));
 		verify(session).setAttribute(ArgumentMatchers.eq("resultCount"), ArgumentMatchers.eq(3));
 	}
-	
-
-			
 	
 	
 }

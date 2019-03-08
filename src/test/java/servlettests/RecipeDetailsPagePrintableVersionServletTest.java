@@ -1,7 +1,6 @@
 package servlettests;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -19,11 +18,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import data.Recipe;
-import data.Restaurant;
-import data.UserList;
-import servlets.RecipeDetailsPagePrintableVersionServlet;
 import servlets.RecipeDetailsPagePrintableVersionServlet;
 
+/*
+ * Tests for the RecipeDetailsPagePrintableVersionServlet servlet.
+ */
 public class RecipeDetailsPagePrintableVersionServletTest {
 
 
@@ -67,6 +66,9 @@ public class RecipeDetailsPagePrintableVersionServletTest {
 		recipe2 = new Recipe("Not" + name, pictureUrl, prepTime, cookTime, ingredients, instructions, rating);
 	}
 
+	/*
+	 *  Test to make sure that the correct Recipe is being selected by the servlet and that it is redirecting to the correct location.
+	 */
 	@Test
 	public void testStandard() throws Exception {
 
@@ -87,8 +89,9 @@ public class RecipeDetailsPagePrintableVersionServletTest {
 
 	}
 	
-	
-	
+	/*
+	 * Test to make sure that the servlet will redirect back to the search page if the session expired.	
+	 */
 	@Test
 	public void testExpiredSession() throws Exception {
 		
