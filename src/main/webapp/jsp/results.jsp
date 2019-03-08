@@ -33,7 +33,7 @@
 <body style="background-color:whitesmoke;">
 	<div class="container sm-5">
 		<!-- Row for collage and buttons -->
-		<div class = "row justify-content-center align-items-start">
+		<div class = "row align-items-start">
 			<div class="col-sm-2 order-3">
 		 		<div class="buttons">
 		 			<form id="listDropDown" name="list" onsubmit="return manageList(this);">
@@ -80,8 +80,8 @@
    		</div>
 
    		<!-- Restaurants and Recipes lists  -->
-   		<div class="row sm-2">
-   			<div class="col-sm-6">
+   		<div class="row md-2">
+   			<div class="col-md-6">
       			<h2 id="restaurantTitle" class="text-center"> Restaurants</h2>
           		<%
 
@@ -96,7 +96,7 @@
           		%>
           		<% if(restaurantArr[i] != null){ %>
           			<% System.out.println("Rest Arr: " + i + " " + (restaurantArr[i] == null));  %>
-         			<div class="row no-gutters border rounded overflow-hidden flex-sm-row sm-4 shadow-sm h-md-250 position-relative" id="Restaurant<%=i%>">
+         			<div class="row no-gutters border rounded overflow-hidden flex-md-row md-4 shadow-md h-md-250 position-relative" id="Restaurant<%=i%>">
         			<div style="background-color:<%=colorStyle %>;"class="col p-4 d-flex flex-column position-static">
           			<div class="container">
   						<div class="row">
@@ -122,7 +122,7 @@
   						</div>
   						<div class="row">
     						<div class="col-sm">
-      							<strong id="minutesRestaurant" >Minutes:</strong> <br> <p><%=restaurantArr[i].getDrivingTime() %> </p>
+      							<strong id="minutesRestaurant">Minutes:</strong> <br> <p><%=restaurantArr[i].getDrivingTime() %> </p>
    							</div>
 
     					<div class="col-sm">
@@ -160,7 +160,7 @@
     	
 
     	<!-- Recipes -->
-    		<div class="col-sm-6">
+    		<div class="col-md-6">
       			<h2 id="recipeTitle" class= "text-center"> Recipes</h2>
           		<% for(int i = 0; i < resultCount; i++){ 
           			String colorStyle = "";
@@ -173,7 +173,7 @@
           		%>
           			<% if(recipeArr[i] != null){ %>
           			<% System.out.println("Rest Arr: " + i + " " + (restaurantArr[i] == null));  %>
-         			<div class="row no-gutters border rounded overflow-hidden flex-sm-row sm-4 shadow-sm h-sm-250 position-relative" id="Recipe<%=i%>">
+         			<div class="row no-gutters border rounded overflow-hidden flex-md-row md-4 shadow-md h-md-250 position-relative" id="Recipe<%=i%>">
         			<div style="background-color:<%=colorStyle %>;" class="col p-4 d-flex flex-column position-static">
           			<div class="container">
   						<div class="row">
