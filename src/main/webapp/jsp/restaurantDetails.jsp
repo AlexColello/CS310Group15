@@ -60,7 +60,7 @@
 	      <form method="POST" onsubmit="return addToList(this)">
 	      <input type="hidden" name="arrNum" value="<%= arrNum %>">
 	      <select name="listType" id="dropDownBar" class="dropDownBar">
-          	<option disabled selected id="defaultOption"> -- select an option -- </option>
+          	<option disabled selected value id="defaultOption"> -- select an option -- </option>
           	<option id="favoriteOption" value="f" >Favorites</option>
           	<option id="toExploreOption" value="t">To Explore</option>
           	<option id="doNotShowOption" value="d">Do Not Show</option>
@@ -73,7 +73,7 @@
     <!-- Homebrew JS -->
     <script>
     function addToList(form){
-    	var userInput = document.getElementById('dorpDownBar').value;
+    	var userInput = document.getElementById('listType').value;
     	console.log(userInput);
     	if (userInput == null || userInput.length == 0){
     		return false;	

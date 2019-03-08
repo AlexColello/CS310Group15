@@ -38,7 +38,7 @@
 		 		<div class="buttons">
 		 			<form id="listDropDown" name="list" onsubmit="return manageList(this);">
       					<select id="listName" name="listName" class="dropDownBar">
-      					<option id="nOptionButton" disabled selected> -- select an option -- </option>
+      					<option id="nOptionButton" disabled selected value> -- select an option -- </option>
        				    <option id="fOptionButton" value ="f">Favorites</option>
         				<option id="tOptionButton" value ="t">To Explore</option>
         				<option id="dOptionButton" value ="d">Do Not Show</option>
@@ -251,11 +251,9 @@ function manageList(form){
 		return false;
 	}
 	else{
-		
 		form.action = "/FeedMe/listManagement";
+		return true;
 	}
-	
-
 } 
 </script>
 </body>
