@@ -140,7 +140,7 @@
   						</div>
 					</div>
 
-          			<a href="/FeedMe/restaurantDetails?arrNum=<%=i%>" class="stretched-link"></a>
+          			<a href="/FeedMe/restaurantDetails?arrNum=<%=i%>" class="stretched-link" id="restaurantDetailsLink<%=i%>"></a>
         			</div>
         			<div class="col-auto d-none d-lg-block">
         			

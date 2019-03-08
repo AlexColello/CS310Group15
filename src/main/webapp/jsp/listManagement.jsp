@@ -9,10 +9,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Homebrew CSS FeedMe/css/buttons.css ${pageContext.request.contextPath}/css/Login.css" -->
-    <link href="/css/buttons.css" rel="stylesheet" type="text/css">
-    <link href="/css/details.css" rel="stylesheet" type="text/css">
-    <link href="/css/list.css" rel="stylesheet" type="text/css">
-    <link href="/css/listManagement.css" rel="stylesheet" type="text/css">
 	<%@page import="java.util.*" %>
 	<%@page import="data.*"%>
   <% 
@@ -40,165 +36,184 @@
     <!-- Title -->
     <title>List Management</title>
   </head>
-  <body>
-    <div id="main">
-      <!-- Holds the list name, and items -->
-      <div id="listDetails">
-        <h1 id="listTitle"><%= listName %></h1>
-        <ul id="listItems">
-          <% if(recipeArr != null && restaurantArr != null){ %>
-          <% for(int i = 0, j = 0; i < restaurantArr.size() || j < recipeArr.size(); ++i, ++j){ %>
-            <% if(i < restaurantArr.size()){ %>
-            <div id="Restaurant<%=i%>" class="row no-gutters border rounded overflow-hidden flex-sm-row shadow-sm h-sm-250 position-relative w-65 clearfix">
-        		<div class="col d-flex flex-column position-static">
-	          		<div class="container moveItem">
-    	    			<a href="/FeedMe/restaurantDetails?arrNum=<%=i%>">
+  <body style="background-color:whitesmoke;">
+    <div id="main" class="d-inline-flex p-1">
+      <div class="p-2 ml-2">
+      <!-- Restaurants and Recipes lists  -->
+      	<h1><%=listName %> List</h1>
+   			<%
+   			for(int i = 0, j = 0, k = 0; i < restaurantArr.size() + recipeArr.size();){
+          		String colorStyle = "";
+          		if (i%2 == 0){
+          			colorStyle = "silver";
+          		}
+          		else{
+          			colorStyle = "grey";
+          		}
+          	%>
+          	<% while(j < restaurantArr.size()){ %>
+          	<div class="row ">
+         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        			<div style="background-color:<%=colorStyle %>;"class="col p-4 d-flex flex-column position-static">
+          			<div class="container">
   						<div class="row">
-    						<div class="col-sm">
-      							<strong>Name:</strong> <br><p><%=restaurantArr.get(i).getName() %></p>
-   							</div>
-	    				<div class="col-sm">
-     		 					<strong>Stars:</strong> <br> <p> <%=restaurantArr.get(i).getRating() %> </p>
+    					<div class="col-sm">
+							<strong>Name:</strong> <br><p> <%= restaurantArr.get(j).getName() %> </p>
+   						</div>
+
+    					<div class="col-sm">
+     	 						<strong>Stars:</strong> <br> <p> <%=restaurantArr.get(j).getRating() %> </p>
+    					</div>
+    					<div class="col-sm">
+     	 						
     					</div>
   						</div>
   						<div class="row">
-   							<div class="col-sm">
-	   						</div>
-	    					<div class="col-sm">
-	    					</div>
-  						</div>
-  						<div class="row">
     						<div class="col-sm">
-      							<strong>Minutes:</strong> <br> <p><%=restaurantArr.get(i).getDrivingTime() %> </p>
-   							</div>
-	    					<div class="col-sm">
-    	 	 					<strong>Address: </strong><br> <p><%=restaurantArr.get(i).getAddress() %></p>
-    						</div>
-    				
-  						</div>
-  						
-					</div>
-    	    	</div>
-    	    		<div class="container moveItem">
-						<div class="row p-0">
-   							<div class="col-sm">
-	   						</div>
-	   						<%
-        					String restaurantPrice = "";
-        					int price = (int)restaurantArr.get(i).getPrice();
-        					if (price == 1){
-        						restaurantPrice = "$";
-        					}
-        					else if (price == 2){
-        						restaurantPrice = "$$";
-        					}
-        					else{
-        						restaurantPrice = "$$$";
-        					}
-        					%>
-	    					<div class="col-sm"><p class="p-0 w-10"><%=restaurantPrice %></p></div>
-	    					<div class="col-sm">
-	    					</div>
-  						</div>
-					</div>
-        		</a>
-              	<form style="display:flex;flex-direction:column;justify-content:center;" method="POST" action="/FeedMe/listManagement">
-             		<input type="hidden" name="listName" value="<%=listName.toLowerCase().charAt(0)%>">
-	 	            <input type="hidden" name="fromList" value="<%=listName.toLowerCase().charAt(0)%>">
-    	            <input type="hidden" name="recOrRest" value="rest">
-        	        <input type="hidden" name="arrNum" value="<%=i%>">
-            	    <% request.setAttribute("item", restaurantArr.get(i)); %>
-                	<select class="form-control" name="opType" >
-	                	<option value="f">Favorites</option>
-    	            	<option value="t">To Explore</option>
-        	        	<option value="d">Do Not Show</option>
-            	    	<option value="r">Trash</option>
-                	</select>
-	                <button class="form-control" type="submit">Move</button>
-        			<br/>
-        			<br/>
-				</form>
-			</div>
-            <% } %>
-            <% if(j < recipeArr.size()){ %>
-            <div id="Recipe<%=j%>" style="height-max:200px;">
-            <div class="row no-gutters border rounded overflow-hidden flex-sm-row shadow-sm h-sm-250 position-relative w-65 clearfix bg-dark" >
-        		<div class="col d-flex flex-column position-static">
-	          		<div class="container moveItem">
-    	    			<a href="/FeedMe/recipeDetails?arrNum=<%=j%>">
-  						<div class="row bg-dark">
-    						<div class="col-sm bg-dark">
-      							<strong>Name:</strong> <br><p><%=recipeArr.get(j).getName() %></p>
+
    							</div>
 
-	    				<div class="col-sm">
-    						<% String recipeRating = String.format("%.1f", recipeArr.get(j).getRating()); %>
-     		 					<strong>Stars:</strong> <br> <p> <%=recipeRating %> </p>
+    					<div class="col-sm">
+
     					</div>
   						</div>
   						<div class="row">
-   							<div class="col-sm">
-	   						</div>
-	    					<div class="col-sm">
-	    					</div>
+    						<div class="col-sm">
+      							<strong>Minutes:</strong> <br> <p><%=restaurantArr.get(j).getDrivingTime() %> </p>
+   							</div>
+
+    					<div class="col-sm">
+     	 						<strong>Address: </strong><br> <p><%=restaurantArr.get(j).getAddress() %></p>
+    					</div>
+    					<div class="col-sm text-right">
+    							<%
+        							String restaurantPrice = "";
+        							int price = (int)restaurantArr.get(j).getPrice();
+        							if (price == 1){
+        							restaurantPrice = "$";
+        							}
+        							else if (price == 2){
+        							restaurantPrice = "$$";
+        							}
+        							else{
+        								restaurantPrice = "$$$";
+        							}
+        							%>
+     	 						<strong>Price: <%=restaurantPrice%></strong>
+    					</div>
+  						</div>
+					</div>
+
+          			<a href="/FeedMe/restaurantDetails?arrNum=<%=j%>" class="stretched-link"></a>
+        			</div>
+        			<div class="col-auto d-none d-lg-block">
+        			
+          			</div>
+      				</div>
+      				<form style="display:flex;flex-direction:column;justify-content:center;" method="POST" action="/FeedMe/listManagement">
+             			<input type="hidden" name="listName" value="<%=listName.toLowerCase().charAt(0)%>">
+	 	            	<input type="hidden" name="fromList" value="<%=listName.toLowerCase().charAt(0)%>">
+    	            	<input type="hidden" name="recOrRest" value="rest">
+        	        	<input type="hidden" name="arrNum" value="<%=j%>">
+            	    	<% request.setAttribute("item", restaurantArr.get(j)); %>
+                		<select class="form-control" name="opType">
+	                		<option value="f">Favorites</option>
+    	            		<option value="t">To Explore</option>
+        	        		<option value="d">Do Not Show</option>
+            	    		<option value="r">Trash</option>
+                		</select>
+	                	<button class="form-control" type="submit">Move</button>
+					</form>
+    	</div>
+         <% i++; j++;} %>
+
+    	<!-- Recipes -->
+    		<% while(k < recipeArr.size()){ %>
+    		<div class="row">
+    				<p><%=i %></p>
+         			<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        			<div style="background-color:<%=colorStyle %>;" class="col p-4 d-flex flex-column position-static">
+          			<div class="container">
+  						<div class="row">
+    						<div class="col-sm">
+      							<strong>Name:</strong> <br><p><%=recipeArr.get(k).getName() %></p>
+   							</div>
+
+    					<div class="col-sm">
+    						<% String recipeRating = String.format("%.1f",recipeArr.get(k).getRating()); %>
+     	 						<strong>Stars:</strong> <br> <p> <%=recipeRating %> </p>
+    					</div>
+    				
+  						</div>
+  						<div class="row">
+    						<div class="col-sm">
+
+   							</div>
+
+    					<div class="col-sm">
+
+    					</div>
   						</div>
   						<div class="row">
     						<div class="col-sm">
     							<%
-    								double cookTime = recipeArr.get(j).getCookTime();
+    								double cookTime = recipeArr.get(k).getCookTime();
     								String renderCookTime = "";
-   									if (cookTime < 0){
-   										renderCookTime = "Not Available";
+    								if (cookTime < 0){
+    									renderCookTime = "Not Available";
     								}
     								else{
     									renderCookTime = Double.toString(cookTime);
-	    							}
-    						
+    								}
+    								
+    								double prepTime = recipeArr.get(k).getPrepTime();
+    								String renderPrepTime = "";
+    								if (prepTime < 0){
+    									renderPrepTime = "Not Available";
+    								}
+    								else{
+    									renderPrepTime = Double.toString(prepTime);
+    								}			
     							%>
       							<strong>Cook Time:</strong> <br> <p><%=renderCookTime %></p>
    							</div>
-	    					<div class="col-sm">
-    	 	 					<strong>Prep Time: </strong><br> <p><%=recipeArr.get(j).getPrepTime() %></p>
-    						</div>
+
+    					<div class="col-sm">
+     	 						<strong>Prep Time: </strong><br> <p><%=renderPrepTime%></p>
+    					</div>
     				
   						</div>
-  						
 					</div>
-    	    	</div>
-    	    		<div class="container moveItem">
-						<div class="row p-0">
-   							<div class="col-sm">
-	   						</div>
-	    					<div class="col-sm"><p class="p-0 w-10">No Price</p></div>
-	    					<div class="col-sm">
-	    					</div>
-  						</div>
-					</div>
-        		</a>
-              	<form style="display:flex;flex-direction:column;justify-content:center;" method="POST" action="/FeedMe/listManagement">
-             		<input type="hidden" name="listName" value="<%=listName.toLowerCase().charAt(0)%>">
-	 	            <input type="hidden" name="fromList" value="<%=listName.toLowerCase().charAt(0)%>">
-    	            <input type="hidden" name="recOrRest" value="rec">
-        	        <input type="hidden" name="arrNum" value="<%=j%>">
-            	    <% request.setAttribute("item", recipeArr.get(j)); %>
-                	<select class="form-control" name="opType">
-	                	<option value="f">Favorites</option>
-    	            	<option value="t">To Explore</option>
-        	        	<option value="d">Do Not Show</option>
-            	    	<option value="r">Trash</option>
-                	</select>
-	                <button class="form-control" type="submit">Move</button>
-				</form>
-			</div>
-			</div>
-            <% } %>
-          <% }} %>
-        </ul>
-      </div>
-    </div>
-    <div id="buttons" class="align-middle">
+
+
+
+          			<a href="/FeedMe/recipeDetails?arrNum=<%=k%>" class="stretched-link"></a>
+        			</div>
+        			<div class="col-auto d-none d-lg-block">
+          			</div>
+      				</div>
+      				<form style="display:flex;flex-direction:column;justify-content:center;" method="POST" action="/FeedMe/listManagement">
+             			<input type="hidden" name="listName" value="<%=listName.toLowerCase().charAt(0)%>">
+	 	            	<input type="hidden" name="fromList" value="<%=listName.toLowerCase().charAt(0)%>">
+    	            	<input type="hidden" name="recOrRest" value="rec">
+        	        	<input type="hidden" name="arrNum" value="<%=k%>">
+            	    	<% request.setAttribute("item", recipeArr.get(k)); %>
+                		<select class="form-control" name="opType">
+	                		<option value="f">Favorites</option>
+    	            		<option value="t">To Explore</option>
+        	        		<option value="d">Do Not Show</option>
+            	    		<option value="r">Trash</option>
+                		</select>
+	                	<button class="form-control" type="submit">Move</button>
+					</form>
+    	</div>
+    	
+        <% i++; k++;} }%>
+        </div>
+
+   	<div id="buttons" class="align-middle p-1">
 		<form name="list" onsubmit="return manageList(this);">
-      	<select id="listname" name="listName">
+      	<select id="listname" name="listName" class="dropDownBar">
       		<option disabled selected value>Select an option</option>
        		<option value ="f" >Favorites</option>
         	<option value ="t">To Explore</option>
@@ -216,6 +231,7 @@
       	<button class="Button" id="backtoResults" onclick="javascript:location.href = this.value;">Return to Results</button>
       </form>
 	
+	</div>
 	</div>
 
     <!-- Homebrew JS -->
@@ -240,9 +256,7 @@ function manageList(form){
 </script>
   </body>
   <style>
+  
     <%@ include file="/css/buttons.css"%>
-    <%@ include file="/css/list.css"%>
-    <%@ include file="/css/listManagement.css"%>
-    <%@ include file="/css/details.css"%>
   </style>
 </html>
