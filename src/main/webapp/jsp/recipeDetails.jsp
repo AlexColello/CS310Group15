@@ -57,24 +57,25 @@
         <p id="cookTime"><strong>Cook Time: </strong><%=renderCookTime %></p>
       </div>
       <!-- Ingredients -->
-      <div id="ingredientsBloc" class="d-inline-flex p-2">
+      <div id="ingredientsBloc" class="">
         <h2>Ingredients</h2>
-        <ul id="ingredients" class="list-group">
+        <ul id="ingredients" class="r-inline-flex clearfix">
           <% ArrayList<String> ingredients = (ArrayList<String>) recipeVal.getIngredients();%>
           <% for(int i = 0; i < ingredients.size(); i++){ %>
-          	<li class="list-group-item"><p><%=ingredients.get(i) %></p></li>
+          	<li class="" style="width:45%;float:left;margin-right:5%;"><p><%=ingredients.get(i) %></p></li>
           <% } %>
         </ul>
       </div>
       <!-- Instructions -->
-      <div id="instructionsBloc" class="d-inline-flex p-2">
+      <div id="instructionsBloc" class="">
         <h2 class="">Instructions</h2>
-        <ol id="instructions" class="list-group ">
+        <ol id="instructions" class="r-inline-flex clearfix">
           <% ArrayList<String> ins = (ArrayList<String>) recipeVal.getInstructions();%>
           <% for(int i = 0; i < ins.size(); i++) { %>
-          	<li class="list-group-item "><p><%=ins.get(i) %></p></li>
+          	<li class=""><p><%=ins.get(i) %></p></li>
           <% } %>
         </ol>
+        <br/>
       </div>
     </div>
     <!-- Holds all the buttons -->
